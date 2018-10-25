@@ -135,6 +135,7 @@ include_directories(
 ## The recommended prefix ensures that target names across packages don't collide
  add_executable(talker_node src/talker.cpp)
  add_executable(listener_node src/listener.cpp)
+ add_executable(send_gaze_point_node src/send_gaze_point.cpp)
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
@@ -153,6 +154,7 @@ include_directories(
 
  target_link_libraries(talker_node ${catkin_LIBRARIES})
  target_link_libraries(listener_node ${catkin_LIBRARIES})
+ target_link_libraries(send_gaze_point_node ${catkin_LIBRARIES})
 
 #add_dependencies(talker_node beginner_tutorials_generate_messages_cpp)
 #add_dependencies(listener_node beginner_tutorials_generate_messages_cpp)
