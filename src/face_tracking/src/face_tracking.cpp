@@ -28,16 +28,16 @@ cv::Point gClickedPoint;
 
 void mouseEvent(int evt, int x, int y, int flags, void* param)
 {
-  cv::Mat* rgb = (cv::Mat*) param;
+    //cv::Mat* rgb = (cv::Mat*) param;
   if (evt == CV_EVENT_LBUTTONDOWN)
     {
-      cv::Mat hsv;
+        //cv::Mat hsv;
       //cv::cvtColor(*rgb, hsv, cv::COLOR_BGR2HSV);
-      std::printf("%d %d: %d, %d, %d\n", //; %d %d %d\n",
-                  x, y,
-                  (int)(*rgb).at<cv::Vec3b>(y, x)[0],
-                  (int)(*rgb).at<cv::Vec3b>(y, x)[1],
-                  (int)(*rgb).at<cv::Vec3b>(y, x)[2]//,
+      std::printf("%d %d:\n",// %d %d %d; %d %d %d\n",
+                  x, y//,
+                  //(int)(*rgb).at<cv::Vec3b>(y, x)[0],
+                  //(int)(*rgb).at<cv::Vec3b>(y, x)[1],
+                  //(int)(*rgb).at<cv::Vec3b>(y, x)[2]//,
                   //(int)(hsv).at<cv::Vec3b>(y, x)[0],
                   //(int)(hsv).at<cv::Vec3b>(y, x)[1],
                   //(int)(hsv).at<cv::Vec3b>(y, x)[2]
@@ -108,7 +108,7 @@ public:
     stop_sub_ = nh_.subscribe<std_msgs::Bool>("stop", 1, &ImageConverter::stopCb, this);
 
     // Subscribe to input video feed and publish output video feed
-    image_sub_ = it_.subscribe("/image_raw", 1, &ImageConverter::imageCb, this);
+    image_sub_ = it_.subscribe("/usb_cam/image_raw", 1, &ImageConverter::imageCb, this);
     //image_pub_ = it_.advertise("/blob_detect/output_video",1);
 
     // Subscribe to laser scan data
