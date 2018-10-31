@@ -37,7 +37,7 @@ float shift_z(float x, float z, float s_z)
 {
         if ( z > 1000 && s_z > 0)
             s_z = s_z * -1;
-        else if ( z < 100 && s_z < 0)
+        else if ( z < 200 && s_z < 0)
             s_z = s_z * -1;
 
     return s_z;
@@ -97,8 +97,8 @@ int main(int argc, char **argv)
   float x = 0.0;
   float z = 100.0;
 
-  float s_x = 10.0;
-  float s_z = 100.0;
+  float s_x = 100.0;
+  float s_z = 150.0;
 
   float baseline = 70.0;
 
@@ -116,10 +116,21 @@ int main(int argc, char **argv)
           z = z + s_z;
       }
 
-      rightDeg = atan2f(x - baseline, z) * 100.0 / 3.14159 + 50;
-      leftDeg = atan2f(x , z) * 100.0 / 3.14159 + 50;
+      rightDeg = atan2f(x - baseline, z) * 180.0 / 3.14159;
+      if ( rightDeg < -30 )
+          rightDeg = -30;
+      if ( rightDeg > 30 )
+          rightDeg = 30;
+      rightDeg = rightDeg + 70;
 
-      ROS_INFO("p(%f, %f) deg: %d, %d", x, z, leftDeg, rightDeg);
+      leftDeg = atan2f(x , z) * 180.0 / 3.14159;
+      if ( leftDeg < -30 )
+          leftDeg = -30;
+      if ( leftDeg > 30 )
+          leftDeg = 30;
+      leftDeg = leftDeg + 30;
+
+      ROS_INFO("p(%f, %f) deg: %d, %d", x, z, rightDeg, leftDeg);
 
 
     /**
@@ -134,8 +145,8 @@ int main(int argc, char **argv)
       //ROS_INFO("%s", msg.data.c_str());
 
       array.data.resize(2);
-      array.data[0] = leftDeg;
-      array.data[1] = rightDeg;
+      array.data[0] = rightDeg;
+      array.data[1] = leftDeg;
 
     /**
      * The publish() function is how you send messages. The parameter
