@@ -9,10 +9,11 @@
 #include <stdio.h>
 #include <std_msgs/Bool.h>
 #include <std_msgs/String.h>
-#include <geometry_msgs/Twist.h>
+//#include <geometry_msgs/Twist.h>
 #include <tf/transform_broadcaster.h>
 //#include "blob_detect/ColorThreshold.h"
 //#include "std_msgs/Float64MultiArray.h"
+#include "std_msgs/UInt16MultiArray.h"
 
 
 using namespace std;
@@ -91,7 +92,8 @@ public:
     //Publishes position of center of pass
     com_pub_ = nh_.advertise<geometry_msgs::Point>("center_of_mass", 1);
 
-    goal_pub_ = nh_.advertise<geometry_msgs::Twist>("goal_pose",1);
+    //goal_pub_ = nh_.advertise<geometry_msgs::Twist>("goal_pose",1);
+    goal_pub_ = nh_.advertise<std_msgs::UInt16MultiArray>("goal_pose",1);
 
 
     h_min = 0;
@@ -265,10 +267,16 @@ public:
         //msg64.layout.dim[0].stride = 1;
         //msg64.layout.dim[0].label = strings[typ+4];
 
-        geometry_msgs::Twist msg_output;
-        msg_output.linear.x = gClickedPoint.x;
-        msg_output.linear.y = gClickedPoint.y;
-        msg_output.linear.z = 0.3;
+        //geometry_msgs::Twist msg_output;
+        //msg_output.linear.x = gClickedPoint.x;
+        //msg_output.linear.y = gClickedPoint.y;
+        //msg_output.linear.z = 0.3;
+
+        std_msgs::UInt16MultiArray msg_output;
+        msg_output.data.resize(2);
+
+        msg_output.data[0] = gClickedPoint.x;
+        msg_output.data[1] = gClickedPoint.y;
 
         goal_pub_.publish(msg_output);
 
