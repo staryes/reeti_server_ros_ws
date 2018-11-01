@@ -16,7 +16,7 @@ class FaceDetector
   image_transport::Publisher image_pub_;
 
     //-- Note, either copy these two files from opencv/data/haarscascades to your current folder, or change these locations
-    cv::String face_cascade_name = "res/haarcascade_frontalface_alt.xml";
+    cv::String face_cascade_name = "/home/shoushan/reeti_server_ros_ws/src/face_tracking/res/haarcascade_frontalface_alt.xml";
     //cv::String left_eye_cascade_name = "res/haarcascade_lefteye_2splits.xml";
     //cv::String right_eye_cascade_name = "res/haarcascade_righteye_2splits.xml";
     cv::CascadeClassifier face_cascade;
@@ -24,7 +24,7 @@ class FaceDetector
     //cv::CascadeClassifier right_eye_cascade;
     //cv::String main_window_name = "Capture - Face detection";
     //cv::String face_window_name = "Capture - Face";
-    cv::RNG rng(12345);
+    //cv::RNG rng(12345);
     //cv::Mat debugImage;
     cv::Mat skinCrCbHist = cv::Mat::zeros(cv::Size(256, 256), CV_8UC1);
 
@@ -46,14 +46,14 @@ class FaceDetector
 
         for( int i = 0; i < faces.size(); i++ )
         {
-            rectangle(debugImage, faces[i], 1234);
+            rectangle(frame, faces[i], 1234);
         }
         //imshow(main_window_name, debugImage);
         //-- Show what you got
         //if (faces.size() > 0) {
         //  findEyes(frame_gray, faces[0]);  //test turn off eye retangle
-        }
     }
+
 
     int faceDetectorInit(void)
     {
@@ -62,6 +62,7 @@ class FaceDetector
             ROS_INFO("--(!)Error loading face cascade, please change face_cascade_name in source code.\n");
             return -1;
         }
+        ROS_INFO("Got face cascade file!");
         return 0;
     }
 
@@ -75,6 +76,8 @@ public:
     image_pub_ = it_.advertise("/image_converter/output_video", 1);
 
     cv::namedWindow(OPENCV_WINDOW);
+
+    faceDetectorInit();
   }
 
   ~FaceDetector()
@@ -82,7 +85,7 @@ public:
     cv::destroyWindow(OPENCV_WINDOW);
   }
 
-  void imageCb(const sensor_msgs::FaceDetector& msg)
+  void imageCb(const sensor_msgs::ImageConstPtr& msg)
   {
     cv_bridge::CvImagePtr cv_ptr;
     try

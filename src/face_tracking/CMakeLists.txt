@@ -144,6 +144,7 @@ include_directories(
 ## The recommended prefix ensures that target names across packages don't collide
  add_executable(${PROJECT_NAME}_node src/face_tracking.cpp)
  add_executable(send_to_reeti_node src/send_to_reeti_node.cpp)
+ add_executable(get_face_node src/get_face.cpp)
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
@@ -162,6 +163,10 @@ include_directories(
  )
  target_link_libraries(send_to_reeti_node
    ${catkin_LIBRARIES}
+ )
+ target_link_libraries(get_face_node
+   ${catkin_LIBRARIES}
+   ${OpenCV_LIBRARIES}
  )
 
 #############
