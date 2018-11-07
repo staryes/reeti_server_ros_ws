@@ -96,6 +96,7 @@ int main(int argc, char **argv)
 
   float x = 0.0;
   float z = 100.0;
+  float y = (x+y)*0.5;
 
   float s_x = 100.0;
   float s_z = 150.0;
@@ -104,6 +105,7 @@ int main(int argc, char **argv)
 
   int rightDeg = 50;
   int leftDeg = 50;
+  int pitch = 50;
 
   while (ros::ok())
   {
@@ -130,7 +132,14 @@ int main(int argc, char **argv)
           leftDeg = 30;
       leftDeg = leftDeg + 30;
 
-      ROS_INFO("p(%f, %f) deg: %d, %d", x, z, rightDeg, leftDeg);
+      pitch = atan2f(y, z) * 180 / 3.14159;
+      if ( pitch < -90)
+        pitch = -90;
+      if ( pitch > 90)
+        pitch = 90;
+      pitch = pitch * 0.5 + 50;
+
+      ROS_INFO("p(%f, %f, %f) deg: (%d, %d),(%d, %d)", x, y, z, rightDeg, pitch, leftDeg, pitch);
 
 
     /**
@@ -144,9 +153,11 @@ int main(int argc, char **argv)
 
       //ROS_INFO("%s", msg.data.c_str());
 
-      array.data.resize(2);
+      array.data.resize(4);
       array.data[0] = rightDeg;
-      array.data[1] = leftDeg;
+      array.data[1] = pitch;
+      array.data[2] = leftDeg;
+      array.data[3] = pitch;
 
     /**
      * The publish() function is how you send messages. The parameter
