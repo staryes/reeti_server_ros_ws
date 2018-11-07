@@ -96,7 +96,7 @@ int main(int argc, char **argv)
 
   float x = 0.0;
   float z = 100.0;
-  float y = (x+y)*0.5;
+  float y = (x+z)*0.5;
 
   float s_x = 100.0;
   float s_z = 150.0;
@@ -132,6 +132,8 @@ int main(int argc, char **argv)
           leftDeg = 30;
       leftDeg = leftDeg + 30;
 
+
+      y = (x+z)*0.5;
       pitch = atan2f(y, z) * 180 / 3.14159;
       if ( pitch < -90)
         pitch = -90;

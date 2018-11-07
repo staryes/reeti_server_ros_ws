@@ -49,6 +49,7 @@ class FaceDetector
         for( int i = 0; i < faces.size(); i++ )
         {
             rectangle(frame, faces[i], 1234);
+            ROS_INFO("p(%d, %d), width: %d, height: %d", faces[i].x, faces[i].y, faces[i].width, faces[i].height);
         }
         //imshow(main_window_name, debugImage);
         //-- Show what you got
