@@ -40,6 +40,10 @@ class FaceDetector
   int servo_reeti_yaw = 50;
   int servo_reeti_pitch = 50;
 
+  int servo_reeti_neck_yaw = 50;
+  int servo_reeti_neck_pitch = 50;
+  int servo_reeti_neck_roll = 50;
+
   int x_deg_shift(int x)
   {
     double d_deg;
@@ -48,7 +52,7 @@ class FaceDetector
 
     d_deg = atan(d_deg);
     d_deg = d_deg * 180 / 3.14159;
-    d_deg = d_deg * 0.5;
+    d_deg = d_deg * 0.6;
 
     return d_deg;
   }
@@ -61,7 +65,7 @@ class FaceDetector
 
     d_deg = atan(d_deg);
     d_deg = d_deg * 180 / 3.14159;
-    d_deg = d_deg * 0.5;
+    d_deg = d_deg * 0.6;
 
     return d_deg;
   }
@@ -90,6 +94,17 @@ class FaceDetector
 
     servo_reeti_yaw = (servo_deg_yaw - 40) * 0.8;
     servo_reeti_pitch = (servo_deg_pitch - 40) * 0.8;
+
+    //int d_neck_eyes_yaw = 50 - servo_reeti_yaw;
+
+    servo_reeti_neck_yaw = 50;
+    servo_reeti_neck_roll = 50;
+
+    //    servo_reeti_neck_yaw = servo_reeti_neck_yaw + (servo_reeti_yaw - 50) * 0.01;
+    //    servo_reeti_neck_roll= servo_reeti_neck_roll + (servo_reeti_pitch - 50) * 0.01;
+
+    //    servo_reeti_yaw = servo_reeti_yaw - (servo_reeti_yaw - 50) * 0.1;
+    //    servo_reeti_pitch = servo_reeti_pitch - (servo_reeti_pitch - 50) * 0.1;
 
   }
 
@@ -133,6 +148,7 @@ class FaceDetector
         }
         ROS_INFO("Got face cascade file!");
         servo_pos_pub = nh_.advertise<std_msgs::UInt8MultiArray>("eyes",1);
+        //        servo_pos_pub = nh_.advertise<std_msgs::UInt8MultiArray>("neck_eyes",1);
 
         return 0;
     }
@@ -170,7 +186,7 @@ public:
     }
 
     // Draw an example circle on the video stream
-    if (cv_ptr->image.rows > 60 && cv_ptr->image.cols > 60)
+    if (cv_ptr->image.rows > 50 && cv_ptr->image.cols > 50)
     {
         //cv::circle(cv_ptr->image, cv::Point(50, 50), 10, CV_RGB(255,0,0));
         cv::Mat frame =  cv_ptr->image;
@@ -187,10 +203,19 @@ public:
     //Output gaze point
     std_msgs::UInt8MultiArray array;
     array.data.resize(4);
-    array.data[0] = servo_reeti_yaw + 20;
+
+    array.data[0] = servo_reeti_yaw + 30;
     array.data[1] = servo_reeti_pitch;
     array.data[2] = servo_reeti_yaw;
     array.data[3] = servo_reeti_pitch;
+
+    // array.data[0] = servo_reeti_neck_yaw;
+    // array.data[1] = servo_reeti_neck_pitch;
+    // array.data[2] = servo_reeti_neck_roll;
+    // array.data[3] = servo_reeti_yaw + 30;
+    // array.data[4] = servo_reeti_pitch;
+    // array.data[5] = servo_reeti_yaw;
+    // array.data[6] = servo_reeti_pitch;
 
     ROS_INFO("(%d, %d)", servo_reeti_yaw, servo_reeti_pitch);
 
