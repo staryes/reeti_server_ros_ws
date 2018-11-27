@@ -44,15 +44,16 @@ class FaceDetector
   int servo_reeti_neck_pitch = 50;
   int servo_reeti_neck_roll = 50;
 
+
   int x_deg_shift(int x)
   {
     double d_deg;
 
-    d_deg = (centerX - x) / focalLength;
+    d_deg = (centerX - x) /25 + 0.5;
 
-    d_deg = atan(d_deg);
-    d_deg = d_deg * 180 / 3.14159;
-    d_deg = d_deg * 0.6;
+    //d_deg = atan(d_deg);
+    //d_deg = d_deg * 180 / 3.14159;
+    //d_deg = d_deg * 0.6;
 
     return d_deg;
   }
@@ -61,11 +62,11 @@ class FaceDetector
   {
     double d_deg;
 
-    d_deg = (centerY - y) / focalLength;
+    d_deg = (centerY - y) / 25 + 0.5;
 
-    d_deg = atan(d_deg);
-    d_deg = d_deg * 180 / 3.14159;
-    d_deg = d_deg * 0.6;
+    //d_deg = atan(d_deg);
+    //d_deg = d_deg * 180 / 3.14159;
+    //d_deg = d_deg * 0.6;
 
     return d_deg;
   }
@@ -77,28 +78,28 @@ class FaceDetector
     int d_pitch = y_deg_shift(y);
 
     int yaw = d_yaw + servo_deg_yaw;
-    if (yaw < 50)
-      yaw = 50;
-    if (yaw > 150)
-      yaw = 150;
+    if (yaw < 0)
+      yaw = 0;
+    if (yaw > 100)
+      yaw = 100;
     servo_deg_yaw = yaw;
 
     int pitch = d_pitch + servo_deg_pitch;
-    if (pitch < 50)
-      pitch = 50;
-    if (pitch > 150)
-      pitch = 150;
+    if (pitch < 0)
+      pitch = 0;
+    if (pitch > 100)
+      pitch = 100;
     servo_deg_pitch = pitch;
 
     ROS_INFO("yaw: %d, pitch: %d", yaw, pitch);
 
-    servo_reeti_yaw = (servo_deg_yaw - 40) * 0.8;
-    servo_reeti_pitch = (servo_deg_pitch - 40) * 0.8;
+    servo_reeti_yaw = servo_deg_yaw ;
+    servo_reeti_pitch = servo_deg_pitch ;
 
     //int d_neck_eyes_yaw = 50 - servo_reeti_yaw;
 
-    servo_reeti_neck_yaw = 50;
-    servo_reeti_neck_roll = 50;
+    //servo_reeti_neck_yaw = 50;
+    //servo_reeti_neck_roll = 50;
 
     //    servo_reeti_neck_yaw = servo_reeti_neck_yaw + (servo_reeti_yaw - 50) * 0.01;
     //    servo_reeti_neck_roll= servo_reeti_neck_roll + (servo_reeti_pitch - 50) * 0.01;
@@ -204,10 +205,10 @@ public:
     std_msgs::UInt8MultiArray array;
     array.data.resize(4);
 
-    array.data[0] = servo_reeti_yaw + 30;
-    array.data[1] = servo_reeti_pitch;
-    array.data[2] = servo_reeti_yaw;
-    array.data[3] = servo_reeti_pitch;
+    array.data[0] = servo_reeti_yaw + 30; //right eye pan
+    array.data[1] = servo_reeti_pitch;  //right eye tilt
+    array.data[2] = servo_reeti_yaw; // left eye pan
+    array.data[3] = servo_reeti_pitch; // left eye tilt
 
     // array.data[0] = servo_reeti_neck_yaw;
     // array.data[1] = servo_reeti_neck_pitch;

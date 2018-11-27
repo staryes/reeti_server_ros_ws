@@ -145,6 +145,8 @@ include_directories(
  add_executable(${PROJECT_NAME}_node src/face_tracking.cpp)
  add_executable(send_to_reeti_node src/send_to_reeti_node.cpp)
  add_executable(get_face_node src/get_face.cpp)
+ add_executable(mouse_click_node src/mouse_click.cpp)
+ add_executable(${PROJECT_NAME}_eye_neck_node src/face_tracking_eye_neck.cpp)
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
@@ -165,6 +167,14 @@ include_directories(
    ${catkin_LIBRARIES}
  )
  target_link_libraries(get_face_node
+   ${catkin_LIBRARIES}
+   ${OpenCV_LIBRARIES}
+ )
+ target_link_libraries(mouse_click_node
+   ${catkin_LIBRARIES}
+   ${OpenCV_LIBRARIES}
+ )
+ target_link_libraries(face_tracking_eye_neck_node
    ${catkin_LIBRARIES}
    ${OpenCV_LIBRARIES}
  )
