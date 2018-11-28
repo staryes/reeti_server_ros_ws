@@ -147,6 +147,8 @@ include_directories(
  add_executable(get_face_node src/get_face.cpp)
  add_executable(mouse_click_node src/mouse_click.cpp)
  add_executable(${PROJECT_NAME}_eye_neck_node src/face_tracking_eye_neck.cpp)
+ add_executable(static_image_pub_node src/static_image_pub.cpp)
+add_executable(static_image_insert_pub_node src/static_image_insert_pub.cpp)
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
@@ -178,6 +180,16 @@ include_directories(
    ${catkin_LIBRARIES}
    ${OpenCV_LIBRARIES}
  )
+target_link_libraries(static_image_pub_node
+  ${catkin_LIBRARIES}
+  ${OpenCV_LIBRARIES}
+ )
+target_link_libraries(static_image_insert_pub_node
+  ${catkin_LIBRARIES}
+  ${OpenCV_LIBRARIES}
+ )
+
+
 
 #############
 ## Install ##
