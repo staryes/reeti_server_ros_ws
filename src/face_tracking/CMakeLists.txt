@@ -55,8 +55,8 @@ find_package( OpenCV REQUIRED)
  add_message_files(
    FILES
    ColorThreshold.msg
-#   Message1.msg
-#   Message2.msg
+   reetiNeckPose.msg
+   reetiEyesPose.msg
  )
 
 ## Generate services in the 'srv' folder

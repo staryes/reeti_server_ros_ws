@@ -7,6 +7,8 @@
 #include <opencv2/highgui/highgui.hpp>
 #include <opencv2/objdetect/objdetect.hpp>
 
+#include <face_tracking/reetiEyesPose.h>
+
 static const std::string OPENCV_WINDOW = "Image window";
 
 class FaceDetector
@@ -34,8 +36,8 @@ class FaceDetector
   const double centerX = 344.559882;
   const double centerY = 216.258888;
 
-  int servo_deg_yaw = 90;
-  int servo_deg_pitch= 90;
+  int servo_deg_yaw = 50;
+  int servo_deg_pitch= 50;
 
   int servo_reeti_yaw = 50;
   int servo_reeti_pitch = 50;
@@ -148,7 +150,7 @@ class FaceDetector
             return -1;
         }
         ROS_INFO("Got face cascade file!");
-        servo_pos_pub = nh_.advertise<std_msgs::UInt8MultiArray>("eyes",1);
+        servo_pos_pub = nh_.advertise<face_tracking::reetiEyesPose>("reeti/eyes",1);
         //        servo_pos_pub = nh_.advertise<std_msgs::UInt8MultiArray>("neck_eyes",1);
 
         return 0;
@@ -202,13 +204,13 @@ public:
     image_pub_.publish(cv_ptr->toImageMsg());
 
     //Output gaze point
-    std_msgs::UInt8MultiArray array;
-    array.data.resize(4);
+    //std_msgs::UInt8MultiArray array;
+    //array.data.resize(7);
 
-    array.data[0] = servo_reeti_yaw + 30; //right eye pan
-    array.data[1] = servo_reeti_pitch;  //right eye tilt
-    array.data[2] = servo_reeti_yaw; // left eye pan
-    array.data[3] = servo_reeti_pitch; // left eye tilt
+    //array.data[0] = servo_reeti_yaw + 30; //right eye pan
+    //array.data[1] = servo_reeti_pitch;  //right eye tilt
+    //array.data[2] = servo_reeti_yaw; // left eye pan
+    //array.data[3] = servo_reeti_pitch; // left eye tilt
 
     // array.data[0] = servo_reeti_neck_yaw;
     // array.data[1] = servo_reeti_neck_pitch;
@@ -218,9 +220,19 @@ public:
     // array.data[5] = servo_reeti_yaw;
     // array.data[6] = servo_reeti_pitch;
 
+    face_tracking::reetiEyesPose eyes_msg;
+
+    eyes_msg.header.stamp = ros::Time::now();
+    eyes_msg.header.frame_id = "/world";
+
+    eyes_msg.rightEyeYaw = servo_reeti_yaw + 30;
+    eyes_msg.rightEyePitch = servo_reeti_pitch;
+    eyes_msg.leftEyeYaw = servo_reeti_yaw;
+    eyes_msg.leftEyePitch = servo_reeti_pitch;
+
     ROS_INFO("(%d, %d)", servo_reeti_yaw, servo_reeti_pitch);
 
-    servo_pos_pub.publish(array);
+    servo_pos_pub.publish(eyes_msg);
 
   }
 };
