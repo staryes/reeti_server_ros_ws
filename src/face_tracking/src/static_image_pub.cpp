@@ -20,7 +20,7 @@ int main(int argc, char** argv)
     ros::Subscriber flag_sub =  nh.subscribe("/insertFlag", 1, flagCb);
 
     cv_bridge::CvImage cv_image;
-    cv_image.image = cv::imread("/home/staryes/Desktop/OperaMeganeko.png", CV_LOAD_IMAGE_COLOR);
+    cv_image.image = cv::imread("/home/shoushan/Desktop/reeti_white.jpg", CV_LOAD_IMAGE_COLOR);
     cv_image.encoding = "bgr8";
     sensor_msgs::Image ros_image;
     cv_image.toImageMsg(ros_image);

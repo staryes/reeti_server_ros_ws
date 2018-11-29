@@ -15,9 +15,9 @@ class ImagePublisher
 
     //ros::Rate loop_rate(10);
 
-    cv::String image1_name = "/home/staryes/Desktop/CIMG0033.JPG";
-    cv::String image2_name = "/home/staryes/Desktop/CIMG0178.JPG";
-    cv::String image0_name = "/home/staryes/Desktop/OperaMeganeko.png";
+    cv::String image1_name = "/home/shoushan/Desktop/reeti_u.jpg";
+    cv::String image2_name = "/home/shoushan/Desktop/reeti_v.jpg";
+    cv::String image0_name = "/home/shoushan/Desktop/reeti_white.jpg";
 
     sensor_msgs::ImagePtr imsg1;
     sensor_msgs::ImagePtr imsg2;

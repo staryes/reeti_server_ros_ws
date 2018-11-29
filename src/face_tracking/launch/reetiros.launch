@@ -1,6 +1,0 @@
-<launch>
-
-    <machine name="reeti" user="reeti" address="reeti" default="true" env-loader="/opt/ros/groovy/env.sh"/>
-    <node pkg="reetiros" name="reeti" type="reetiros_node" machine="reeti" />
-
-</launch>
