@@ -67,6 +67,7 @@ public:
         }
 
         image_pub_.publish(imsg0);
+        ROS_INFO("image %d ", msg->data);
     }
 
 
