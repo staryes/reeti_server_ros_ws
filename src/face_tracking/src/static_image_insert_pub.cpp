@@ -50,21 +50,26 @@ public:
 
     void flagCb(const std_msgs::Int8::ConstPtr& msg )
     {
+        ros::Duration(0.5).sleep(); // sleep for half a second
         if (msg->data == 1)
         {
-            sensor_msgs::ImagePtr imsg = cv_bridge::CvImage(std_msgs::Header(), "bgr8", image1).toImageMsg();
-            image_pub_.publish(imsg);
+            sensor_msgs::ImagePtr imsg1= cv_bridge::CvImage(std_msgs::Header(), "bgr8", image1).toImageMsg();
+            Image_pub_.publish(imsg1);
+
+            ros::Duration(0.2).sleep();
+
         }
         else if (msg->data == 2)
         {
-            sensor_msgs::ImagePtr imsg = cv_bridge::CvImage(std_msgs::Header(), "bgr8", image2).toImageMsg();
-            image_pub_.publish(imsg);
+            sensor_msgs::ImagePtr imsg2 = cv_bridge::CvImage(std_msgs::Header(), "bgr8", image2).toImageMsg();
+            image_pub_.publish(imsg2);
+            ros::Duration(0.2).sleep();
         }
 
-        else
+
         {
-            sensor_msgs::ImagePtr imsg = cv_bridge::CvImage(std_msgs::Header(), "bgr8", image0).toImageMsg();
-            image_pub_.publish(imsg);
+            sensor_msgs::ImagePtr imsg0 = cv_bridge::CvImage(std_msgs::Header(), "bgr8", image0).toImageMsg();
+            image_pub_.publish(imsg0);
         }
 
 
