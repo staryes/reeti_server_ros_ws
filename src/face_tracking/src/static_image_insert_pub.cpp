@@ -27,13 +27,13 @@ class ImagePublisher
     void loadImages(void)
     {
         cv::Mat image1 = cv::imread(this->image1_name);
-        sensor_msgs::ImagePtr imsg1= cv_bridge::CvImage(std_msgs::Header(), "bgr8", image1).toImageMsg();
+        imsg1= cv_bridge::CvImage(std_msgs::Header(), "bgr8", image1).toImageMsg();
 
         cv::Mat image2 = cv::imread(this->image2_name);
-        sensor_msgs::ImagePtr imsg2 = cv_bridge::CvImage(std_msgs::Header(), "bgr8", image2).toImageMsg();
+        imsg2 = cv_bridge::CvImage(std_msgs::Header(), "bgr8", image2).toImageMsg();
 
         cv::Mat image0 = cv::imread(this->image0_name);
-        sensor_msgs::ImagePtr imsg0 = cv_bridge::CvImage(std_msgs::Header(), "bgr8", image0).toImageMsg();
+        imsg0 = cv_bridge::CvImage(std_msgs::Header(), "bgr8", image0).toImageMsg();
     }
 
 
