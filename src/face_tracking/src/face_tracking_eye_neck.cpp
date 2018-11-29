@@ -99,7 +99,7 @@ class FaceDetector
       pitch = 100.0;
     servo_deg_pitch = pitch;
 
-    ROS_INFO("dYaw: %f, dPitch: %f", yaw, pitch);
+
 
     //servo_reeti_yaw = servo_deg_yaw ;
     //servo_reeti_pitch = servo_deg_pitch ;
@@ -145,6 +145,49 @@ class FaceDetector
         //-- Show what you got
         //if (faces.size() > 0) {
         //  findEyes(frame_gray, faces[0]);  //test turn off eye retangle
+        if ( faces.size() > 0)
+        {
+            count++;
+
+            if (count == 30)
+            {
+                count = 0;
+                face_tracking::reetiNeckPose neck_msg;
+
+                neck_msg.header.stamp = ros::Time::now();
+                neck_msg.header.frame_id = "/world";
+
+                neck_msg.neckYaw = (servo_deg_yaw - 40) * 0.3 + servo_reeti_neck_yaw;
+                neck_msg.neckPitch = 50;
+                neck_msg.neckRoll = (servo_deg_pitch - 50) + servo_reeti_neck_roll;
+
+                ROS_INFO("Neck %f %f", neck_msg.neckYaw, neck_msg.neckPitch);
+
+                neck_pos_pub_.publish(neck_msg);
+
+                //servo_deg_yaw = (servo_deg_yaw + 40.0) * 0.5;
+                //servo_deg_pitch = (servo_deg_pitch + 50) * 0.5;
+            }
+
+            face_tracking::reetiEyesPose eyes_msg;
+
+
+            eyes_msg.header.stamp = ros::Time::now();
+            eyes_msg.header.frame_id = "/world";
+
+
+            eyes_msg.rightEyeYaw = servo_deg_yaw + 30;
+            eyes_msg.rightEyePitch = servo_deg_pitch;
+            eyes_msg.leftEyeYaw = servo_deg_yaw;
+            eyes_msg.leftEyePitch = servo_deg_pitch;
+
+            ROS_INFO("rYaw: %f, rPitch: %f", servo_reeti_yaw, servo_reeti_pitch);
+            ROS_INFO("dYaw: %f, dPitch: %f", servo_deg_yaw, servo_deg_pitch);
+
+            eyes_pos_pub_.publish(eyes_msg);
+
+        }
+
     }
 
 
@@ -194,59 +237,6 @@ public:
         servo_reeti_neck_roll = msg.neckRoll;
         // ROS_INFO("neck: %f, %f, %f", servo_reeti_neck_yaw, servo_reeti_neck_pitch, servo_reeti_neck_roll);
 
-            count++;
-//  if (count < 40)
-
-//    if (count < 40)
-//    {
-//    }
-    if (count == 5)
-    {
-        face_tracking::reetiNeckPose neck_msg;
-
-        neck_msg.header.stamp = ros::Time::now();
-        neck_msg.header.frame_id = "/world";
-
-        neck_msg.neckYaw = 50;
-        neck_msg.neckPitch = 50;
-        neck_msg.neckRoll = 50;
-
-        ROS_INFO("Neck!");
-
-        neck_pos_pub_.publish(neck_msg);
-    }
-    else if (count == 10)
-    {
-        count = 0;
-        face_tracking::reetiNeckPose neck_msg;
-
-        neck_msg.header.stamp = ros::Time::now();
-        neck_msg.header.frame_id = "/world";
-
-        neck_msg.neckYaw = 40;
-        neck_msg.neckPitch = 50;
-        neck_msg.neckRoll = 50;
-
-        ROS_INFO("Neck! Back!");
-
-        neck_pos_pub_.publish(neck_msg);
-    }
-    else
-    {
-        face_tracking::reetiEyesPose eyes_msg;
-
-        eyes_msg.header.stamp = ros::Time::now();
-        eyes_msg.header.frame_id = "/world";
-
-        eyes_msg.rightEyeYaw = servo_deg_yaw + 30;
-        eyes_msg.rightEyePitch = servo_deg_pitch;
-        eyes_msg.leftEyeYaw = servo_deg_yaw;
-        eyes_msg.leftEyePitch = servo_deg_pitch;
-
-        ROS_INFO("rYaw: %f, rPitch: %f", servo_reeti_yaw, servo_reeti_pitch);
-
-        eyes_pos_pub_.publish(eyes_msg);
-    }
     }
 
 
@@ -277,24 +267,6 @@ public:
 
     // Output modified video stream
     image_pub_.publish(cv_ptr->toImageMsg());
-
-    //Output gaze point
-    //std_msgs::UInt8MultiArray array;
-    //array.data.resize(7);
-
-    //array.data[0] = servo_reeti_yaw + 30; //right eye pan
-    //array.data[1] = servo_reeti_pitch;  //right eye tilt
-    //array.data[2] = servo_reeti_yaw; // left eye pan
-    //array.data[3] = servo_reeti_pitch; // left eye tilt
-
-    // array.data[0] = servo_reeti_neck_yaw;
-    // array.data[1] = servo_reeti_neck_pitch;
-    // array.data[2] = servo_reeti_neck_roll;
-    // array.data[3] = servo_reeti_yaw + 30;
-    // array.data[4] = servo_reeti_pitch;
-    // array.data[5] = servo_reeti_yaw;
-    // array.data[6] = servo_reeti_pitch;
-
 
   }
 };

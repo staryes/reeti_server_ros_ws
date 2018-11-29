@@ -54,7 +54,7 @@ public:
         if (msg->data == 1)
         {
             sensor_msgs::ImagePtr imsg1= cv_bridge::CvImage(std_msgs::Header(), "bgr8", image1).toImageMsg();
-            Image_pub_.publish(imsg1);
+            image_pub_.publish(imsg1);
 
             ros::Duration(0.2).sleep();
 
