@@ -149,7 +149,7 @@ class FaceDetector
         {
             count++;
 
-            if (count == 30)
+            if (count == 5)
             {
                 count = 0;
                 face_tracking::reetiNeckPose neck_msg;
@@ -157,11 +157,32 @@ class FaceDetector
                 neck_msg.header.stamp = ros::Time::now();
                 neck_msg.header.frame_id = "/world";
 
-                neck_msg.neckYaw = (servo_deg_yaw - 40) * 0.3 + servo_reeti_neck_yaw;
-                neck_msg.neckPitch = 50;
-                neck_msg.neckRoll = (servo_deg_pitch - 50) + servo_reeti_neck_roll;
+                if (servo_deg_yaw > 55)
+                    servo_reeti_neck_yaw++;
+                else if (servo_deg_yaw < 25)
+                    servo_reeti_neck_yaw--;
 
-                ROS_INFO("Neck %f %f", neck_msg.neckYaw, neck_msg.neckPitch);
+                if (servo_reeti_neck_yaw > 100)
+                    servo_reeti_neck_yaw = 100;
+                else if (servo_reeti_neck_yaw < 0)
+                    servo_reeti_neck_yaw = 0;
+
+                if (servo_deg_pitch > 60)
+                    servo_reeti_neck_roll+=2;
+                else if (servo_deg_pitch < 40)
+                    servo_reeti_neck_roll-=2;
+
+                if (servo_reeti_neck_roll> 100)
+                    servo_reeti_neck_roll = 100;
+                else if (servo_reeti_neck_roll < 0)
+                    servo_reeti_neck_roll = 0;
+
+
+                neck_msg.neckYaw = servo_reeti_neck_yaw;
+                neck_msg.neckPitch = 50;
+                neck_msg.neckRoll = servo_reeti_neck_roll;
+
+                ROS_INFO("Neck %f %f", neck_msg.neckYaw, neck_msg.neckRoll);
 
                 neck_pos_pub_.publish(neck_msg);
 
