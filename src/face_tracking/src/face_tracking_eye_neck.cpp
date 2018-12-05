@@ -185,13 +185,13 @@ public:
 
     void reetiPoseCallback(const face_tracking::reetiPose& msg)
     {
-        servo_reeti_yaw = msg.leftEyeYaw;
-        servo_reeti_pitch = msg.leftEyePitch;
+        servo_reeti_yaw = msg.leftEyePan;
+        servo_reeti_pitch = msg.leftEyeTilt;
         //ROS_INFO("left eye: %f, %f", servo_reeti_yaw, servo_reeti_pitch);
 
-        servo_reeti_neck_yaw = msg.neckYaw;
-        servo_reeti_neck_pitch = msg.neckPitch;
-        servo_reeti_neck_roll = msg.neckRoll;
+        servo_reeti_neck_yaw = msg.neckRotat;
+        servo_reeti_neck_pitch = msg.neckPan;
+        servo_reeti_neck_roll = msg.neckTilt;
         // ROS_INFO("neck: %f, %f, %f", servo_reeti_neck_yaw, servo_reeti_neck_pitch, servo_reeti_neck_roll);
 
             count++;
@@ -223,9 +223,9 @@ public:
         neck_msg.header.stamp = ros::Time::now();
         neck_msg.header.frame_id = "/world";
 
-        neck_msg.neckYaw = 40;
-        neck_msg.neckPitch = 50;
-        neck_msg.neckRoll = 50;
+        neck_msg.neckRotat = 40;
+        neck_msg.neckPan = 50;
+        neck_msg.neckTilt = 50;
 
         ROS_INFO("Neck! Back!");
 
@@ -238,10 +238,10 @@ public:
         eyes_msg.header.stamp = ros::Time::now();
         eyes_msg.header.frame_id = "/world";
 
-        eyes_msg.rightEyeYaw = servo_deg_yaw + 30;
-        eyes_msg.rightEyePitch = servo_deg_pitch;
-        eyes_msg.leftEyeYaw = servo_deg_yaw;
-        eyes_msg.leftEyePitch = servo_deg_pitch;
+        eyes_msg.rightEyePan = servo_deg_yaw + 30;
+        eyes_msg.rightEyeTilt = servo_deg_pitch;
+        eyes_msg.leftEyePan = servo_deg_yaw;
+        eyes_msg.leftEyeTilt = servo_deg_pitch;
 
         ROS_INFO("rYaw: %f, rPitch: %f", servo_reeti_yaw, servo_reeti_pitch);
 
