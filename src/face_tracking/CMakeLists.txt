@@ -152,7 +152,8 @@ include_directories(
  add_executable(static_image_insert_pub_node src/static_image_insert_pub.cpp)
  add_executable(show_static_images_node src/show_static_images.cpp)
 
- add_executable(reeti_teleop_key src/teleop_reeti_key.cpp)
+ add_executable(reeti_teleop_key_node src/teleop_reeti_key.cpp)
+ add_executable(reeti_remote_server_node src/reeti_remote_server.cpp)
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
@@ -197,8 +198,12 @@ target_link_libraries(show_static_images_node
   ${OpenCV_LIBRARIES}
  )
 
-target_link_libraries(reeti_teleop_key ${catkin_LIBRARIES})
-
+target_link_libraries(reeti_teleop_key_node
+  ${catkin_LIBRARIES}
+  )
+target_link_libraries(reeti_remote_server_node
+  ${catkin_LIBRARIES}
+  )
 
 #############
 ## Install ##
