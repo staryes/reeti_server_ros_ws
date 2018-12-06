@@ -256,7 +256,7 @@ public:
         servo_reeti_neck_yaw = msg.neckYaw;
         servo_reeti_neck_pitch = msg.neckPitch;
         servo_reeti_neck_roll = msg.neckRoll;
-        // ROS_INFO("neck: %f, %f, %f", servo_reeti_neck_yaw, servo_reeti_neck_pitch, servo_reeti_neck_roll);
+         ROS_INFO("neck: %f, %f, %f", servo_reeti_neck_yaw, servo_reeti_neck_pitch, servo_reeti_neck_roll);
 
     }
 
