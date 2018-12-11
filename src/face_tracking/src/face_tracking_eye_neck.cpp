@@ -7,9 +7,9 @@
 #include <opencv2/highgui/highgui.hpp>
 #include <opencv2/objdetect/objdetect.hpp>
 
-#include <face_tracking/reetiEyesPose.h>
-#include <face_tracking/reetiNeckPose.h>
-#include <face_tracking/reetiPose.h>
+#include <reetiros/reetiEyesPose.h>
+#include <reetiros/reetiNeckPose.h>
+#include <reetiros/reetiPose.h>
 
 static const std::string OPENCV_WINDOW = "Image window";
 
@@ -152,7 +152,7 @@ class FaceDetector
             if (count == 5)
             {
                 count = 0;
-                face_tracking::reetiNeckPose neck_msg;
+                reetiros::reetiNeckPose neck_msg;
 
                 neck_msg.header.stamp = ros::Time::now();
                 neck_msg.header.frame_id = "/world";
@@ -190,7 +190,7 @@ class FaceDetector
                 //servo_deg_pitch = (servo_deg_pitch + 50) * 0.5;
             }
 
-            face_tracking::reetiEyesPose eyes_msg;
+            reetiros::reetiEyesPose eyes_msg;
 
 
             eyes_msg.header.stamp = ros::Time::now();
@@ -220,8 +220,8 @@ class FaceDetector
             return -1;
         }
         ROS_INFO("Got face cascade file!");
-        eyes_pos_pub_ = nh_.advertise<face_tracking::reetiEyesPose>("reeti/eyes",1);
-        neck_pos_pub_ = nh_.advertise<face_tracking::reetiNeckPose>("reeti/neck",1);
+        eyes_pos_pub_ = nh_.advertise<reetiros::reetiEyesPose>("reeti/eyes",1);
+        neck_pos_pub_ = nh_.advertise<reetiros::reetiNeckPose>("reeti/neck",1);
         //        servo_pos_pub = nh_.advertise<std_msgs::UInt8MultiArray>("neck_eyes",1);
         reeti_pos_sub_ = nh_.subscribe("reeti/reetiPose", 1, &FaceDetector::reetiPoseCallback, this);
 
@@ -247,7 +247,7 @@ public:
     cv::destroyWindow(OPENCV_WINDOW);
   }
 
-    void reetiPoseCallback(const face_tracking::reetiPose& msg)
+    void reetiPoseCallback(const reetiros::reetiPose& msg)
     {
         servo_reeti_yaw = msg.leftEyeYaw;
         servo_reeti_pitch = msg.leftEyePitch;
