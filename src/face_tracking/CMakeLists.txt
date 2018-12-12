@@ -144,10 +144,11 @@ include_directories(
 ## With catkin_make all packages are built within a single CMake context
 ## The recommended prefix ensures that target names across packages don't collide
  add_executable(${PROJECT_NAME}_node src/face_tracking.cpp)
- add_executable(send_to_reeti_node src/send_to_reeti_node.cpp)
- add_executable(get_face_node src/get_face.cpp)
- add_executable(mouse_click_node src/mouse_click.cpp)
+# add_executable(send_to_reeti_node src/send_to_reeti_node.cpp)
+# add_executable(get_face_node src/get_face.cpp)
+# add_executable(mouse_click_node src/mouse_click.cpp)
  add_executable(${PROJECT_NAME}_eye_neck_node src/face_tracking_eye_neck.cpp)
+ add_executable(${PROJECT_NAME}_2_eyes_neck_node src/face_tracking_2_eyes_neck.cpp)
  add_executable(static_image_pub_node src/static_image_pub.cpp)
  add_executable(static_image_insert_pub_node src/static_image_insert_pub.cpp)
  add_executable(show_static_images_node src/show_static_images.cpp)
@@ -170,18 +171,22 @@ include_directories(
    ${catkin_LIBRARIES}
    ${OpenCV_LIBRARIES}
  )
- target_link_libraries(send_to_reeti_node
-   ${catkin_LIBRARIES}
- )
- target_link_libraries(get_face_node
-   ${catkin_LIBRARIES}
-   ${OpenCV_LIBRARIES}
- )
- target_link_libraries(mouse_click_node
-   ${catkin_LIBRARIES}
-   ${OpenCV_LIBRARIES}
- )
+ # target_link_libraries(send_to_reeti_node
+ #   ${catkin_LIBRARIES}
+ # )
+ # target_link_libraries(get_face_node
+ #   ${catkin_LIBRARIES}
+ #   ${OpenCV_LIBRARIES}
+ # )
+ # target_link_libraries(mouse_click_node
+ #   ${catkin_LIBRARIES}
+ #   ${OpenCV_LIBRARIES}
+ # )
  target_link_libraries(face_tracking_eye_neck_node
+   ${catkin_LIBRARIES}
+   ${OpenCV_LIBRARIES}
+   )
+  target_link_libraries(face_tracking_2_eyes_neck_node
    ${catkin_LIBRARIES}
    ${OpenCV_LIBRARIES}
  )

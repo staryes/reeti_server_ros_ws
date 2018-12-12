@@ -197,8 +197,8 @@ class FaceDetector
             eyes_msg.header.frame_id = "/world";
 
 
-            eyes_msg.rightEyeYaw = servo_deg_yaw + 30;
-            eyes_msg.rightEyePitch = servo_deg_pitch;
+            eyes_msg.rightEyeYaw = servo_deg_yaw + 35;
+            eyes_msg.rightEyePitch = servo_deg_pitch + 10;
             eyes_msg.leftEyeYaw = servo_deg_yaw;
             eyes_msg.leftEyePitch = servo_deg_pitch;
 

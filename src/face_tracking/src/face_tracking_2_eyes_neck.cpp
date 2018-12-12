@@ -19,7 +19,7 @@ class FaceDetector
     ros::NodeHandle nh_;
     image_transport::ImageTransport it_;
     image_transport::Subscriber left_image_sub_;
-    image_transport::Subscriber right_image_sub;
+    image_transport::Subscriber right_image_sub_;
     image_transport::Publisher image_pub_;
     ros::Publisher eyes_pos_pub_;
     ros::Publisher neck_pos_pub_;
@@ -277,6 +277,8 @@ public:
             // Subscrive to input video feed and publish output video feed
             left_image_sub_ = it_.subscribe("/leftcam/image_raw", 1,
                                             &FaceDetector::leftimageCb, this);
+            right_image_sub_ = it_.subscribe("/rightcam/image_raw", 1,
+                                            &FaceDetector::rightimageCb, this);
             image_pub_ = it_.advertise("/image_converter/output_video", 1);
 
             cv::namedWindow(OPENCV_WINDOW_right);
