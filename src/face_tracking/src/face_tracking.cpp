@@ -123,7 +123,7 @@ class FaceDetector
         //-- Detect faces
         face_cascade.detectMultiScale( frame_gray, faces, 1.1, 2,
                                        0|CV_HAAR_SCALE_IMAGE|CV_HAAR_FIND_BIGGEST_OBJECT,
-                                       cv::Size(150, 150) );
+                                       cv::Size(20, 20) );
         //  findSkin(debugImage);
 
         for( int i = 0; i < faces.size(); i++ )
@@ -158,7 +158,7 @@ public:
     : it_(nh_)
   {
     // Subscrive to input video feed and publish output video feed
-    image_sub_ = it_.subscribe("/usb_cam/image_raw", 1,
+    image_sub_ = it_.subscribe("/leftcam/image_raw", 1,
       &FaceDetector::imageCb, this);
     image_pub_ = it_.advertise("/image_converter/output_video", 1);
 
@@ -186,7 +186,7 @@ public:
     }
 
     // Draw an example circle on the video stream
-    if (cv_ptr->image.rows > 50 && cv_ptr->image.cols > 50)
+    if (cv_ptr->image.rows > 30 && cv_ptr->image.cols > 30)
     {
         //cv::circle(cv_ptr->image, cv::Point(50, 50), 10, CV_RGB(255,0,0));
         cv::Mat frame =  cv_ptr->image;
