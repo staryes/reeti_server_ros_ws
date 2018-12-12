@@ -20,7 +20,7 @@ class FaceDetector
     image_transport::ImageTransport it_;
     image_transport::Subscriber left_image_sub_;
     image_transport::Subscriber right_image_sub_;
-    image_transport::Publisher image_pub_;
+    //image_transport::Publisher image_pub_;
     ros::Publisher eyes_pos_pub_;
     ros::Publisher neck_pos_pub_;
     ros::Subscriber reeti_pos_sub_;
@@ -64,7 +64,7 @@ class FaceDetector
         {
             float d_deg;
 
-            d_deg = (centerX - x) /6; //8 * 3 times slow
+            d_deg = (centerX - x) /7; //8 * 3 times slow
 
             //d_deg = atan(d_deg);
             //d_deg = d_deg * 180 / 3.14159;
@@ -77,7 +77,7 @@ class FaceDetector
         {
             float d_deg;
 
-            d_deg = (centerY - y) / 6;
+            d_deg = (centerY - y) / 7;
 
             //d_deg = atan(d_deg);
             //d_deg = d_deg * 180 / 3.14159;
@@ -279,7 +279,7 @@ public:
                                             &FaceDetector::leftimageCb, this);
             right_image_sub_ = it_.subscribe("/rightcam/image_raw", 1,
                                             &FaceDetector::rightimageCb, this);
-            image_pub_ = it_.advertise("/image_converter/output_video", 1);
+            //image_pub_ = it_.advertise("/image_converter/output_video", 1);
 
             cv::namedWindow(OPENCV_WINDOW_right);
             cv::namedWindow(OPENCV_WINDOW_left);
@@ -337,7 +337,7 @@ public:
             cv::waitKey(3);
 
             // Output modified video stream
-            image_pub_.publish(cv_ptr->toImageMsg());
+            //image_pub_.publish(cv_ptr->toImageMsg());
 
         }
     void rightimageCb(const sensor_msgs::ImageConstPtr& msg)
