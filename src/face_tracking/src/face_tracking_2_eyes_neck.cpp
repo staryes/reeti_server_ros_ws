@@ -162,7 +162,7 @@ class FaceDetector
             {
                 count++;
 
-                if (count == 5)
+                if (count > 5) // every 6/30 s 
                 {
                     count = 0;
                     reetiros::reetiNeckPose neck_msg;
