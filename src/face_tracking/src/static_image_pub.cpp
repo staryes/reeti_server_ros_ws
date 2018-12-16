@@ -14,10 +14,10 @@ void flagCb(const std_msgs::Int8::ConstPtr& msg )
 
 int main(int argc, char** argv)
 {
-    ros::init(argc, argv, "image_publisher");
-    ros::NodeHandle nh;
+    ros::init(argc, argv, "blank_image_publisher");
+    ros::NodeHandle nh_;
 
-    ros::Subscriber flag_sub =  nh.subscribe("/insertFlag", 1, flagCb);
+    ros::Subscriber flag_sub =  nh_.subscribe("/insertFlag", 1, flagCb);
 
     cv_bridge::CvImage cv_image;
     cv_image.image = cv::imread("/home/shoushan/Desktop/reeti_white.jpg", CV_LOAD_IMAGE_COLOR);
@@ -25,13 +25,15 @@ int main(int argc, char** argv)
     sensor_msgs::Image ros_image;
     cv_image.toImageMsg(ros_image);
 
-    ros::Publisher pub = nh.advertise<sensor_msgs::Image>("/static_image", 1);
+    ros::Publisher pub0 = nh_.advertise<sensor_msgs::Image>("/static_image0", 1);
+    ros::Publisher pub1 = nh_.advertise<sensor_msgs::Image>("/static_image1", 1);
 
-    ros::Rate loop_rate(10);
+    ros::Rate loop_rate(1);
 
-    while(nh.ok())
+    while(nh_.ok())
     {
-        pub.publish(ros_image);
+        pub0.publish(ros_image);
+        pub1.publish(ros_image);
         ros::spinOnce();
         loop_rate.sleep();
 

@@ -10,7 +10,8 @@ class ImagePublisher
 {
     ros::NodeHandle nh_;
     image_transport::ImageTransport it_;
-    image_transport::Publisher image_pub_;
+    image_transport::Publisher image0_pub_;
+    image_transport::Publisher image1_pub_;
     ros::Subscriber flag_sub_;
 
     //ros::Rate loop_rate(10);
@@ -25,50 +26,62 @@ class ImagePublisher
 //    sensor_msgs::ImagePtr
 
     void loadImages(void)
-    {
-        cv::Mat image1 = cv::imread(this->image1_name);
-        imsg1= cv_bridge::CvImage(std_msgs::Header(), "bgr8", image1).toImageMsg();
+        {
+            cv::Mat image1 = cv::imread(this->image1_name);
+            imsg1= cv_bridge::CvImage(std_msgs::Header(), "bgr8", image1).toImageMsg();
 
-        cv::Mat image2 = cv::imread(this->image2_name);
-        imsg2 = cv_bridge::CvImage(std_msgs::Header(), "bgr8", image2).toImageMsg();
+            cv::Mat image2 = cv::imread(this->image2_name);
+            imsg2 = cv_bridge::CvImage(std_msgs::Header(), "bgr8", image2).toImageMsg();
 
-        cv::Mat image0 = cv::imread(this->image0_name);
-        imsg0 = cv_bridge::CvImage(std_msgs::Header(), "bgr8", image0).toImageMsg();
-    }
+            cv::Mat image0 = cv::imread(this->image0_name);
+            imsg0 = cv_bridge::CvImage(std_msgs::Header(), "bgr8", image0).toImageMsg();
+        }
 
 
 public:
     ImagePublisher()
         : it_(nh_)
-    {
-        image_pub_ = it_.advertise("/static_image", 1);
-        flag_sub_ = nh_.subscribe("/insertFlag", 1, &ImagePublisher::flagCb, this);
+        {
+            image0_pub_ = it_.advertise("/static_image0", 1);
+            image1_pub_ = it_.advertise("/static_image1", 1);
+            flag_sub_ = nh_.subscribe("/insertFlag", 1, &ImagePublisher::flagCb, this);
 
-        loadImages();
-    }
+            loadImages();
+        }
 
     ~ImagePublisher()
-    {
-    }
+        {
+        }
 
     void flagCb(const std_msgs::Int8::ConstPtr& msg )
-    {
-        ros::Duration(0.5).sleep(); // sleep for half a second
-        if (msg->data == 1)
         {
-            image_pub_.publish(imsg1);
-
+            ros::Duration(0.5).sleep(); // sleep for half a second
+            if (msg->data == 1)
+            {
+                image0_pub_.publish(imsg1);
+                ROS_INFO("monitor 0, u");
+            } 
+            else if (msg->data == 2)
+            {
+                image0_pub_.publish(imsg2);
+                ROS_INFO("monitor 0, v");
+            }
+            else if (msg->data == 3)
+            {
+                image1_pub_.publish(imsg1);
+                ROS_INFO("monitor 1, u ");
+            }
+            else if (msg->data == 4)
+            {
+                image1_pub_.publish(imsg2);
+                ROS_INFO("monitor 1, v");
+            }
             ros::Duration(0.2).sleep();
-        }
-        else if (msg->data == 2)
-        {
-            image_pub_.publish(imsg2);
-            ros::Duration(0.2).sleep();
-        }
 
-        image_pub_.publish(imsg0);
-        ROS_INFO("image %d ", msg->data);
-    }
+            image0_pub_.publish(imsg0);
+            image1_pub_.publish(imsg0);
+            ROS_INFO("image %d ", msg->data);
+        }
 
 
 };
