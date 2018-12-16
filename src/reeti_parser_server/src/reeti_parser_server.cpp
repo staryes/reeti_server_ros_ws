@@ -3,6 +3,8 @@
 #include "ros/console.h"
 
 #include "reetiros/MoveEars.h"
+#include "reetiros/Say.h"
+#include "reetiros/MoveNeck.h"
 
 #include "reetiros/reetiEyesPose.h"
 #include "reetiros/reetiNeckPose.h"
@@ -62,6 +64,12 @@ class ReetiROSserver
     ros::Subscriber reeti_pos_sub_;
 
     ros::ServiceClient earsClient = nh_.serviceClient<reetiros::MoveEars>("MoveEars");
+    ros::ServiceClient sayClient = nh_.serviceClient<reetiros::Say>("SayEnglish");
+    ros::ServiceClient neckClient = nh_serviceClient<reetiros::MoveNeck>("MoveNeck");
+
+    reetiros::MoveEars ears_srv;
+    reetiros::Say say_english_srv;
+    reetiros::MoveNeck neck_srv;
     
     float servo_deg_yaw = 50;
     float servo_deg_pitch= 50;
@@ -111,7 +119,6 @@ void ReetiROSserver::keyCb(const std_msgs::Char& key_msg)
     bool neck_update = false;
 
     c = key_msg.data;
-           reetiros::MoveEars srv;
 
     switch(c)
     {
@@ -146,9 +153,9 @@ void ReetiROSserver::keyCb(const std_msgs::Char& key_msg)
     case KEYCODE_e:
         ROS_INFO("e");
  
-        srv.request.rightEar = 20;
-        srv.request.leftEar = 70;
-        if (earsClient.call(srv))
+        ears_srv.request.rightEar = 20;
+        ears_srv.request.leftEar = 70;
+        if (earsClient.call(ears_srv))
         {
             ROS_INFO("sent");
         }
@@ -158,12 +165,31 @@ void ReetiROSserver::keyCb(const std_msgs::Char& key_msg)
             //return 1;
         }
         break;
+    case KEYCODE_h:
+        ROS_INFO("h");
+
+        neck_srv.request.neckYaw = servo_reeti_neck_yaw;
+        neck_srv.request.neckPan = servo_reeti_neck_pitch;
+        neck_srv.request.neckTilt = servo_reeti_neck_roll + 10;
+        neckClient.call(neck_srv);
+        
+        say_english_srv.request.textToSay = "Hello!" ;
+        sayClient.call(say_english_srv);
+
+        ros::Duration(1).sleep();
+        
+        neck_srv.request.neckYaw = servo_reeti_neck_yaw;
+        neck_srv.request.neckPan = servo_reeti_neck_pitch;
+        neck_srv.request.neckTilt = servo_reeti_neck_roll - 10;
+        neckClient.call(neck_srv);
+        
+        break;
     case KEYCODE_r:
         ROS_INFO("r");
  
-        srv.request.rightEar = 70;
-        srv.request.leftEar = 20;
-        if (earsClient.call(srv))
+        ears_srv.request.rightEar = 70;
+        ears_srv.request.leftEar = 20;
+        if (earsClient.call(ears_srv))
         {
             ROS_INFO("sent");
         }
