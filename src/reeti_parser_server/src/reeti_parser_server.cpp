@@ -82,6 +82,7 @@ class ReetiROSserver
     float servo_reeti_neck_roll = 50;
 
     void sequence_say_hello(void);
+    void sequence_see_monitor(int monior_x);
 
 public:
     ReetiROSserver()
@@ -102,23 +103,41 @@ public:
 
 };
 
+void ReetiROSserver::sequence_see_monitor(int monitor_x)
+{
+    if(monitor_x == 0)
+        neck_srv.request.neckYaw = 20;
+    else if(monitor_x == 1)
+        neck_srv.request.neckYaw = 80;
+    else
+        neck_srv.request.neckYaw = 50;
+    
+    neck_srv.request.neckPitch = 50;
+    neck_srv.request.neckRoll = 40;
+    neckClient.call(neck_srv);
+}
+
 void ReetiROSserver::sequence_say_hello(void)
 {
     neck_srv.request.neckYaw = servo_reeti_neck_yaw;
     neck_srv.request.neckPitch = servo_reeti_neck_pitch;
-    neck_srv.request.neckRoll = servo_reeti_neck_roll + 10;
+    neck_srv.request.neckRoll = servo_reeti_neck_roll - 20;
     neckClient.call(neck_srv);
-        
-    say_english_srv.request.textToSay = "Hello!" ;
+
+    //ros::Duration(0.1).sleep();
+    
+    say_english_srv.request.textToSay = "\\\\volume=10 Hello!" ;
     sayClient.call(say_english_srv);
 
     ros::Duration(1).sleep();
         
     neck_srv.request.neckYaw = servo_reeti_neck_yaw;
     neck_srv.request.neckPitch = servo_reeti_neck_pitch;
-    neck_srv.request.neckRoll = servo_reeti_neck_roll - 10;
+    neck_srv.request.neckRoll = servo_reeti_neck_roll ;
     neckClient.call(neck_srv);
 }
+
+
 
 void ReetiROSserver::reetiPoseCallback(const reetiros::reetiPose& msg)
 {
@@ -216,6 +235,14 @@ void ReetiROSserver::keyCb(const std_msgs::Char& key_msg)
     case KEYCODE_u:
         ROS_DEBUG("u");
 
+        break;
+    case KEYCODE_q:
+        ROS_DEBUG("q");
+        sequence_see_monitor(0);
+        break;
+    case KEYCODE_w:
+        ROS_DEBUG("w");
+        sequence_see_monitor(1);
         break;
     }
 
