@@ -143,18 +143,18 @@ include_directories(
 ## Declare a C++ executable
 ## With catkin_make all packages are built within a single CMake context
 ## The recommended prefix ensures that target names across packages don't collide
- add_executable(${PROJECT_NAME}_node src/face_tracking.cpp)
+# add_executable(${PROJECT_NAME}_node src/face_tracking.cpp)
 # add_executable(send_to_reeti_node src/send_to_reeti_node.cpp)
 # add_executable(get_face_node src/get_face.cpp)
 # add_executable(mouse_click_node src/mouse_click.cpp)
- add_executable(${PROJECT_NAME}_eye_neck_node src/face_tracking_eye_neck.cpp)
+# add_executable(${PROJECT_NAME}_eye_neck_node src/face_tracking_eye_neck.cpp)
  add_executable(${PROJECT_NAME}_2_eyes_neck_node src/face_tracking_2_eyes_neck.cpp)
  add_executable(static_image_pub_node src/static_image_pub.cpp)
- add_executable(static_image_insert_pub_node src/static_image_insert_pub.cpp)
- add_executable(show_static_images_node src/show_static_images.cpp)
+# add_executable(static_image_insert_pub_node src/static_image_insert_pub.cpp)
+# add_executable(show_static_images_node src/show_static_images.cpp)
 
  add_executable(reeti_teleop_key_node src/teleop_reeti_key.cpp)
- add_executable(reeti_remote_server_node src/reeti_remote_server.cpp)
+# add_executable(reeti_remote_server_node src/reeti_remote_server.cpp)
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
@@ -164,15 +164,15 @@ include_directories(
 
 ## Add cmake target dependencies of the executable
 ## same as for the library above
-add_dependencies(${PROJECT_NAME}_eye_neck_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+#add_dependencies(${PROJECT_NAME}_eye_neck_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 add_dependencies(${PROJECT_NAME}_2_eyes_neck_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
-add_dependencies(reeti_remote_server_node ${catkin_EXPORTED_TARGETS})
+#add_dependencies(reeti_remote_server_node ${catkin_EXPORTED_TARGETS})
 
 ## Specify libraries to link a library or executable target against
- target_link_libraries(${PROJECT_NAME}_node
-   ${catkin_LIBRARIES}
-   ${OpenCV_LIBRARIES}
- )
+# target_link_libraries(${PROJECT_NAME}_node
+#   ${catkin_LIBRARIES}
+#   ${OpenCV_LIBRARIES}
+# )
  # target_link_libraries(send_to_reeti_node
  #   ${catkin_LIBRARIES}
  # )
@@ -184,10 +184,10 @@ add_dependencies(reeti_remote_server_node ${catkin_EXPORTED_TARGETS})
  #   ${catkin_LIBRARIES}
  #   ${OpenCV_LIBRARIES}
  # )
- target_link_libraries(face_tracking_eye_neck_node
-   ${catkin_LIBRARIES}
-   ${OpenCV_LIBRARIES}
-   )
+ #target_link_libraries(face_tracking_eye_neck_node
+ #  ${catkin_LIBRARIES}
+ #  ${OpenCV_LIBRARIES}
+ #  )
   target_link_libraries(face_tracking_2_eyes_neck_node
    ${catkin_LIBRARIES}
    ${OpenCV_LIBRARIES}
@@ -196,21 +196,21 @@ target_link_libraries(static_image_pub_node
   ${catkin_LIBRARIES}
   ${OpenCV_LIBRARIES}
  )
-target_link_libraries(static_image_insert_pub_node
-  ${catkin_LIBRARIES}
-  ${OpenCV_LIBRARIES}
-  )
-target_link_libraries(show_static_images_node
-  ${catkin_LIBRARIES}
-  ${OpenCV_LIBRARIES}
- )
+#target_link_libraries(static_image_insert_pub_node
+#  ${catkin_LIBRARIES}
+#  ${OpenCV_LIBRARIES}
+#  )
+#target_link_libraries(show_static_images_node
+#  ${catkin_LIBRARIES}
+#  ${OpenCV_LIBRARIES}
+# )
 
 target_link_libraries(reeti_teleop_key_node
   ${catkin_LIBRARIES}
   )
-target_link_libraries(reeti_remote_server_node
-  ${catkin_LIBRARIES}
-  )
+#target_link_libraries(reeti_remote_server_node
+#  ${catkin_LIBRARIES}
+#  )
 
 #############
 ## Install ##
