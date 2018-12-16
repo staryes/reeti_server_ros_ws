@@ -1,5 +1,6 @@
 #include "ros/ros.h"
 #include "std_msgs/Char.h"
+#include "std_msgs/Int8.h"
 #include "ros/console.h"
 
 #include "reetiros/MoveEars.h"
@@ -58,8 +59,13 @@
 class ReetiROSserver
 {
     ros::NodeHandle nh_;
+
+    ros::Time timeNow;
+    
     //ros::Publisher eyes_pos_pub_;
     ros::Publisher neck_pos_pub_;
+    ros::Publisher static_image_flag_pub_;
+
     ros::Subscriber keypad_sub_;
     ros::Subscriber reeti_pos_sub_;
 
@@ -84,10 +90,13 @@ class ReetiROSserver
     void sequence_say_hello(void);
     void sequence_see_monitor(int monior_x);
 
+    int rand_num;
+
 public:
     ReetiROSserver()
         {
             neck_pos_pub_ = nh_.advertise<reetiros::reetiNeckPose>("/reeti/neck",1);
+            static_image_flag_pub_ = nh_.advertise<std_msgs::Int8>("/insertFlag",1);
 
             reeti_pos_sub_ = nh_.subscribe("reeti/reetiPose", 1, &ReetiROSserver::reetiPoseCallback, this);
             keypad_sub_ = nh_.subscribe("key", 1, &ReetiROSserver::keyCb, this);
@@ -106,11 +115,11 @@ public:
 void ReetiROSserver::sequence_see_monitor(int monitor_x)
 {
     if(monitor_x == 0)
-        neck_srv.request.neckYaw = 20;
+    neck_srv.request.neckYaw = 20;
     else if(monitor_x == 1)
-        neck_srv.request.neckYaw = 80;
+    neck_srv.request.neckYaw = 80;
     else
-        neck_srv.request.neckYaw = 50;
+    neck_srv.request.neckYaw = 50;
     
     neck_srv.request.neckPitch = 50;
     neck_srv.request.neckRoll = 40;
@@ -156,6 +165,7 @@ void ReetiROSserver::keyCb(const std_msgs::Char& key_msg)
 {
     char c;
     bool neck_update = false;
+    bool send_image_flag = false;
 
     c = key_msg.data;
 
@@ -190,30 +200,10 @@ void ReetiROSserver::keyCb(const std_msgs::Char& key_msg)
 
         break;
     case KEYCODE_e:
-        ROS_INFO("e");
+        ROS_DEBUG("e");
  
         ears_srv.request.rightEar = 20;
         ears_srv.request.leftEar = 70;
-        if (earsClient.call(ears_srv))
-        {
-            ROS_INFO("sent");
-        }
-        else
-        {
-            ROS_ERROR("Failed to call service add_two_ints");
-            //return 1;
-        }
-        break;
-    case KEYCODE_h:
-        ROS_INFO("h");
-
-        sequence_say_hello();
-        break;
-    case KEYCODE_r:
-        ROS_INFO("r");
- 
-        ears_srv.request.rightEar = 70;
-        ears_srv.request.leftEar = 20;
         if (earsClient.call(ears_srv))
         {
             ROS_INFO("sent");
@@ -228,18 +218,57 @@ void ReetiROSserver::keyCb(const std_msgs::Char& key_msg)
         ROS_DEBUG("f");
 
         break;
-    case KEYCODE_v:
-        ROS_DEBUG("v");
+    case KEYCODE_h:
+        ROS_DEBUG("h");
 
+        sequence_say_hello();
         break;
-    case KEYCODE_u:
-        ROS_DEBUG("u");
-
+    case KEYCODE_m:
+        ROS_DEBUG("m");
+        timeNow = ros::Time::now();
+        rand_num = (timeNow.nsec % 4) + 1;
+        //ROS_INFO("rand_num=%d", rand_num);
+        send_image_flag = true;
+        break;
+    case KEYCODE_n:
+        ROS_INFO("n");
+                timeNow = ros::Time::now();
+        rand_num = (timeNow.nsec % 2);
+        sequence_see_monitor(rand_num);
+        
         break;
     case KEYCODE_q:
         ROS_DEBUG("q");
         sequence_see_monitor(0);
         break;
+    case KEYCODE_r:
+        ROS_DEBUG("r");
+ 
+        ears_srv.request.rightEar = 70;
+        ears_srv.request.leftEar = 20;
+        if (earsClient.call(ears_srv))
+        {
+            ROS_INFO("sent");
+        }
+        else
+        {
+            ROS_ERROR("Failed to call service add_two_ints");
+            //return 1;
+        }
+        break;
+    case KEYCODE_u:
+        ROS_DEBUG("u");
+        ROS_INFO("user pressed u");
+        sequence_see_monitor(-1);
+        break;
+    case KEYCODE_v:
+        ROS_DEBUG("v");
+        ROS_INFO("user pressed v");
+        sequence_see_monitor(-1);
+
+        break;
+
+
     case KEYCODE_w:
         ROS_DEBUG("w");
         sequence_see_monitor(1);
@@ -258,6 +287,16 @@ void ReetiROSserver::keyCb(const std_msgs::Char& key_msg)
         neck_pos_pub_.publish(neck_msg);
 
         neck_update = false;
+    }
+    
+    if(send_image_flag == true)
+    {
+        std_msgs::Int8 insertFlag_msg;
+        insertFlag_msg.data = rand_num;
+
+        static_image_flag_pub_.publish(insertFlag_msg);
+        
+        send_image_flag = false;
     }
 }
 

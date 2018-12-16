@@ -7,7 +7,7 @@
 
 void flagCb(const std_msgs::Int8::ConstPtr& msg )
 {
-    ros::Duration(0.8).sleep(); // sleep for half a second
+    ros::Duration(1.0).sleep(); // sleep for a second
 
     ROS_INFO("pause ");
 }
@@ -28,7 +28,7 @@ int main(int argc, char** argv)
     ros::Publisher pub0 = nh_.advertise<sensor_msgs::Image>("/static_image0", 1);
     ros::Publisher pub1 = nh_.advertise<sensor_msgs::Image>("/static_image1", 1);
 
-    ros::Rate loop_rate(1);
+    ros::Rate loop_rate(0.5);
 
     while(nh_.ok())
     {
