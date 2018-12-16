@@ -65,7 +65,7 @@ class ReetiROSserver
 
     ros::ServiceClient earsClient = nh_.serviceClient<reetiros::MoveEars>("MoveEars");
     ros::ServiceClient sayClient = nh_.serviceClient<reetiros::Say>("SayEnglish");
-    ros::ServiceClient neckClient = nh_serviceClient<reetiros::MoveNeck>("MoveNeck");
+    ros::ServiceClient neckClient = nh_.serviceClient<reetiros::MoveNeck>("MoveNeck");
 
     reetiros::MoveEars ears_srv;
     reetiros::Say say_english_srv;
@@ -169,8 +169,8 @@ void ReetiROSserver::keyCb(const std_msgs::Char& key_msg)
         ROS_INFO("h");
 
         neck_srv.request.neckYaw = servo_reeti_neck_yaw;
-        neck_srv.request.neckPan = servo_reeti_neck_pitch;
-        neck_srv.request.neckTilt = servo_reeti_neck_roll + 10;
+        neck_srv.request.neckPitch = servo_reeti_neck_pitch;
+        neck_srv.request.neckRoll = servo_reeti_neck_roll + 10;
         neckClient.call(neck_srv);
         
         say_english_srv.request.textToSay = "Hello!" ;
@@ -179,8 +179,8 @@ void ReetiROSserver::keyCb(const std_msgs::Char& key_msg)
         ros::Duration(1).sleep();
         
         neck_srv.request.neckYaw = servo_reeti_neck_yaw;
-        neck_srv.request.neckPan = servo_reeti_neck_pitch;
-        neck_srv.request.neckTilt = servo_reeti_neck_roll - 10;
+        neck_srv.request.neckPitch = servo_reeti_neck_pitch;
+        neck_srv.request.neckRoll = servo_reeti_neck_roll - 10;
         neckClient.call(neck_srv);
         
         break;
@@ -202,10 +202,6 @@ void ReetiROSserver::keyCb(const std_msgs::Char& key_msg)
     case KEYCODE_f:
         ROS_DEBUG("f");
 
-        break;
-    case KEYCODE_h:
-        ROS_DEBUG("h");
-        
         break;
     case KEYCODE_v:
         ROS_DEBUG("v");
