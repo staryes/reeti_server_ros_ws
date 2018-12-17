@@ -2,7 +2,7 @@
 #include <image_transport/image_transport.h>
 #include <cv_bridge/cv_bridge.h>
 #include <sensor_msgs/image_encodings.h>
-#include <std_msgs/UInt8MultiArray.h>
+#include <std_msgs/Bool.h>
 #include <opencv2/imgproc/imgproc.hpp>
 #include <opencv2/highgui/highgui.hpp>
 #include <opencv2/objdetect/objdetect.hpp>
@@ -24,7 +24,10 @@ class FaceDetector
     ros::Publisher eyes_pos_pub_;
     ros::Publisher neck_pos_pub_;
     ros::Subscriber reeti_pos_sub_;
+    ros::Subscriber face_tracking_switch_sub_;
 
+    bool face_tracking_switch;
+    
     //-- Note, either copy these two files from opencv/data/haarscascades to your current folder, or change these locations
     cv::String face_cascade_name = "/home/shoushan/reeti_server_ros_ws/src/face_tracking/res/haarcascade_frontalface_alt.xml";
     //cv::String left_eye_cascade_name = "res/haarcascade_lefteye_2splits.xml";
@@ -162,7 +165,7 @@ class FaceDetector
             {
                 count++;
 
-                if (count > 5) // every 6/30 s 
+                if (count > 5 && face_tracking_switch) // every 6/30 s 
                 {
                     count = 0;
                     reetiros::reetiNeckPose neck_msg;
@@ -221,6 +224,7 @@ class FaceDetector
                 //ROS_INFO("rYaw: %f, rPitch: %f", servo_reeti_yaw, servo_reeti_pitch);
                 //ROS_INFO("dYaw: %f, dPitch: %f", servo_deg_yaw, servo_deg_pitch);
 
+                if (face_tracking_switch)
                 eyes_pos_pub_.publish(eyes_msg);
 
             }
@@ -264,8 +268,10 @@ class FaceDetector
             ROS_INFO("Got face cascade file!");
             eyes_pos_pub_ = nh_.advertise<reetiros::reetiEyesPose>("reeti/eyes",1);
             neck_pos_pub_ = nh_.advertise<reetiros::reetiNeckPose>("reeti/neck",1);
-            //        servo_pos_pub = nh_.advertise<std_msgs::UInt8MultiArray>("neck_eyes",1);
+
             reeti_pos_sub_ = nh_.subscribe("reeti/reetiPose", 1, &FaceDetector::reetiPoseCallback, this);
+            face_tracking_switch_sub_ = nh_.subscribe("track_switch", 1, &FaceDetector::trackingSwitchCb, this);
+            face_tracking_switch = false;
 
             return 0;
         }
@@ -291,6 +297,11 @@ public:
         {
             cv::destroyWindow(OPENCV_WINDOW_right);
             cv::destroyWindow(OPENCV_WINDOW_left);
+        }
+
+    void trackingSwitchCb(const std_msgs::Bool& msg)
+        {
+            face_tracking_switch = msg.data;
         }
 
     void reetiPoseCallback(const reetiros::reetiPose& msg)
