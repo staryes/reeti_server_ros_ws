@@ -179,16 +179,39 @@ void ReetiROSserver::sequence_standby(void)
 
 void ReetiROSserver::sequence_see_monitor(int monitor_x)
 {
+    std::stringstream str;
+            
     if(monitor_x == 0)
-    neck_srv.request.neckYaw = 20;
+    str  << "Global.servo.neckRotat=10 smooth:0.8s,"
+        << "Global.servo.neckPan=50 smooth:0.8s,"
+        << "Global.servo.neckTilt=40 smooth:0.8s,"
+        << "Global.servo.rightEyePan=65,Global.servo.leftEyePan=40,Global.servo.rightEyeTilt=45 smooth:0.5s,Global.servo.leftEyeTilt=40 smooth:0.5s"
+        << ";";
+    //neck_srv.request.neckYaw = 20;
     else if(monitor_x == 1)
-    neck_srv.request.neckYaw = 80;
+    str << "Global.servo.neckRotat=80 smooth:0.8s,"
+        << "Global.servo.neckPan=50 smooth:0.8s,"
+        << "Global.servo.neckTilt=40 smooth:0.8s,"
+        << "Global.servo.rightEyePan=65,Global.servo.leftEyePan=40,Global.servo.rightEyeTilt=45 smooth:0.5s,Global.servo.leftEyeTilt=40 smooth:0.5s"
+        << ";";
+//    neck_srv.request.neckYaw = 80;
     else
-    neck_srv.request.neckYaw = 50;
+    str << "Global.servo.rightEyeLid=100,Global.servo.leftEyeLid=100,"
+        << "Global.servo.rightEyePan=65,Global.servo.leftEyePan=40,Global.servo.rightEyeTilt=20 smooth:0.5s,Global.servo.leftEyeTilt=20 smooth:0.5s,"
+        << "Global.servo.neckRotat=50 smooth:0.8s,"
+        << "Global.servo.neckPan=50 smooth:0.8s,"
+        << "Global.servo.neckTilt=40 smooth:0.8s"
+        << ";";
+    //neck_srv.request.neckYaw = 50;
     
-    neck_srv.request.neckPitch = 50;
-    neck_srv.request.neckRoll = 40;
-    neckClient.call(neck_srv);
+//    neck_srv.request.neckPitch = 50;
+    //  neck_srv.request.neckRoll = 40;
+    // neckClient.call(neck_srv);
+
+
+
+    anycmd_srv.request.cmd = str.str(); 
+    anycmdClient.call(anycmd_srv);
 }
 
 void ReetiROSserver::sequence_say_hello(void)
@@ -303,6 +326,14 @@ void ReetiROSserver::keyCb(const std_msgs::Char& key_msg)
         rand_num = (timeNow.nsec % 2);
         sequence_see_monitor(rand_num);
         ROS_INFO("reeti turn to %d", rand_num);
+
+        timeNow = ros::Time::now();
+        rand_num = (timeNow.nsec % 4) + 1;
+        ROS_INFO("rand_num=%d", rand_num);
+        send_image_flag = true;
+
+        face_tracking_switch_change = true;
+        c = KEYCODE_x;
         
         break;
     case KEYCODE_q:
@@ -352,6 +383,9 @@ void ReetiROSserver::keyCb(const std_msgs::Char& key_msg)
     case KEYCODE_z:
         ROS_DEBUG("z");
         face_tracking_switch_change = true;
+
+        sequence_standby();
+
         break;
     }
 
