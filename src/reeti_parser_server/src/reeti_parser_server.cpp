@@ -220,11 +220,13 @@ void ReetiROSserver::sequence_say_hello(void)
 void ReetiROSserver::sequence_exp_1_routine(void)
 {
     std_msgs::Bool switch_msg;
+            std_msgs::Int8 insertFlag_msg;
+
     
     ros::Duration(1).sleep();
-    Timenow = Ros::Time::Now();
-    Rand_Num = (Timenow.Nsec % 2);
-    if (Rand_Num == 1)
+    timeNow = ros::Time::now();
+    rand_num = (timeNow.nsec % 2);
+    if (rand_num == 1)
     {
         switch_msg.data = true;
         
@@ -239,15 +241,17 @@ void ReetiROSserver::sequence_exp_1_routine(void)
 
     ros::Duration(1).sleep();
 
-    Timenow = Ros::Time::Now();
-    Rand_Num = (Timenow.Nsec % 2);
-    Sequence_See_Monitor(Rand_Num);
-    Ros_Info("Reeti Turn To %D", Rand_Num);
+    timeNow = ros::Time::now();
+    rand_num = (timeNow.nsec % 2);
+    sequence_see_monitor(rand_num);
+    ROS_INFO("reeti turn to %d", rand_num);
 
-    Timenow = Ros::Time::Now();
-    Rand_Num = (Timenow.Nsec % 4) + 1;
-    Ros_Info("Rand_Num=%d", Rand_Num);
-    Send_Image_Flag = True;
+    timeNow = ros::Time::now();
+    rand_num = (timeNow.nsec % 4) + 1;
+    ROS_INFO("rand_num=%d", rand_num);
+           insertFlag_msg.data = rand_num;
+
+        static_image_flag_pub_.publish(insertFlag_msg);
 
         
     switch_msg.data = false;
@@ -342,18 +346,18 @@ void ReetiROSserver::keyCb(const std_msgs::Char& key_msg)
         break;
     case KEYCODE_n:
         ROS_DEBUG("n");
-        Timenow = Ros::Time::Now();
-        Rand_Num = (Timenow.Nsec % 2);
-        Sequence_See_Monitor(Rand_Num);
-        Ros_Info("Reeti Turn To %D", Rand_Num);
+        timeNow = ros::Time::now();
+        rand_num = (timeNow.nsec % 2);
+        sequence_see_monitor(rand_num);
+        ROS_INFO("reeti turn to %d", rand_num);
 
-        Timenow = Ros::Time::Now();
-        Rand_Num = (Timenow.Nsec % 4) + 1;
-        Ros_Info("Rand_Num=%D", Rand_Num);
-        Send_Image_Flag = True;
+        timeNow = ros::Time::now();
+        rand_num = (timeNow.nsec % 4) + 1;
+        ROS_INFO("rand_num=%d", rand_num);
+        send_image_flag = true;
 
-        Face_Tracking_Switch_Change = True;
-        C = Keycode_X;
+        face_tracking_switch_change = true;
+        c = KEYCODE_x;
         
         break;
     case KEYCODE_q:
