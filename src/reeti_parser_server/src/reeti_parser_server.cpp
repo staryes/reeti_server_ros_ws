@@ -151,7 +151,7 @@ void ReetiROSserver::sequence_standby(void)
     std::stringstream str;
     str.str("");
     str << "Global.servo.rightEyeLid=100,Global.servo.leftEyeLid=100,"
-        << "Global.servo.rightEyePan=65,Global.servo.leftEyePan=40,Global.servo.rightEyeTilt=50,Global.servo.leftEyeTilt=45,"
+        << "Global.servo.rightEyePan=65,Global.servo.leftEyePan=40,Global.servo.rightEyeTilt=40,Global.servo.leftEyeTilt=35,"
         << "Global.servo.neckRotat=40 smooth:0.5s,"
         << "Global.servo.neckPan=50 smooth:0.5s,"
         << "Global.servo.neckTilt=50 smooth:0.5s"
@@ -233,6 +233,8 @@ void ReetiROSserver::sequence_exp_1_routine(bool tracking)
     else
     {
         switch_msg.data = false;
+        sequence_standby();
+        
         ROS_INFO("face tracking off");
     }
     face_tracking_switch_pub_.publish(switch_msg);

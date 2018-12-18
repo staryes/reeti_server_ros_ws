@@ -13,5 +13,5 @@
     <remap from="image" to="/static_image1"/>
   </node>
 
-<node name="face_tracking" pkg="face_tracking" type="face_tracking_2_eyes_neck_node" output="screen" />
+<node name="face_tracking" pkg="face_tracking" type="face_tracking_2_eyes_neck_node" />
 </launch>
