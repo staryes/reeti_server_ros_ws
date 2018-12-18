@@ -3,7 +3,7 @@
   <node name="parser_server" pkg="reeti_parser_server" type="reeti_parser_server_node" output="screen" />
 
  <node name="blank_image" pkg="face_tracking" type="static_image_pub_node" />
-  <!-- <node name="insert_image" pkg="face_tracking" type="static_image_insert_pub_node" /> -->
+
   <node name="left_monitor" pkg="image_view" type="image_view" output="screen">
     <remap from="image_view" to="left_image_view" />
     <remap from="image" to="/static_image0"/>
@@ -12,5 +12,6 @@
     <remap from="image_view" to="right_image_view" />
     <remap from="image" to="/static_image1"/>
   </node>
-  
+
+<node name="face_tracking" pkg="face_tracking" type="face_tracking_2_eyes_neck_node" output="screen" />
 </launch>
