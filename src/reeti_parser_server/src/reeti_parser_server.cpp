@@ -99,7 +99,7 @@ class ReetiROSserver
     void sequence_see_monitor(int monior_x);
     void sequence_to_rest_pose(void);
     void sequence_standby(void);
-    void sequence_exp_1_routine(void);
+    void sequence_exp_1_routine(bool tracking);
 
     int rand_num;
 
@@ -217,18 +217,16 @@ void ReetiROSserver::sequence_say_hello(void)
 
 }
 
-void ReetiROSserver::sequence_exp_1_routine(void)
+void ReetiROSserver::sequence_exp_1_routine(bool tracking)
 {
     std_msgs::Bool switch_msg;
-            std_msgs::Int8 insertFlag_msg;
-
+    std_msgs::Int8 insertFlag_msg;
     
-    ros::Duration(1).sleep();
-    timeNow = ros::Time::now();
-    rand_num = (timeNow.nsec % 2);
-    if (rand_num == 1)
+    ros::Duration(0.5).sleep();
+    if (tracking == true)
     {
         switch_msg.data = true;
+        sequence_standby();
         
         ROS_INFO("face tracking on");
     }
@@ -239,7 +237,7 @@ void ReetiROSserver::sequence_exp_1_routine(void)
     }
     face_tracking_switch_pub_.publish(switch_msg);
 
-    ros::Duration(1).sleep();
+    ros::Duration(1.5).sleep();
 
     timeNow = ros::Time::now();
     rand_num = (timeNow.nsec % 2);
@@ -311,8 +309,9 @@ void ReetiROSserver::keyCb(const std_msgs::Char& key_msg)
 
     case KEYCODE_d:
         ROS_DEBUG("d");
-        sequence_exp_1_routine();
+        sequence_exp_1_routine(true);
         break;
+
     case KEYCODE_e:
         ROS_DEBUG("e");
  
@@ -330,7 +329,7 @@ void ReetiROSserver::keyCb(const std_msgs::Char& key_msg)
         break;
     case KEYCODE_f:
         ROS_DEBUG("f");
-
+        sequence_exp_1_routine(false);
         break;
     case KEYCODE_h:
         ROS_DEBUG("h");
