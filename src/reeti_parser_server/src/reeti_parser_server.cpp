@@ -114,7 +114,7 @@ public:
         }
     ~ReetiROSserver()
         {
-            
+
         }
 
     void keyCb(const std_msgs::Char& keymsg);
@@ -180,35 +180,33 @@ void ReetiROSserver::sequence_standby(void)
 void ReetiROSserver::sequence_see_monitor(int monitor_x)
 {
     std::stringstream str;
-            
+
     if(monitor_x == 0)
+    {
     str  << "Global.servo.neckRotat=10 smooth:0.8s,"
         << "Global.servo.neckPan=50 smooth:0.8s,"
         << "Global.servo.neckTilt=40 smooth:0.8s,"
         << "Global.servo.rightEyePan=65,Global.servo.leftEyePan=40,Global.servo.rightEyeTilt=45 smooth:0.5s,Global.servo.leftEyeTilt=40 smooth:0.5s"
         << ";";
-    //neck_srv.request.neckYaw = 20;
+    }
+
     else if(monitor_x == 1)
-    str << "Global.servo.neckRotat=80 smooth:0.8s,"
+    {
+        str << "Global.servo.neckRotat=80 smooth:0.8s,"
         << "Global.servo.neckPan=50 smooth:0.8s,"
         << "Global.servo.neckTilt=40 smooth:0.8s,"
         << "Global.servo.rightEyePan=65,Global.servo.leftEyePan=40,Global.servo.rightEyeTilt=45 smooth:0.5s,Global.servo.leftEyeTilt=40 smooth:0.5s"
         << ";";
-//    neck_srv.request.neckYaw = 80;
-    else
-    str << "Global.servo.rightEyeLid=100,Global.servo.leftEyeLid=100,"
+}
+    else //back to rest pose
+    {
+        str << "Global.servo.rightEyeLid=100,Global.servo.leftEyeLid=100,"
         << "Global.servo.rightEyePan=65,Global.servo.leftEyePan=40,Global.servo.rightEyeTilt=20 smooth:0.5s,Global.servo.leftEyeTilt=20 smooth:0.5s,"
         << "Global.servo.neckRotat=50 smooth:0.8s,"
         << "Global.servo.neckPan=50 smooth:0.8s,"
         << "Global.servo.neckTilt=40 smooth:0.8s"
         << ";";
-    //neck_srv.request.neckYaw = 50;
-    
-//    neck_srv.request.neckPitch = 50;
-    //  neck_srv.request.neckRoll = 40;
-    // neckClient.call(neck_srv);
-
-
+    }
 
     anycmd_srv.request.cmd = str.str(); 
     anycmdClient.call(anycmd_srv);
@@ -216,22 +214,21 @@ void ReetiROSserver::sequence_see_monitor(int monitor_x)
 
 void ReetiROSserver::sequence_say_hello(void)
 {
-    neck_srv.request.neckYaw = servo_reeti_neck_yaw;
-    neck_srv.request.neckPitch = servo_reeti_neck_pitch;
-    neck_srv.request.neckRoll = servo_reeti_neck_roll - 20;
-    neckClient.call(neck_srv);
+    std::stringstream str;
 
-    //ros::Duration(0.1).sleep();
+    str << "Global.tty.say(\"\\\\voice=Kate \\\\language=English Hello!\"),"
+        << "Global.servo.neckTilt=" << servo_reeti_neck_roll-20 << " smooth:0.3s;";
+
+    anycmd_srv.request.cmd = str.str();
+    anycmdClient.call(anycmd_srv);
     
-    say_english_srv.request.textToSay = "\\\\volume=10 Hello!" ;
-    sayClient.call(say_english_srv);
-
     ros::Duration(1).sleep();
-        
-    neck_srv.request.neckYaw = servo_reeti_neck_yaw;
-    neck_srv.request.neckPitch = servo_reeti_neck_pitch;
-    neck_srv.request.neckRoll = servo_reeti_neck_roll ;
-    neckClient.call(neck_srv);
+
+    str << "Global.servo.neckTilt=" << servo_reeti_neck_roll << " smooth:0.3s;";
+
+    anycmd_srv.request.cmd = str.str();
+    anycmdClient.call(anycmd_srv);
+
 }
 
 
