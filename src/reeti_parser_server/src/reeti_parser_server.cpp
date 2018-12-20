@@ -222,7 +222,7 @@ void ReetiROSserver::sequence_exp_1_routine(bool tracking)
     std_msgs::Bool switch_msg;
     std_msgs::Int8 insertFlag_msg;
     
-    ros::Duration(0.5).sleep();
+    //ros::Duration(0.5).sleep();
     if (tracking == true)
     {
         switch_msg.data = true;
@@ -233,13 +233,13 @@ void ReetiROSserver::sequence_exp_1_routine(bool tracking)
     else
     {
         switch_msg.data = false;
-        sequence_standby();
+        //sequence_standby();
         
         ROS_INFO("face tracking off");
     }
     face_tracking_switch_pub_.publish(switch_msg);
 
-    ros::Duration(1.5).sleep();
+    ros::Duration(2).sleep();
 
     timeNow = ros::Time::now();
     rand_num = (timeNow.nsec % 2);

@@ -67,7 +67,7 @@ class FaceDetector
         {
             float d_deg;
 
-            d_deg = (centerX - x) /7; //8 * 3 times slow
+            d_deg = (centerX - x) /3; //8 * 3 times slow
 
             //d_deg = atan(d_deg);
             //d_deg = d_deg * 180 / 3.14159;
@@ -80,7 +80,7 @@ class FaceDetector
         {
             float d_deg;
 
-            d_deg = (centerY - y) / 7;
+            d_deg = (centerY - y) / 3;
 
             //d_deg = atan(d_deg);
             //d_deg = d_deg * 180 / 3.14159;
