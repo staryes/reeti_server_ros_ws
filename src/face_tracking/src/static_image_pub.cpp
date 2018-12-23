@@ -41,7 +41,7 @@ int main(int argc, char** argv)
     ros::Publisher pub0 = nh_.advertise<sensor_msgs::Image>("/static_image0", 1);
     ros::Publisher pub1 = nh_.advertise<sensor_msgs::Image>("/static_image1", 1);
 
-    ros::Rate loop_rate(20 );
+    ros::Rate loop_rate(5 );
 
     while(nh_.ok())
     {
