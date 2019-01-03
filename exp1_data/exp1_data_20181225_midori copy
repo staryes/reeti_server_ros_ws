@@ -1,0 +1,855 @@
+| 1545792491.886008359 | Reeti takes a break |
+| 1545792513.538999874 | exp1 d mode         |
+| 1545792513.542807867 | face tracking on    |
+| 1545792515.550489647 | reeti turn to 1     |
+| 1545792515.550539826 | monitor 1 letter u  |
+| 1545792520.502807471 | user pressed u      |
+| 1545792526.128157009 | exp1 d mode         |
+| 1545792526.131086145 | face tracking on    |
+| 1545792528.133794573 | reeti turn to 0     |
+| 1545792528.133868934 | monitor 1 letter v  |
+| 1545792530.705486095 | user pressed v      |
+| 1545792532.521144083 | exp1 d mode         |
+| 1545792532.524159850 | face tracking on    |
+| 1545792534.527805480 | reeti turn to 0     |
+| 1545792534.527856892 | monitor 0 letter u  |
+| 1545792537.259456883 | user pressed u      |
+| 1545792538.777419913 | exp1 d mode         |
+| 1545792538.782233397 | face tracking on    |
+| 1545792540.785326547 | reeti turn to 1     |
+| 1545792540.785355323 | monitor 1 letter u  |
+| 1545792543.649692967 | user pressed u      |
+| 1545792545.037028050 | exp1 d mode         |
+| 1545792545.046888212 | face tracking on    |
+| 1545792547.050587139 | reeti turn to 1     |
+| 1545792547.050633161 | monitor 0 letter v  |
+| 1545792549.611786642 | user pressed v      |
+| 1545792550.893840795 | exp1 d mode         |
+| 1545792550.896384975 | face tracking on    |
+| 1545792552.899400118 | reeti turn to 0     |
+| 1545792552.899429942 | monitor 0 letter u  |
+| 1545792555.515600951 | user pressed u      |
+| 1545792557.177728276 | exp1 d mode         |
+| 1545792557.181528841 | face tracking on    |
+| 1545792559.185287184 | reeti turn to 1     |
+| 1545792559.185315938 | monitor 0 letter v  |
+| 1545792561.727595322 | user pressed v      |
+| 1545792563.213407826 | exp1 d mode         |
+| 1545792563.217031089 | face tracking on    |
+| 1545792565.219964204 | reeti turn to 0     |
+| 1545792565.219991301 | monitor 0 letter v  |
+| 1545792567.567250317 | user pressed v      |
+| 1545792569.079886533 | exp1 d mode         |
+| 1545792569.087440496 | face tracking on    |
+| 1545792571.094556444 | reeti turn to 0     |
+| 1545792571.094644744 | monitor 0 letter v  |
+| 1545792573.544516643 | user pressed v      |
+| 1545792575.119891326 | exp1 d mode         |
+| 1545792575.122499028 | face tracking on    |
+| 1545792577.125095906 | reeti turn to 0     |
+| 1545792577.125159823 | monitor 0 letter u  |
+| 1545792579.596288551 | user pressed u      |
+| 1545792582.428288298 | Reeti takes a break |
+| 1545792652.265525443 | exp1 d mode         |
+| 1545792652.271943554 | face tracking on    |
+| 1545792654.276221459 | reeti turn to 1     |
+| 1545792654.276290922 | monitor 1 letter u  |
+| 1545792656.688127578 | user pressed u      |
+| 1545792658.524171972 | exp1 d mode         |
+| 1545792658.526596013 | face tracking on    |
+| 1545792660.533073913 | reeti turn to 0     |
+| 1545792660.533151406 | monitor 0 letter u  |
+| 1545792663.321937053 | user pressed u      |
+| 1545792664.862820793 | exp1 d mode         |
+| 1545792664.872717817 | face tracking on    |
+| 1545792666.876085347 | reeti turn to 1     |
+| 1545792666.876169973 | monitor 0 letter u  |
+| 1545792669.396051290 | user pressed u      |
+| 1545792671.238851771 | exp1 d mode         |
+| 1545792671.241555060 | face tracking on    |
+| 1545792673.244764945 | reeti turn to 0     |
+| 1545792673.244800770 | monitor 1 letter u  |
+| 1545792675.626692068 | user pressed u      |
+| 1545792677.082444110 | exp1 d mode         |
+| 1545792677.085305801 | face tracking on    |
+| 1545792679.088539382 | reeti turn to 0     |
+| 1545792679.088610037 | monitor 1 letter v  |
+| 1545792681.403092270 | user pressed v      |
+| 1545792682.776230799 | exp1 d mode         |
+| 1545792682.779087948 | face tracking on    |
+| 1545792684.781988560 | reeti turn to 0     |
+| 1545792684.782096266 | monitor 0 letter v  |
+| 1545792687.164194964 | user pressed v      |
+| 1545792688.694326195 | exp1 d mode         |
+| 1545792688.702792326 | face tracking on    |
+| 1545792690.706393621 | reeti turn to 0     |
+| 1545792690.706441696 | monitor 1 letter u  |
+| 1545792693.109680419 | user pressed u      |
+| 1545792694.749427900 | exp1 d mode         |
+| 1545792694.751915305 | face tracking on    |
+| 1545792696.755072946 | reeti turn to 1     |
+| 1545792696.755122974 | monitor 1 letter u  |
+| 1545792699.069198087 | user pressed u      |
+| 1545792700.511523133 | exp1 d mode         |
+| 1545792700.514245892 | face tracking on    |
+| 1545792702.517401704 | reeti turn to 1     |
+| 1545792702.517460352 | monitor 0 letter u  |
+| 1545792704.904219183 | user pressed u      |
+| 1545792706.664172689 | exp1 d mode         |
+| 1545792706.670587111 | face tracking on    |
+| 1545792708.673913658 | reeti turn to 0     |
+| 1545792708.673947699 | monitor 0 letter u  |
+| 1545792711.176406975 | user pressed u      |
+| 1545792713.035263773 | exp1 d mode         |
+| 1545792713.038210915 | face tracking on    |
+| 1545792715.041241782 | reeti turn to 1     |
+| 1545792715.041286258 | monitor 1 letter v  |
+| 1545792717.544783468 | user pressed v      |
+| 1545792719.342790777 | exp1 d mode         |
+| 1545792719.345382497 | face tracking on    |
+| 1545792721.348798822 | reeti turn to 1     |
+| 1545792721.348959805 | monitor 0 letter u  |
+| 1545792723.905026238 | user pressed u      |
+| 1545792725.645847528 | Reeti takes a break |
+| 1545792788.849606430 | exp1 f mode         |
+| 1545792788.849633714 | face tracking off   |
+| 1545792790.856952387 | reeti turn to 1     |
+| 1545792790.856983814 | monitor 0 letter v  |
+| 1545792793.498013158 | user pressed v      |
+| 1545792795.346112539 | exp1 f mode         |
+| 1545792795.346228244 | face tracking off   |
+| 1545792797.349458482 | reeti turn to 0     |
+| 1545792797.349491664 | monitor 0 letter u  |
+| 1545792800.596239326 | user pressed u      |
+| 1545792802.575059567 | exp1 f mode         |
+| 1545792802.575100506 | face tracking off   |
+| 1545792804.578032607 | reeti turn to 1     |
+| 1545792804.578070744 | monitor 1 letter v  |
+| 1545792807.099524590 | user pressed v      |
+| 1545792808.902856867 | exp1 f mode         |
+| 1545792808.902888253 | face tracking off   |
+| 1545792810.905883320 | reeti turn to 1     |
+| 1545792810.905915544 | monitor 1 letter u  |
+| 1545792813.291383083 | user pressed u      |
+| 1545792815.416962762 | exp1 f mode         |
+| 1545792815.416994029 | face tracking off   |
+| 1545792817.427416023 | reeti turn to 0     |
+| 1545792817.427505539 | monitor 0 letter u  |
+| 1545792820.060256052 | user pressed u      |
+| 1545792822.308585725 | exp1 f mode         |
+| 1545792822.308694629 | face tracking off   |
+| 1545792824.311413837 | reeti turn to 1     |
+| 1545792824.311467229 | monitor 1 letter u  |
+| 1545792826.894056133 | user pressed u      |
+| 1545792828.438777976 | exp1 f mode         |
+| 1545792828.438822126 | face tracking off   |
+| 1545792830.442107312 | reeti turn to 0     |
+| 1545792830.442175163 | monitor 0 letter u  |
+| 1545792832.894194580 | user pressed u      |
+| 1545792834.826392313 | exp1 f mode         |
+| 1545792834.826473925 | face tracking off   |
+| 1545792836.829571400 | reeti turn to 0     |
+| 1545792836.829686774 | monitor 1 letter v  |
+| 1545792839.135383203 | user pressed v      |
+| 1545792840.720311400 | exp1 f mode         |
+| 1545792840.720342274 | face tracking off   |
+| 1545792842.726523264 | reeti turn to 0     |
+| 1545792842.726553577 | monitor 0 letter v  |
+| 1545792845.270457031 | user pressed v      |
+| 1545792847.071143630 | Reeti takes a break |
+| 1545792860.539671726 | exp1 f mode         |
+| 1545792860.539708533 | face tracking off   |
+| 1545792862.542993693 | reeti turn to 1     |
+| 1545792862.543026573 | monitor 1 letter v  |
+| 1545792864.946266213 | user pressed v      |
+| 1545792867.130553095 | exp1 f mode         |
+| 1545792867.130601558 | face tracking off   |
+| 1545792869.133447018 | reeti turn to 1     |
+| 1545792869.133538503 | monitor 1 letter u  |
+| 1545792871.659781967 | user pressed u      |
+| 1545792873.540535369 | exp1 f mode         |
+| 1545792873.540658217 | face tracking off   |
+| 1545792875.544410368 | reeti turn to 0     |
+| 1545792875.544447311 | monitor 0 letter u  |
+| 1545792877.867658767 | user pressed u      |
+| 1545792879.405504517 | exp1 f mode         |
+| 1545792879.405538865 | face tracking off   |
+| 1545792881.408315125 | reeti turn to 0     |
+| 1545792881.408418467 | monitor 0 letter v  |
+| 1545792883.734684600 | user pressed v      |
+| 1545792885.763218724 | exp1 f mode         |
+| 1545792885.763258096 | face tracking off   |
+| 1545792887.766170881 | reeti turn to 1     |
+| 1545792887.766288036 | monitor 0 letter v  |
+| 1545792890.189612211 | user pressed v      |
+| 1545792891.978714430 | exp1 f mode         |
+| 1545792891.978771009 | face tracking off   |
+| 1545792893.989565700 | reeti turn to 0     |
+| 1545792893.989603803 | monitor 0 letter v  |
+| 1545792896.312945485 | user pressed v      |
+| 1545792898.130440859 | exp1 f mode         |
+| 1545792898.130529088 | face tracking off   |
+| 1545792900.134158827 | reeti turn to 1     |
+| 1545792900.134194767 | monitor 0 letter v  |
+| 1545792902.542945444 | user pressed v      |
+| 1545792904.287191219 | exp1 f mode         |
+| 1545792904.287362684 | face tracking off   |
+| 1545792906.290821906 | reeti turn to 1     |
+| 1545792906.290869842 | monitor 0 letter u  |
+| 1545792908.543785412 | user pressed u      |
+| 1545792910.434882209 | exp1 f mode         |
+| 1545792910.434987924 | face tracking off   |
+| 1545792912.438200610 | reeti turn to 0     |
+| 1545792912.438325055 | monitor 0 letter u  |
+| 1545792914.832198723 | user pressed u      |
+| 1545792916.357418845 | exp1 f mode         |
+| 1545792916.357449421 | face tracking off   |
+| 1545792918.360177446 | reeti turn to 1     |
+| 1545792918.360213139 | monitor 1 letter v  |
+| 1545792920.849866609 | user pressed v      |
+| 1545792922.791174744 | Reeti takes a break |
+| 1545792968.659460886 | Reeti standby       |
+| 1545792969.841349468 | exp1 f mode         |
+| 1545792969.841387752 | face tracking off   |
+| 1545792971.851435344 | reeti turn to 0     |
+| 1545792971.851492191 | monitor 0 letter u  |
+| 1545792974.457547581 | user pressed u      |
+| 1545792975.925516287 | exp1 f mode         |
+| 1545792975.925548750 | face tracking off   |
+| 1545792977.928274214 | reeti turn to 0     |
+| 1545792977.928312496 | monitor 0 letter u  |
+| 1545792980.154851782 | user pressed u      |
+| 1545792981.337390362 | exp1 f mode         |
+| 1545792981.337423440 | face tracking off   |
+| 1545792983.345328072 | reeti turn to 0     |
+| 1545792983.345416852 | monitor 1 letter v  |
+| 1545792985.681611638 | user pressed v      |
+| 1545792987.141480822 | exp1 f mode         |
+| 1545792987.141506172 | face tracking off   |
+| 1545792989.151152769 | reeti turn to 1     |
+| 1545792989.151235944 | monitor 0 letter v  |
+| 1545792991.386030429 | user pressed v      |
+| 1545792992.679576339 | exp1 f mode         |
+| 1545792992.679620272 | face tracking off   |
+| 1545792994.683371465 | reeti turn to 0     |
+| 1545792994.683440965 | monitor 0 letter u  |
+| 1545792996.980592237 | user pressed u      |
+| 1545792998.722909329 | exp1 f mode         |
+| 1545792998.722939803 | face tracking off   |
+| 1545793000.725454292 | reeti turn to 0     |
+| 1545793000.725487891 | monitor 0 letter v  |
+| 1545793002.843839008 | user pressed v      |
+| 1545793004.415565187 | exp1 f mode         |
+| 1545793004.415589788 | face tracking off   |
+| 1545793006.418499771 | reeti turn to 0     |
+| 1545793006.418534297 | monitor 1 letter u  |
+| 1545793008.900981489 | user pressed u      |
+| 1545793010.312283175 | exp1 f mode         |
+| 1545793010.312398903 | face tracking off   |
+| 1545793012.315640923 | reeti turn to 0     |
+| 1545793012.315727626 | monitor 1 letter u  |
+| 1545793014.557090014 | user pressed u      |
+| 1545793016.253866420 | exp1 f mode         |
+| 1545793016.253899161 | face tracking off   |
+| 1545793018.256520536 | reeti turn to 0     |
+| 1545793018.256558493 | monitor 0 letter u  |
+| 1545793020.645426469 | user pressed u      |
+| 1545793021.964590069 | exp1 f mode         |
+| 1545793021.964690791 | face tracking off   |
+| 1545793023.967648740 | reeti turn to 0     |
+| 1545793023.967683267 | monitor 1 letter v  |
+| 1545793026.182586652 | user pressed v      |
+| 1545793027.692424644 | Reeti takes a break |
+| 1545793067.587566354 | Reeti standby       |
+| 1545793068.874791297 | exp1 d mode         |
+| 1545793068.878691817 | face tracking on    |
+| 1545793070.882741255 | reeti turn to 1     |
+| 1545793070.882792401 | monitor 1 letter u  |
+| 1545793073.397918502 | user pressed u      |
+| 1545793074.906418788 | exp1 d mode         |
+| 1545793074.912142206 | face tracking on    |
+| 1545793076.915998839 | reeti turn to 0     |
+| 1545793076.916050624 | monitor 1 letter v  |
+| 1545793079.140993824 | user pressed v      |
+| 1545793080.953245209 | exp1 d mode         |
+| 1545793080.956252792 | face tracking on    |
+| 1545793082.959578002 | reeti turn to 0     |
+| 1545793082.959623104 | monitor 1 letter u  |
+| 1545793085.102141339 | user pressed u      |
+| 1545793086.620220145 | exp1 d mode         |
+| 1545793086.623099742 | face tracking on    |
+| 1545793088.626833540 | reeti turn to 0     |
+| 1545793088.627006175 | monitor 0 letter v  |
+| 1545793090.646180515 | user pressed v      |
+| 1545793092.253215815 | exp1 d mode         |
+| 1545793092.256589420 | face tracking on    |
+| 1545793094.259697204 | reeti turn to 0     |
+| 1545793094.259736657 | monitor 0 letter v  |
+| 1545793096.511024867 | user pressed v      |
+| 1545793098.129070127 | exp1 d mode         |
+| 1545793098.135837048 | face tracking on    |
+| 1545793100.142700794 | reeti turn to 1     |
+| 1545793100.142905896 | monitor 0 letter v  |
+| 1545793102.569189166 | user pressed v      |
+| 1545793104.062548885 | exp1 d mode         |
+| 1545793104.075803775 | face tracking on    |
+| 1545793106.078797494 | reeti turn to 0     |
+| 1545793106.078838660 | monitor 0 letter v  |
+| 1545793108.344892896 | user pressed v      |
+| 1545793109.770590188 | exp1 d mode         |
+| 1545793109.775148384 | face tracking on    |
+| 1545793111.777786249 | reeti turn to 0     |
+| 1545793111.777816326 | monitor 1 letter v  |
+| 1545793113.993574957 | user pressed v      |
+| 1545793115.137261398 | exp1 d mode         |
+| 1545793115.142348649 | face tracking on    |
+| 1545793117.145894663 | reeti turn to 1     |
+| 1545793117.145962786 | monitor 1 letter u  |
+| 1545793119.723471751 | user pressed u      |
+| 1545793121.408172310 | exp1 d mode         |
+| 1545793121.411349323 | face tracking on    |
+| 1545793123.414210579 | reeti turn to 0     |
+| 1545793123.414242663 | monitor 1 letter u  |
+| 1545793125.754639678 | user pressed u      |
+| 1545793127.445917686 | exp1 d mode         |
+| 1545793127.448817077 | face tracking on    |
+| 1545793129.451925267 | reeti turn to 0     |
+| 1545793129.451968562 | monitor 0 letter v  |
+| 1545793131.534101847 | user pressed v      |
+| 1545793133.019144045 | Reeti takes a break |
+| 1545793151.507428151 | Reeti standby       |
+| 1545793153.410672507 | exp1 d mode         |
+| 1545793153.413551607 | face tracking on    |
+| 1545793155.416845844 | reeti turn to 1     |
+| 1545793155.416934592 | monitor 1 letter u  |
+| 1545793157.839270158 | user pressed u      |
+| 1545793159.245614596 | exp1 d mode         |
+| 1545793159.247936576 | face tracking on    |
+| 1545793161.251011189 | reeti turn to 1     |
+| 1545793161.251044954 | monitor 1 letter u  |
+| 1545793163.464717382 | user pressed u      |
+| 1545793165.118969946 | exp1 d mode         |
+| 1545793165.125902754 | face tracking on    |
+| 1545793167.137574429 | reeti turn to 0     |
+| 1545793167.137634119 | monitor 1 letter u  |
+| 1545793169.585309588 | user pressed u      |
+| 1545793171.199477870 | exp1 d mode         |
+| 1545793171.204268992 | face tracking on    |
+| 1545793173.207728352 | reeti turn to 1     |
+| 1545793173.207816319 | monitor 1 letter u  |
+| 1545793175.547015972 | user pressed u      |
+| 1545793177.130664425 | exp1 d mode         |
+| 1545793177.137811195 | face tracking on    |
+| 1545793179.145997117 | reeti turn to 0     |
+| 1545793179.146070415 | monitor 0 letter v  |
+| 1545793181.548875687 | user pressed v      |
+| 1545793183.022097365 | exp1 d mode         |
+| 1545793183.025200658 | face tracking on    |
+| 1545793185.037191790 | reeti turn to 1     |
+| 1545793185.037284393 | monitor 1 letter v  |
+| 1545793187.412727006 | user pressed v      |
+| 1545793188.998935260 | exp1 d mode         |
+| 1545793189.004979984 | face tracking on    |
+| 1545793191.008202005 | reeti turn to 1     |
+| 1545793191.008245483 | monitor 1 letter u  |
+| 1545793193.457226075 | user pressed u      |
+| 1545793195.000901790 | exp1 d mode         |
+| 1545793195.003720051 | face tracking on    |
+| 1545793197.008054026 | reeti turn to 0     |
+| 1545793197.008085663 | monitor 0 letter v  |
+| 1545793199.375076388 | user pressed v      |
+| 1545793200.845991700 | exp1 d mode         |
+| 1545793200.848835823 | face tracking on    |
+| 1545793202.852246941 | reeti turn to 1     |
+| 1545793202.852298271 | monitor 0 letter v  |
+| 1545793205.147505377 | user pressed v      |
+| 1545793206.636328195 | exp1 d mode         |
+| 1545793206.639063844 | face tracking on    |
+| 1545793208.642740154 | reeti turn to 1     |
+| 1545793208.642793327 | monitor 1 letter u  |
+| 1545793210.882831077 | user pressed u      |
+| 1545793212.336289992 | exp1 d mode         |
+| 1545793212.339091879 | face tracking on    |
+| 1545793214.342135446 | reeti turn to 1     |
+| 1545793214.342177022 | monitor 1 letter v  |
+| 1545793216.625576671 | user pressed v      |
+| 1545793218.042310681 | Reeti takes a break |
+| 1545793245.208688036 | Reeti standby       |
+| 1545793247.118822709 | exp1 d mode         |
+| 1545793247.126151381 | face tracking on    |
+| 1545793249.132552533 | reeti turn to 0     |
+| 1545793249.132589929 | monitor 1 letter u  |
+| 1545793251.655421413 | user pressed u      |
+| 1545793253.114408606 | exp1 d mode         |
+| 1545793253.117961117 | face tracking on    |
+| 1545793255.125616376 | reeti turn to 1     |
+| 1545793255.125669371 | monitor 0 letter u  |
+| 1545793257.346650864 | user pressed u      |
+| 1545793258.814742171 | exp1 d mode         |
+| 1545793258.818748872 | face tracking on    |
+| 1545793260.831296623 | reeti turn to 0     |
+| 1545793260.831358737 | monitor 1 letter v  |
+| 1545793263.164922955 | user pressed v      |
+| 1545793264.749340736 | exp1 d mode         |
+| 1545793264.752401493 | face tracking on    |
+| 1545793266.763867295 | reeti turn to 0     |
+| 1545793266.764005331 | monitor 1 letter v  |
+| 1545793268.940912840 | user pressed v      |
+| 1545793270.914850816 | exp1 d mode         |
+| 1545793270.917374589 | face tracking on    |
+| 1545793272.920187298 | reeti turn to 1     |
+| 1545793272.920225141 | monitor 1 letter v  |
+| 1545793275.071464298 | user pressed v      |
+| 1545793277.022288237 | exp1 d mode         |
+| 1545793277.031965845 | face tracking on    |
+| 1545793279.035909980 | reeti turn to 0     |
+| 1545793279.035958031 | monitor 0 letter v  |
+| 1545793281.450164301 | user pressed v      |
+| 1545793283.170152089 | exp1 d mode         |
+| 1545793283.172915955 | face tracking on    |
+| 1545793285.176005762 | reeti turn to 0     |
+| 1545793285.176135832 | monitor 0 letter u  |
+| 1545793287.451139188 | user pressed u      |
+| 1545793289.510880899 | exp1 d mode         |
+| 1545793289.513729556 | face tracking on    |
+| 1545793291.517059341 | reeti turn to 1     |
+| 1545793291.517094929 | monitor 1 letter v  |
+| 1545793293.688578712 | user pressed v      |
+| 1545793295.919657318 | exp1 d mode         |
+| 1545793295.928439145 | face tracking on    |
+| 1545793297.931965177 | reeti turn to 1     |
+| 1545793297.932034835 | monitor 1 letter u  |
+| 1545793300.206900857 | user pressed u      |
+| 1545793302.148338131 | exp1 d mode         |
+| 1545793302.151302969 | face tracking on    |
+| 1545793304.163977087 | reeti turn to 1     |
+| 1545793304.164040205 | monitor 1 letter u  |
+| 1545793306.338909645 | user pressed u      |
+| 1545793308.034109328 | Reeti takes a break |
+| 1545793444.522775882 | Reeti takes a break |
+| 1545793483.266617706 | Reeti takes a break |
+| 1545793484.511035889 | Reeti standby       |
+| 1545793485.708845450 | exp1 f mode         |
+| 1545793485.708872497 | face tracking off   |
+| 1545793487.713927523 | reeti turn to 0     |
+| 1545793487.713961214 | monitor 0 letter u  |
+| 1545793490.107495983 | user pressed u      |
+| 1545793491.426378879 | exp1 f mode         |
+| 1545793491.426460585 | face tracking off   |
+| 1545793493.429348558 | reeti turn to 1     |
+| 1545793493.429433502 | monitor 0 letter u  |
+| 1545793495.594189710 | user pressed u      |
+| 1545793497.135552068 | exp1 f mode         |
+| 1545793497.135661155 | face tracking off   |
+| 1545793499.143591840 | reeti turn to 1     |
+| 1545793499.143649584 | monitor 0 letter v  |
+| 1545793501.426470736 | user pressed v      |
+| 1545793502.977862984 | exp1 f mode         |
+| 1545793502.977921432 | face tracking off   |
+| 1545793504.981825924 | reeti turn to 0     |
+| 1545793504.981908286 | monitor 1 letter u  |
+| 1545793507.453949359 | user pressed u      |
+| 1545793509.114416965 | exp1 f mode         |
+| 1545793509.114490707 | face tracking off   |
+| 1545793511.118704343 | reeti turn to 0     |
+| 1545793511.118813541 | monitor 1 letter v  |
+| 1545793513.538823161 | user pressed v      |
+| 1545793514.857708584 | exp1 f mode         |
+| 1545793514.857732959 | face tracking off   |
+| 1545793516.860273662 | reeti turn to 1     |
+| 1545793516.860339674 | monitor 1 letter u  |
+| 1545793519.181914725 | user pressed u      |
+| 1545793520.590327458 | exp1 f mode         |
+| 1545793520.590349163 | face tracking off   |
+| 1545793522.593546913 | reeti turn to 1     |
+| 1545793522.593611360 | monitor 1 letter u  |
+| 1545793525.011115466 | user pressed u      |
+| 1545793526.330342651 | exp1 f mode         |
+| 1545793526.330453295 | face tracking off   |
+| 1545793528.333991506 | reeti turn to 0     |
+| 1545793528.334160781 | monitor 1 letter u  |
+| 1545793530.709631152 | user pressed u      |
+| 1545793532.033632505 | exp1 f mode         |
+| 1545793532.033657487 | face tracking off   |
+| 1545793534.183224541 | reeti turn to 0     |
+| 1545793534.183258391 | monitor 0 letter v  |
+| 1545793536.566119341 | user pressed v      |
+| 1545793538.157730168 | exp1 f mode         |
+| 1545793538.157823105 | face tracking off   |
+| 1545793540.161123778 | reeti turn to 0     |
+| 1545793540.161197525 | monitor 1 letter u  |
+| 1545793542.665326468 | user pressed u      |
+| 1545793544.467342350 | Reeti takes a break |
+| 1545793555.488829889 | Reeti standby       |
+| 1545793557.886100574 | exp1 d mode         |
+| 1545793557.890455438 | face tracking on    |
+| 1545793559.894006151 | reeti turn to 0     |
+| 1545793559.894181360 | monitor 0 letter v  |
+| 1545793562.275803749 | user pressed v      |
+| 1545793563.720332981 | exp1 d mode         |
+| 1545793563.722704171 | face tracking on    |
+| 1545793565.725874202 | reeti turn to 1     |
+| 1545793565.725917892 | monitor 0 letter v  |
+| 1545793567.996822676 | user pressed v      |
+| 1545793569.680697746 | exp1 d mode         |
+| 1545793569.688049879 | face tracking on    |
+| 1545793571.691905798 | reeti turn to 1     |
+| 1545793571.692089175 | monitor 0 letter v  |
+| 1545793573.977003886 | user pressed v      |
+| 1545793575.899422940 | exp1 d mode         |
+| 1545793575.906901027 | face tracking on    |
+| 1545793577.910513986 | reeti turn to 0     |
+| 1545793577.910559201 | monitor 0 letter u  |
+| 1545793580.183495481 | user pressed u      |
+| 1545793582.188309716 | exp1 d mode         |
+| 1545793582.191852895 | face tracking on    |
+| 1545793584.201109810 | reeti turn to 1     |
+| 1545793584.201188407 | monitor 0 letter v  |
+| 1545793586.606163388 | user pressed v      |
+| 1545793589.440513022 | exp1 d mode         |
+| 1545793589.443186663 | face tracking on    |
+| 1545793591.451764667 | reeti turn to 1     |
+| 1545793591.451810514 | monitor 0 letter u  |
+| 1545793593.885398578 | user pressed u      |
+| 1545793595.666562400 | exp1 d mode         |
+| 1545793595.672142431 | face tracking on    |
+| 1545793597.676001851 | reeti turn to 1     |
+| 1545793597.676056089 | monitor 0 letter v  |
+| 1545793600.007151144 | user pressed v      |
+| 1545793601.706385162 | exp1 d mode         |
+| 1545793601.709255018 | face tracking on    |
+| 1545793603.716502746 | reeti turn to 1     |
+| 1545793603.716634636 | monitor 0 letter u  |
+| 1545793606.086537376 | user pressed u      |
+| 1545793607.600922556 | exp1 d mode         |
+| 1545793607.606120510 | face tracking on    |
+| 1545793609.609810590 | reeti turn to 1     |
+| 1545793609.609876327 | monitor 1 letter v  |
+| 1545793611.712373352 | user pressed v      |
+| 1545793613.254097312 | exp1 d mode         |
+| 1545793613.256726091 | face tracking on    |
+| 1545793615.260025911 | reeti turn to 1     |
+| 1545793615.260098233 | monitor 1 letter v  |
+| 1545793617.506346002 | user pressed v      |
+| 1545793619.069931465 | Reeti takes a break |
+| 1545793647.042121917 | exp1 f mode         |
+| 1545793647.042162510 | face tracking off   |
+| 1545793649.049195720 | reeti turn to 0     |
+| 1545793649.049252249 | monitor 0 letter v  |
+| 1545793651.420394945 | user pressed v      |
+| 1545793653.454908406 | exp1 f mode         |
+| 1545793653.454996065 | face tracking off   |
+| 1545793655.458170873 | reeti turn to 1     |
+| 1545793655.458208767 | monitor 0 letter v  |
+| 1545793657.847028553 | user pressed v      |
+| 1545793659.799679904 | exp1 f mode         |
+| 1545793659.799725043 | face tracking off   |
+| 1545793661.802444112 | reeti turn to 0     |
+| 1545793661.802529486 | monitor 0 letter v  |
+| 1545793663.962442465 | user pressed v      |
+| 1545793665.906629044 | exp1 f mode         |
+| 1545793665.906701403 | face tracking off   |
+| 1545793667.913649032 | reeti turn to 1     |
+| 1545793667.913687357 | monitor 1 letter v  |
+| 1545793670.281651164 | user pressed v      |
+| 1545793672.048549110 | exp1 f mode         |
+| 1545793672.048582448 | face tracking off   |
+| 1545793674.051496597 | reeti turn to 1     |
+| 1545793674.051543280 | monitor 0 letter u  |
+| 1545793676.282206967 | user pressed u      |
+| 1545793678.106178585 | exp1 f mode         |
+| 1545793678.106238939 | face tracking off   |
+| 1545793680.111563111 | reeti turn to 0     |
+| 1545793680.111698439 | monitor 1 letter v  |
+| 1545793682.377619078 | user pressed v      |
+| 1545793683.947115424 | exp1 f mode         |
+| 1545793683.947148816 | face tracking off   |
+| 1545793685.950369611 | reeti turn to 0     |
+| 1545793685.950404677 | monitor 1 letter u  |
+| 1545793688.266042142 | user pressed u      |
+| 1545793689.800481753 | exp1 f mode         |
+| 1545793689.800516021 | face tracking off   |
+| 1545793691.803516521 | reeti turn to 1     |
+| 1545793691.803592553 | monitor 1 letter v  |
+| 1545793694.074857968 | user pressed v      |
+| 1545793695.657531523 | exp1 f mode         |
+| 1545793695.657564440 | face tracking off   |
+| 1545793697.664268515 | reeti turn to 0     |
+| 1545793697.664336588 | monitor 1 letter u  |
+| 1545793699.989036362 | user pressed u      |
+| 1545793702.137317436 | exp1 f mode         |
+| 1545793702.137420443 | face tracking off   |
+| 1545793704.144758109 | reeti turn to 1     |
+| 1545793704.144815213 | monitor 0 letter v  |
+| 1545793706.564646014 | user pressed v      |
+| 1545793708.234187203 | Reeti takes a break |
+| 1545793718.663043186 | Reeti standby       |
+| 1545793720.089262199 | exp1 f mode         |
+| 1545793720.089323781 | face tracking off   |
+| 1545793722.097136715 | reeti turn to 1     |
+| 1545793722.097189426 | monitor 1 letter v  |
+| 1545793724.422801129 | user pressed v      |
+| 1545793726.684548108 | exp1 f mode         |
+| 1545793726.684664049 | face tracking off   |
+| 1545793728.688029263 | reeti turn to 1     |
+| 1545793728.688119846 | monitor 1 letter u  |
+| 1545793730.848832227 | user pressed u      |
+| 1545793733.074529094 | exp1 f mode         |
+| 1545793733.074554665 | face tracking off   |
+| 1545793735.077626265 | reeti turn to 1     |
+| 1545793735.077663173 | monitor 1 letter u  |
+| 1545793737.328510012 | user pressed u      |
+| 1545793738.868969593 | exp1 f mode         |
+| 1545793738.869005718 | face tracking off   |
+| 1545793740.873396191 | reeti turn to 1     |
+| 1545793740.873454272 | monitor 1 letter u  |
+| 1545793743.287746483 | user pressed u      |
+| 1545793744.995554409 | exp1 f mode         |
+| 1545793744.995587998 | face tracking off   |
+| 1545793746.998548025 | reeti turn to 0     |
+| 1545793746.998621837 | monitor 0 letter u  |
+| 1545793749.337011384 | user pressed u      |
+| 1545793750.914941113 | exp1 f mode         |
+| 1545793750.915040286 | face tracking off   |
+| 1545793752.917651692 | reeti turn to 0     |
+| 1545793752.917695181 | monitor 0 letter v  |
+| 1545793755.107192990 | user pressed v      |
+| 1545793756.588494209 | exp1 f mode         |
+| 1545793756.588554748 | face tracking off   |
+| 1545793758.595585500 | reeti turn to 1     |
+| 1545793758.595628141 | monitor 1 letter u  |
+| 1545793760.975056655 | user pressed u      |
+| 1545793762.825102469 | exp1 f mode         |
+| 1545793762.825129438 | face tracking off   |
+| 1545793764.828154095 | reeti turn to 0     |
+| 1545793764.828198245 | monitor 0 letter u  |
+| 1545793767.035042663 | user pressed u      |
+| 1545793768.674964673 | exp1 f mode         |
+| 1545793768.674987858 | face tracking off   |
+| 1545793770.677536607 | reeti turn to 0     |
+| 1545793770.677572035 | monitor 1 letter u  |
+| 1545793772.951842134 | user pressed u      |
+| 1545793774.610086615 | exp1 f mode         |
+| 1545793774.610192777 | face tracking off   |
+| 1545793776.613296291 | reeti turn to 1     |
+| 1545793776.613329645 | monitor 0 letter u  |
+| 1545793778.862678274 | user pressed u      |
+| 1545793781.195778762 | Reeti takes a break |
+| 1545793788.791568251 | Reeti standby       |
+| 1545793791.684151936 | exp1 f mode         |
+| 1545793791.684190951 | face tracking off   |
+| 1545793793.691663501 | reeti turn to 0     |
+| 1545793793.691725919 | monitor 0 letter u  |
+| 1545793796.021439800 | user pressed u      |
+| 1545793798.520807517 | exp1 f mode         |
+| 1545793798.520836730 | face tracking off   |
+| 1545793800.524173833 | reeti turn to 0     |
+| 1545793800.524291158 | monitor 1 letter v  |
+| 1545793802.803155031 | user pressed v      |
+| 1545793805.028328123 | exp1 f mode         |
+| 1545793805.028401140 | face tracking off   |
+| 1545793807.035379521 | reeti turn to 0     |
+| 1545793807.035413279 | monitor 0 letter v  |
+| 1545793809.265075170 | user pressed v      |
+| 1545793812.470747673 | exp1 f mode         |
+| 1545793812.470808039 | face tracking off   |
+| 1545793814.474314013 | reeti turn to 1     |
+| 1545793814.474347009 | monitor 0 letter v  |
+| 1545793816.666236579 | user pressed v      |
+| 1545793818.286652075 | exp1 f mode         |
+| 1545793818.286700681 | face tracking off   |
+| 1545793820.291382408 | reeti turn to 1     |
+| 1545793820.291409737 | monitor 1 letter u  |
+| 1545793822.474429504 | user pressed u      |
+| 1545793823.901546844 | exp1 f mode         |
+| 1545793823.901681564 | face tracking off   |
+| 1545793825.904468511 | reeti turn to 0     |
+| 1545793825.904502110 | monitor 1 letter v  |
+| 1545793828.192152981 | user pressed v      |
+| 1545793830.351549390 | exp1 f mode         |
+| 1545793830.351576775 | face tracking off   |
+| 1545793832.356482064 | reeti turn to 0     |
+| 1545793832.356519165 | monitor 0 letter u  |
+| 1545793834.574989175 | user pressed u      |
+| 1545793836.258101043 | exp1 f mode         |
+| 1545793836.258129382 | face tracking off   |
+| 1545793838.261265125 | reeti turn to 1     |
+| 1545793838.261371346 | monitor 1 letter v  |
+| 1545793840.567842081 | user pressed v      |
+| 1545793842.044287092 | exp1 f mode         |
+| 1545793842.044403529 | face tracking off   |
+| 1545793844.050067675 | reeti turn to 0     |
+| 1545793844.050125532 | monitor 0 letter u  |
+| 1545793846.368778460 | user pressed u      |
+| 1545793847.655696313 | exp1 f mode         |
+| 1545793847.655754004 | face tracking off   |
+| 1545793849.659275564 | reeti turn to 1     |
+| 1545793849.659477726 | monitor 1 letter v  |
+| 1545793852.000566392 | user pressed v      |
+| 1545793853.847125225 | Reeti takes a break |
+| 1545793912.239847743 | Reeti standby       |
+| 1545793915.374795042 | exp1 f mode         |
+| 1545793915.374842100 | face tracking off   |
+| 1545793917.381821017 | reeti turn to 1     |
+| 1545793917.381883924 | monitor 0 letter v  |
+| 1545793919.623514650 | user pressed v      |
+| 1545793921.757488351 | exp1 f mode         |
+| 1545793921.757573538 | face tracking off   |
+| 1545793923.760546152 | reeti turn to 1     |
+| 1545793923.760582002 | monitor 1 letter v  |
+| 1545793925.976742611 | user pressed v      |
+| 1545793927.535891076 | exp1 f mode         |
+| 1545793927.535932518 | face tracking off   |
+| 1545793929.538393462 | reeti turn to 0     |
+| 1545793929.538455606 | monitor 0 letter v  |
+| 1545793931.573990468 | exp1 f mode         |
+| 1545793931.574065378 | face tracking off   |
+| 1545793933.580633205 | reeti turn to 1     |
+| 1545793933.580668479 | monitor 1 letter u  |
+| 1545793933.580747808 | user pressed v      |
+| 1545793936.120111225 | user pressed u      |
+| 1545793938.944910354 | exp1 f mode         |
+| 1545793938.945031720 | face tracking off   |
+| 1545793940.951428040 | reeti turn to 1     |
+| 1545793940.951459878 | monitor 1 letter u  |
+| 1545793943.188965519 | user pressed u      |
+| 1545793944.770960166 | exp1 f mode         |
+| 1545793944.770998057 | face tracking off   |
+| 1545793946.773944903 | reeti turn to 1     |
+| 1545793946.773988884 | monitor 0 letter u  |
+| 1545793948.913421753 | user pressed u      |
+| 1545793950.493585744 | exp1 f mode         |
+| 1545793950.493681215 | face tracking off   |
+| 1545793952.496915450 | reeti turn to 0     |
+| 1545793952.496975653 | monitor 1 letter u  |
+| 1545793954.916984302 | user pressed u      |
+| 1545793956.429784079 | exp1 f mode         |
+| 1545793956.429815827 | face tracking off   |
+| 1545793958.432503137 | reeti turn to 1     |
+| 1545793958.432539327 | monitor 1 letter u  |
+| 1545793960.581926599 | user pressed u      |
+| 1545793962.012461380 | exp1 f mode         |
+| 1545793962.012490177 | face tracking off   |
+| 1545793964.015773233 | reeti turn to 0     |
+| 1545793964.015892831 | monitor 0 letter u  |
+| 1545793966.205933996 | user pressed u      |
+| 1545793967.578142592 | exp1 f mode         |
+| 1545793967.578169821 | face tracking off   |
+| 1545793969.581015347 | reeti turn to 0     |
+| 1545793969.581051981 | monitor 0 letter u  |
+| 1545793971.870869641 | user pressed u      |
+| 1545793974.134514062 | exp1 f mode         |
+| 1545793974.134610946 | face tracking off   |
+| 1545793976.137942599 | reeti turn to 1     |
+| 1545793976.137988680 | monitor 0 letter v  |
+| 1545793978.420896901 | user pressed v      |
+| 1545793980.479470363 | Reeti takes a break |
+| 1545793994.996121297 | Reeti standby       |
+| 1545793996.313056935 | exp1 d mode         |
+| 1545793996.320259300 | face tracking on    |
+| 1545793998.324646034 | reeti turn to 0     |
+| 1545793998.324680730 | monitor 1 letter u  |
+| 1545794000.529329834 | user pressed u      |
+| 1545794001.907674819 | exp1 d mode         |
+| 1545794001.911495116 | face tracking on    |
+| 1545794003.919249823 | reeti turn to 0     |
+| 1545794003.919300999 | monitor 0 letter v  |
+| 1545794006.100027505 | user pressed v      |
+| 1545794007.401257812 | exp1 d mode         |
+| 1545794007.403680733 | face tracking on    |
+| 1545794009.410526393 | reeti turn to 1     |
+| 1545794009.410595820 | monitor 0 letter u  |
+| 1545794011.706581272 | user pressed u      |
+| 1545794012.993553453 | exp1 d mode         |
+| 1545794012.996565621 | face tracking on    |
+| 1545794014.999466416 | reeti turn to 1     |
+| 1545794014.999501408 | monitor 0 letter v  |
+| 1545794023.607381431 | exp1 f mode         |
+| 1545794023.607424635 | face tracking off   |
+| 1545794025.611420460 | reeti turn to 1     |
+| 1545794025.611463137 | monitor 0 letter u  |
+| 1545794025.611568162 | user pressed v      |
+| 1545794028.010413340 | user pressed u      |
+| 1545794030.097316445 | exp1 d mode         |
+| 1545794030.100230752 | face tracking on    |
+| 1545794032.103535823 | reeti turn to 0     |
+| 1545794032.103594873 | monitor 1 letter v  |
+| 1545794034.296241053 | user pressed v      |
+| 1545794035.732387339 | exp1 d mode         |
+| 1545794035.735221789 | face tracking on    |
+| 1545794037.742056846 | reeti turn to 1     |
+| 1545794037.742126597 | monitor 1 letter u  |
+| 1545794040.073206363 | user pressed u      |
+| 1545794041.736835313 | exp1 d mode         |
+| 1545794041.742446694 | face tracking on    |
+| 1545794043.752039356 | reeti turn to 1     |
+| 1545794043.752097587 | monitor 1 letter u  |
+| 1545794045.996623833 | user pressed u      |
+| 1545794047.433766841 | exp1 d mode         |
+| 1545794047.441178999 | face tracking on    |
+| 1545794049.449917838 | reeti turn to 0     |
+| 1545794049.450015175 | monitor 0 letter v  |
+| 1545794051.705662183 | user pressed v      |
+| 1545794053.570552732 | exp1 d mode         |
+| 1545794053.574738540 | face tracking on    |
+| 1545794055.583519373 | reeti turn to 0     |
+| 1545794055.583579031 | monitor 0 letter v  |
+| 1545794057.632947642 | user pressed v      |
+| 1545794059.295453810 | exp1 d mode         |
+| 1545794059.298592353 | face tracking on    |
+| 1545794061.306338018 | reeti turn to 0     |
+| 1545794061.306391606 | monitor 1 letter v  |
+| 1545794063.522454134 | user pressed v      |
+| 1545794065.116610732 | Reeti takes a break |
+| 1545794072.629296130 | Reeti standby       |
+| 1545794074.363549854 | exp1 d mode         |
+| 1545794074.370032874 | face tracking on    |
+| 1545794076.373381208 | reeti turn to 1     |
+| 1545794076.373428599 | monitor 1 letter u  |
+| 1545794078.690152953 | user pressed u      |
+| 1545794080.481501938 | exp1 d mode         |
+| 1545794080.484127018 | face tracking on    |
+| 1545794082.487840610 | reeti turn to 1     |
+| 1545794082.487893030 | monitor 1 letter u  |
+| 1545794084.731083397 | user pressed u      |
+| 1545794086.456294109 | exp1 d mode         |
+| 1545794086.459051717 | face tracking on    |
+| 1545794088.461665975 | reeti turn to 1     |
+| 1545794088.461694843 | monitor 1 letter u  |
+| 1545794090.677885667 | user pressed u      |
+| 1545794092.785198876 | exp1 d mode         |
+| 1545794092.788046307 | face tracking on    |
+| 1545794094.791357351 | reeti turn to 1     |
+| 1545794094.791401197 | monitor 0 letter v  |
+| 1545794096.949943906 | user pressed v      |
+| 1545794098.938354839 | exp1 d mode         |
+| 1545794098.945802961 | face tracking on    |
+| 1545794100.949294202 | reeti turn to 0     |
+| 1545794100.949337280 | monitor 1 letter u  |
+| 1545794103.174121314 | user pressed u      |
+| 1545794104.991443964 | exp1 d mode         |
+| 1545794104.994201667 | face tracking on    |
+| 1545794106.997149638 | reeti turn to 1     |
+| 1545794106.997192173 | monitor 1 letter v  |
+| 1545794109.085926427 | user pressed v      |
+| 1545794110.869531422 | exp1 d mode         |
+| 1545794110.873734286 | face tracking on    |
+| 1545794112.881574329 | reeti turn to 1     |
+| 1545794112.881641876 | monitor 0 letter v  |
+| 1545794115.111885994 | user pressed v      |
+| 1545794116.997136530 | exp1 d mode         |
+| 1545794117.003818056 | face tracking on    |
+| 1545794119.007663118 | reeti turn to 1     |
+| 1545794119.007764573 | monitor 1 letter u  |
+| 1545794121.122641232 | user pressed u      |
+| 1545794122.726558721 | exp1 d mode         |
+| 1545794122.729391613 | face tracking on    |
+| 1545794124.737653131 | reeti turn to 0     |
+| 1545794124.737703936 | monitor 1 letter v  |
+| 1545794126.930257771 | user pressed v      |
+| 1545794128.230068408 | exp1 d mode         |
+| 1545794128.242839851 | face tracking on    |
+| 1545794130.245964535 | reeti turn to 1     |
+| 1545794130.246005016 | monitor 0 letter u  |
+| 1545794132.379229511 | user pressed u      |
+| 1545794134.052085600 | Reeti takes a break |
