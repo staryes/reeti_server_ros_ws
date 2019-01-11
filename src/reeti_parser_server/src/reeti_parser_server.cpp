@@ -103,6 +103,9 @@ class ReetiROSserver
 
     int rand_num;
 
+
+    float target_x = 
+
 public:
     ReetiROSserver()
         {
