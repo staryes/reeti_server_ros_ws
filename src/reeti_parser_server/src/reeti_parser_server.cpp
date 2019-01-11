@@ -88,8 +88,11 @@ class ReetiROSserver
     float servo_deg_yaw = 50;
     float servo_deg_pitch= 50;
 
-    float servo_reeti_yaw = 50;
-    float servo_reeti_pitch = 50;
+    float servo_reeti_righteye_yaw = 60;
+    float servo_reeti_righteye_pitch = 55;
+
+    float servo_reeti_lefteye_yaw = 40;
+    float servo_reeti_lefteye_pitch = 50;
 
     float servo_reeti_neck_yaw = 50;
     float servo_reeti_neck_pitch = 50;
@@ -104,7 +107,8 @@ class ReetiROSserver
     int rand_num;
 
 
-    float target_x = 
+    float target_x = 0;
+    float target_z = 50;
 
 public:
     ReetiROSserver()
@@ -126,6 +130,44 @@ public:
     void reetiPoseCallback(const reetiros::reetiPose& msg);
 
 };
+
+void ReetiROSserver::eyes_tracking(int dir)
+{
+    std::stringstream str;
+    str.str("");
+
+    int rEye, lEye;
+
+    rEye = servo_reeti_righteye_yaw;
+    lEye = servo_reeti_lefteye_yaw;
+    
+    switch(dir)
+    {
+    case 1:
+        rEye++;
+        lEye--;
+        break;
+    case 2:
+        rEye--;
+        lEye++;
+        break;
+    case 3:
+        rEye--;
+        lEye--;
+        break;
+    case 4:
+        rEye++;
+        lEye++;
+        break;
+    default:
+        break;
+    }
+    
+    str << "Global.servo.rightEyePan=" << rEye << ",Global.servo.leftEyePan=" << lEye << ";" ;
+    
+    anycmd_srv.request.cmd = str.str();
+    anycmdClient.call(anycmd_srv);
+}
 
 void ReetiROSserver::sequence_to_rest_pose(void)
 {
@@ -265,8 +307,11 @@ void ReetiROSserver::sequence_exp_1_routine(bool tracking)
 
 void ReetiROSserver::reetiPoseCallback(const reetiros::reetiPose& msg)
 {
-    servo_reeti_yaw = msg.leftEyeYaw;
-    servo_reeti_pitch = msg.leftEyePitch;
+    servo_reeti_lefteye_yaw = msg.leftEyeYaw;
+    servo_reeti_lefteye_pitch = msg.leftEyePitch;
+
+    servo_reeti_righteye_yaw = msg.rightEyeYaw;
+    servo_reeti_righteye_pitch = msg.rightEyePitch;
     //ROS_INFO("left eye: %f, %f", servo_reeti_yaw, servo_reeti_pitch);
 
     servo_reeti_neck_yaw = msg.neckYaw;
@@ -341,6 +386,21 @@ void ReetiROSserver::keyCb(const std_msgs::Char& key_msg)
 
         sequence_say_hello();
         break;
+
+    case KEYCODE_i:
+        eyes_tracking(1);
+        break;
+    case KEYCODE_j:
+        eyes_tracking(3);
+        break;
+    case KEYCODE_k:
+        eyes_tracking(2);
+        break;
+    case KEYCODE_l:
+        eyes_tracking(4);
+        break;
+
+        
     case KEYCODE_m:
         ROS_DEBUG("m");
         timeNow = ros::Time::now();
