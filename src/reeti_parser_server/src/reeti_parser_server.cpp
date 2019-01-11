@@ -107,7 +107,7 @@ public:
     ReetiROSserver()
         {
             neck_pos_pub_ = nh_.advertise<reetiros::reetiNeckPose>("/reeti/neck",1);
-            static_image_flag_pub_ = nh_.advertise<std_msgs::Int8>("/insertFlag",1);
+            static_image_flag_pub_p = nh_.advertise<std_msgs::Int8>("/insertFlag",1);
             face_tracking_switch_pub_ = nh_.advertise<std_msgs::Bool>("/track_switch",1);
 
             reeti_pos_sub_ = nh_.subscribe("reeti/reetiPose", 1, &ReetiROSserver::reetiPoseCallback, this);
@@ -249,9 +249,9 @@ void ReetiROSserver::sequence_exp_1_routine(bool tracking)
     timeNow = ros::Time::now();
     rand_num = (timeNow.nsec % 4) + 1;
     ROS_INFO("rand_num=%d", rand_num);
-           insertFlag_msg.data = rand_num;
+    insertFlag_msg.data = rand_num;
 
-        static_image_flag_pub_.publish(insertFlag_msg);
+    static_image_flag_pub_.publish(insertFlag_msg);
 
         
     switch_msg.data = false;
