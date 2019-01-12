@@ -104,6 +104,8 @@ class ReetiROSserver
     void sequence_standby(void);
     void sequence_exp_1_routine(bool tracking);
 
+    void eyes_tracking(int dir);
+
     int rand_num;
 
 
@@ -114,7 +116,7 @@ public:
     ReetiROSserver()
         {
             neck_pos_pub_ = nh_.advertise<reetiros::reetiNeckPose>("/reeti/neck",1);
-            static_image_flag_pub_p = nh_.advertise<std_msgs::Int8>("/insertFlag",1);
+            static_image_flag_pub_ = nh_.advertise<std_msgs::Int8>("/insertFlag",1);
             face_tracking_switch_pub_ = nh_.advertise<std_msgs::Bool>("/track_switch",1);
 
             reeti_pos_sub_ = nh_.subscribe("reeti/reetiPose", 1, &ReetiROSserver::reetiPoseCallback, this);
@@ -144,20 +146,20 @@ void ReetiROSserver::eyes_tracking(int dir)
     switch(dir)
     {
     case 1:
-        rEye++;
-        lEye--;
+        rEye+=2;
+        lEye-=2;
         break;
     case 2:
-        rEye--;
-        lEye++;
+        rEye-=2;
+        lEye+=2;
         break;
     case 3:
-        rEye--;
-        lEye--;
+        rEye-=3;
+        lEye-=3;
         break;
     case 4:
-        rEye++;
-        lEye++;
+        rEye+=3;
+        lEye+=3;
         break;
     default:
         break;
