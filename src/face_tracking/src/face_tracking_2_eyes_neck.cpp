@@ -75,7 +75,7 @@ class FaceDetector
         {
             float d_deg;
 
-            d_deg = (centerX - x) /3; //8 * 3 times slow
+            d_deg = (centerX - x) / 4;//(2*3); //8 * 3 times slow
 
             //d_deg = atan(d_deg);
             //d_deg = d_deg * 180 / 3.14159;
@@ -88,7 +88,7 @@ class FaceDetector
         {
             float d_deg;
 
-            d_deg = (centerY - y) / 3;
+            d_deg = (centerY - y) / 4;//(2*3);
 
             //d_deg = atan(d_deg);
             //d_deg = d_deg * 180 / 3.14159;
@@ -168,7 +168,8 @@ class FaceDetector
             {
                 rectangle(frame, faces[i], 1234);
                 ROS_INFO("face(%d, %d), width: %d, height: %d", faces[i].x, faces[i].y, faces[i].width, faces[i].height);
-
+//send_left_gaze_point(faces[0].x + (faces[0].width * 0.5), faces[0].y + (faces[0].height * 0.5));
+                
                 //3.update measure
                 measurement_left->at<float>(0) = (float)faces[0].x;
                 measurement_left->at<float>(1) = (float)faces[0].y;
@@ -177,9 +178,9 @@ class FaceDetector
                 kalman_left->correct(*measurement_left);
 
                 cv::Rect face_zero = cv::Rect((int)kalman_left->statePost.at<float>(0), (int)kalman_left->statePost.at<float>(1), faces[0].width, faces[0].height);
-                rectangle(frame, face_zero, Scalar(0,200,0));
+                rectangle(frame, face_zero, cv::Scalar(0,200,0));
 
-//            send_left_gaze_point(faces[0].x + (faces[0].width * 0.5), faces[0].y + (faces[0].height * 0.5));
+                
                 send_left_gaze_point(face_zero.x + (face_zero.width * 0.5), face_zero.y + (face_zero.height * 0.5));
             }
             //imshow(main_window_name, debugImage);
@@ -291,7 +292,7 @@ class FaceDetector
                 kalman_right->correct(*measurement_right);
 
                 cv::Rect face_zero = cv::Rect((int)kalman_right->statePost.at<float>(0), (int)kalman_right->statePost.at<float>(1), faces[0].width, faces[0].height);
-                rectangle(frame, face_zero, Scalar(0,200,0));
+                rectangle(frame, face_zero, cv::Scalar(0,200,0));
 
                 send_right_gaze_point(face_zero.x + (face_zero.width * 0.5), face_zero.y + (face_zero.height * 0.5));
             }
@@ -334,8 +335,8 @@ class FaceDetector
                 );
 
             cv::setIdentity(kalman_left->measurementMatrix, cv::Scalar::all(1));
-            cv::setIdentity(kalman_left->processNoiseCov, cv::Scalar::all(1e-5));
-            cv::setIdentity(kalman_left->measurementNoiseCov, cv::Scalar::all(1e-1));
+            cv::setIdentity(kalman_left->processNoiseCov, cv::Scalar::all(1e-1));
+            cv::setIdentity(kalman_left->measurementNoiseCov, cv::Scalar::all(1e-3));
             cv::setIdentity(kalman_left->errorCovPost, cv::Scalar::all(1));
 
             //initialize post state_lefg of kalman_left filter at random
@@ -357,8 +358,8 @@ class FaceDetector
                 );
 
             cv::setIdentity(kalman_right->measurementMatrix, cv::Scalar::all(1));
-            cv::setIdentity(kalman_right->processNoiseCov, cv::Scalar::all(1e-5));
-            cv::setIdentity(kalman_right->measurementNoiseCov, cv::Scalar::all(1e-1));
+            cv::setIdentity(kalman_right->processNoiseCov, cv::Scalar::all(1e-1));
+            cv::setIdentity(kalman_right->measurementNoiseCov, cv::Scalar::all(1e-3));
             cv::setIdentity(kalman_right->errorCovPost, cv::Scalar::all(1));
 
             //initialize post state_lefg of kalman_left filter at random
