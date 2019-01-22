@@ -1,6 +1,7 @@
 #include <ros/ros.h>
 #include <sensor_msgs/Joy.h>
 #include <std_msgs/Float32.h>
+#include <reetiros/AnyCmd.h>
 
 
 class TeleopReeti
@@ -10,30 +11,39 @@ public:
 
 private:
   void joyCallback(const sensor_msgs::Joy::ConstPtr& joy);
-  
+    
   ros::NodeHandle nh_;
+
+     ros::ServiceClient anycmdClient = nh_.serviceClient<reetiros::AnyCmd>("AnyCmd");
 
   int linear_, angular_;
   double l_scale_, a_scale_;
-  ros::Publisher vel_pub_;
+ 
   ros::Subscriber joy_sub_;
+
+        float servo_reeti_neck_yaw = 50;
+    float servo_reeti_neck_pitch = 50;
+    float servo_reeti_neck_roll = 50;
   
 };
 
-
-TeleopReeti::TeleopReeti():
-  linear_(1),
-  angular_(2)
+void TeleopReeti::turnNeck(void)
 {
-
-  nh_.param("axis_linear", linear_, linear_);
-  nh_.param("axis_angular", angular_, angular_);
-  nh_.param("scale_angular", a_scale_, a_scale_);
-  nh_.param("scale_linear", l_scale_, l_scale_);
+    std::stringstream str;
 
 
-  vel_pub_ = nh_.advertise<std_msgs::Float32>("linear_scalar", 1);
+        str.str("");
+        str  << "Global.servo.neckRotat=" << servo_reeti_neck_yaw <<  " smooth:0.8s,"
+             << "Global.servo.neckPan=" << servo_reeti_neck_pitch << " smooth:0.8s,"
+             << "Global.servo.neckTilt=" servo_reeti_neck_roll << " smooth:0.8s,"
+             << ";";
 
+        anycmd_srv.request.com = str.str();
+        anycmdClient.call(anycmd_srv);
+}
+
+TeleopReeti::TeleopReeti()
+{
 
   joy_sub_ = nh_.subscribe<sensor_msgs::Joy>("joy", 10, &TeleopReeti::joyCallback, this);
 
@@ -45,7 +55,12 @@ void TeleopReeti::joyCallback(const sensor_msgs::Joy::ConstPtr& joy)
 
     //vel.angular = a_scale_*joy->axes[angular_];
     vel.data = joy->axes[0];
-  vel_pub_.publish(vel);
+    vel_pub_.publish(vel);
+
+    joy->axes[0];
+    joy->axes[1];
+    joy->axes[2];
+        
 }
 
 
