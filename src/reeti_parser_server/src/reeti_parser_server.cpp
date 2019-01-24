@@ -99,6 +99,7 @@ class ReetiROSserver
     float servo_reeti_neck_roll = 50;
 
     void sequence_say_hello(void);
+//    void sequence_greeting(void);
     void sequence_see_monitor(int monior_x);
     void sequence_to_rest_pose(void);
     void sequence_standby(void);
