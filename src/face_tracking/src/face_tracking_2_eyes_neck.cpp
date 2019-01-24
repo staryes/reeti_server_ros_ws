@@ -51,7 +51,7 @@ class FaceDetector
 
     const static float focalLength = 170.5;
     const static float centerX = 79.5;
-    const static float centerY = 59.5;
+    const static float centerY = 69.5;
 
     float desired_right_eye_yaw = 50;
     float desired_right_eye_pitch= 50;
