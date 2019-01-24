@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 2.8.3)
+make_minimum_required(VERSION 2.8.3)
 project(my_tools)
 
 ## Compile as C++11, supported in ROS Kinetic and newer
@@ -8,15 +8,19 @@ project(my_tools)
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
 find_package(catkin REQUIRED COMPONENTS
+  cv_bridge
+  image_transport
   roscpp
   rospy
   std_msgs
   sensor_msgs
   reetiros
+  tf
 )
 
 ## System dependencies are found with CMake's conventions
 # find_package(Boost REQUIRED COMPONENTS system)
+find_package( OpenCV REQUIRED)
 
 
 ## Uncomment this if the package has a setup.py. This macro ensures
@@ -107,7 +111,7 @@ find_package(catkin REQUIRED COMPONENTS
 catkin_package(
 #  INCLUDE_DIRS include
 #  LIBRARIES my_tools
-#  CATKIN_DEPENDS roscpp rospy std_msgs
+  CATKIN_DEPENDS roscpp rospy std_msgs cv_bridge image_transport tf
 #  DEPENDS system_lib
 )
 
@@ -136,6 +140,7 @@ include_directories(
 ## With catkin_make all packages are built within a single CMake context
 ## The recommended prefix ensures that target names across packages don't collide
 # add_executable(${PROJECT_NAME}_node src/my_tools_node.cpp)
+add_executable(back_camera_selecting_node src/back_camera_selecting.cpp)
 add_executable(reeti_wiimote_node src/reeti_wiimote.cpp)
 
 ## Rename C++ executable without prefix
@@ -153,9 +158,14 @@ add_dependencies(reeti_wiimote_node reetiros_generate_messages_cpp)
 # target_link_libraries(${PROJECT_NAME}_node
 #   ${catkin_LIBRARIES}
 # )
+target_link_libraries(back_camera_selecting_node
+  ${catkin_LIBRARIES}
+  ${OpenCV_LIBRARIES}
+  )
 target_link_libraries(reeti_wiimote_node
   ${catkin_LIBRARIES}
   )
+
 
 #############
 ## Install ##

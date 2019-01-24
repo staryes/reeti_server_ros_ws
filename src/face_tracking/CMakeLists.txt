@@ -180,10 +180,10 @@ add_dependencies(${PROJECT_NAME}_2_eyes_neck_node ${${PROJECT_NAME}_EXPORTED_TAR
  #   ${catkin_LIBRARIES}
  #   ${OpenCV_LIBRARIES}
  # )
- # target_link_libraries(mouse_click_node
- #   ${catkin_LIBRARIES}
- #   ${OpenCV_LIBRARIES}
- # )
+# target_link_libraries(mouse_click_node
+#    ${catkin_LIBRARIES}
+#    ${OpenCV_LIBRARIES}
+#  )
  #target_link_libraries(face_tracking_eye_neck_node
  #  ${catkin_LIBRARIES}
  #  ${OpenCV_LIBRARIES}
