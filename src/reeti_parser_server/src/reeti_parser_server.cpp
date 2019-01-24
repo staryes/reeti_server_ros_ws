@@ -103,6 +103,7 @@ class ReetiROSserver
     void sequence_to_rest_pose(void);
     void sequence_standby(void);
     void sequence_exp_1_routine(bool tracking);
+    void sequence_exp_1_all_correct(bool tracking);
 
     void eyes_tracking(int dir);
 
@@ -111,6 +112,9 @@ class ReetiROSserver
 
     float target_x = 0;
     float target_z = 50;
+
+    int trail_count;
+    int state;
 
 public:
     ReetiROSserver()
@@ -130,6 +134,8 @@ public:
     void keyCb(const std_msgs::Char& keymsg);
 
     void reetiPoseCallback(const reetiros::reetiPose& msg);
+
+    void 
 
 };
 
@@ -249,7 +255,7 @@ void ReetiROSserver::sequence_say_hello(void)
 {
     std::stringstream str;
     str.str("");
-    str << "Global.tts.say(\"\\\\voice=Kate \\\\language=English \\\\volume=10 Hello!\"),"
+    str << "Global.tts.say(\"\\\\voice=Kate \\\\language=English \\\\volume=10 Hello! I am Reeti. \"),"
         << "Global.servo.neckTilt=" << servo_reeti_neck_roll-20 << " smooth:0.3s;";
 
     anycmd_srv.request.cmd = str.str();
@@ -305,6 +311,46 @@ void ReetiROSserver::sequence_exp_1_routine(bool tracking)
     face_tracking_switch_pub_.publish(switch_msg);
 }
 
+void ReetiROSserver::sequence_exp_1_all_correct(bool tracking)
+{
+    std_msgs::Bool switch_msg;
+    std_msgs::Int8 insertFlag_msg;
+    
+    //ros::Duration(0.5).sleep();
+    if (tracking == true)
+    {
+        switch_msg.data = true;
+        sequence_standby();
+        
+        ROS_INFO("face tracking on");
+    }
+    else
+    {
+        switch_msg.data = false;
+        //sequence_standby();
+        
+        ROS_INFO("face tracking off");
+    }
+    face_tracking_switch_pub_.publish(switch_msg);
+
+    ros::Duration(2).sleep();
+
+    timeNow = ros::Time::now();
+    rand_num = (timeNow.nsec % 2);
+    sequence_see_monitor(rand_num);
+    ROS_INFO("reeti turn to %d", rand_num);
+
+    timeNow = ros::Time::now();
+    rand_num = (rand_num * 2) + (timeNow.nsec % 2) + 1; // reeti is always right
+    ROS_INFO("rand_num=%d", rand_num);
+    insertFlag_msg.data = rand_num;
+
+    static_image_flag_pub_.publish(insertFlag_msg);
+
+        
+    switch_msg.data = false;
+    face_tracking_switch_pub_.publish(switch_msg);
+}
 
 
 void ReetiROSserver::reetiPoseCallback(const reetiros::reetiPose& msg)
@@ -359,6 +405,11 @@ void ReetiROSserver::keyCb(const std_msgs::Char& key_msg)
         sequence_to_rest_pose();
         break;
 
+    case KEYCODE_c:
+        ROS_DEBUG("c");
+        sequence_exp_1_all_correct(true);
+        break;
+        
     case KEYCODE_d:
         ROS_DEBUG("d");
         sequence_exp_1_routine(true);
