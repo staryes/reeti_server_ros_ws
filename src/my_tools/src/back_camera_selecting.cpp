@@ -18,8 +18,6 @@
 
 using namespace std;
 
-//#include "slic.h"
-
 
 static const std::string OPENCV_WINDOW = "Image window";
 
@@ -34,14 +32,8 @@ void mouseEvent(int evt, int x, int y, int flags, void* param)
     {
         //cv::Mat hsv;
       //cv::cvtColor(*rgb, hsv, cv::COLOR_BGR2HSV);
-      std::printf("%d %d:\n",// %d %d %d; %d %d %d\n",
-                  x, y//,
-                  //(int)(*rgb).at<cv::Vec3b>(y, x)[0],
-                  //(int)(*rgb).at<cv::Vec3b>(y, x)[1],
-                  //(int)(*rgb).at<cv::Vec3b>(y, x)[2]//,
-                  //(int)(hsv).at<cv::Vec3b>(y, x)[0],
-                  //(int)(hsv).at<cv::Vec3b>(y, x)[1],
-                  //(int)(hsv).at<cv::Vec3b>(y, x)[2]
+      std::printf("%d %d:\n",
+                  x, y
                   );
 
       gbClickedFlag = true;
@@ -90,7 +82,7 @@ public:
     //Publishes position of center of pass
 
     //goal_pub_ = nh_.advertise<geometry_msgs::Twist>("goal_pose",1);
-    goal_pub_ = nh_.advertise<std_msgs::UInt16MultiArray>("goal_pose",1);
+    goal_pub_ = nh_.advertise<std_msgs::UInt16MultiArray>("clicked_point",1);
 
 
     h_min = 0;
