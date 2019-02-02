@@ -90,7 +90,7 @@ public:
     //Publishes position of center of pass
 
     //goal_pub_ = nh_.advertise<geometry_msgs::Twist>("goal_pose",1);
-    goal_pub_ = nh_.advertise<std_msgs::UInt16MultiArray>("goal_pose",1);
+    goal_pub_ = nh_.advertise<std_msgs::UInt16MultiArray>("clicked_point",1);
 
 
     h_min = 0;
