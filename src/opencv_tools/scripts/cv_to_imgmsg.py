@@ -9,7 +9,7 @@ import cv2
 from std_msgs.msg import String
 from sensor_msgs.msg import Image
 from cv_bridge import CvBridge, CvBridgeError
-from std_msgs import UInt16MultiArray
+from std_msgs.msg import UInt16MultiArray
 
 class image_converter:
 
@@ -17,7 +17,7 @@ class image_converter:
   y = 50
   
   def __init__(self):
-    self.image_pub = rospy.Publisher("image_topic_2",Image)
+    self.image_pub = rospy.Publisher("image_topic_2",Image, queue_size=1)
 
     self.bridge = CvBridge()
     self.image_sub = rospy.Subscriber("/cv_camera/image_raw",Image,self.callback)
