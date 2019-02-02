@@ -307,11 +307,14 @@ void ReetiROSserver::keyCb(const std_msgs::Char& key_msg)
     case KEYCODE_a:
         ROS_DEBUG("a");
         sequence_to_rest_pose();
+        ROS_INFO("Reeti takes a break");
         break;
 
     case KEYCODE_d:
         ROS_DEBUG("d");
+        ROS_INFO("exp1 d mode");
         sequence_exp_1_routine(true);
+
         break;
 
     case KEYCODE_e:
@@ -331,7 +334,9 @@ void ReetiROSserver::keyCb(const std_msgs::Char& key_msg)
         break;
     case KEYCODE_f:
         ROS_DEBUG("f");
+        ROS_INFO("exp1 f mode");
         sequence_exp_1_routine(false);
+
         break;
     case KEYCODE_h:
         ROS_DEBUG("h");
@@ -383,6 +388,7 @@ void ReetiROSserver::keyCb(const std_msgs::Char& key_msg)
     case KEYCODE_s:
         ROS_DEBUG("s");
         sequence_standby();
+        ROS_INFO("Reeti standby");
         break;
     case KEYCODE_u:
         ROS_DEBUG("u");
