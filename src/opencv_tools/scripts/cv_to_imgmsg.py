@@ -13,15 +13,20 @@ from std_msgs import UInt16MultiArray
 
 class image_converter:
 
-
+  x = 50
+  y = 50
   
   def __init__(self):
     self.image_pub = rospy.Publisher("image_topic_2",Image)
 
     self.bridge = CvBridge()
     self.image_sub = rospy.Subscriber("/cv_camera/image_raw",Image,self.callback)
-    self.Sub
+    self.point_sub = rospy.Subscriber("clicked_point", UInt16MultiArray, self.pointcallback)
 
+  def pointcallback(self, point):
+    self.x = point.data[0]
+    self.y = point.data[1]
+    
   def callback(self,data):
     try:
       cv_image = self.bridge.imgmsg_to_cv2(data, "bgr8")
@@ -30,7 +35,7 @@ class image_converter:
 
     (rows,cols,channels) = cv_image.shape
     if cols > 60 and rows > 60 :
-      cv2.circle(cv_image, (50,50), 10, 255)
+      cv2.circle(cv_image, (self.x,self.y), 10, 255)
 
     cv2.imshow("Image window", cv_image)
     cv2.waitKey(3)
