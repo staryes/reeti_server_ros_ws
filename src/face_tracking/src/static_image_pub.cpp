@@ -5,9 +5,9 @@
 #include <sensor_msgs/image_encodings.h>
 #include <std_msgs/Int8.h>
 
-cv::String image1_name = "/home/staryes/reeti_server_ros_ws/reeti_u.jpg";
-cv::String image2_name = "/home/staryes/reeti_server_ros_ws/reeti_v.jpg";
-cv::String image0_name = "/home/staryes/reeti_server_ros_ws/reeti_white.jpg";
+cv::String image1_name = "/home/shoushan/Desktop/reeti_u.jpg";
+cv::String image2_name = "/home/shoushan/Desktop/reeti_v.jpg";
+cv::String image0_name = "/home/shoushan/Desktop/reeti_white.jpg";
 
 int flag = -1;
 

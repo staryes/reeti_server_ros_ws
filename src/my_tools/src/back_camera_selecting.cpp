@@ -99,7 +99,7 @@ public:
 
 
     // Subscribe to input video feed and publish output video feed
-    image_sub_ = it_.subscribe("/cv_camera/image_raw", 1, &ImageConverter::imageCb, this);
+    image_sub_ = it_.subscribe("/usb_cam/image_raw", 1, &ImageConverter::imageCb, this);
     //image_pub_ = it_.advertise("/blob_detect/output_video",1);
 
     //    reconfig_sub_ = nh_.subscribe<warmup::LidarCone>("dynamic_reconfigure/sensor_cone", 1, &ImageConverter::reconfigCb, this);

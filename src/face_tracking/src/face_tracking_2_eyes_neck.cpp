@@ -30,7 +30,7 @@ class FaceDetector
     bool face_tracking_switch;
     
     //-- Note, either copy these two files from opencv/data/haarscascades to your current folder, or change these locations
-    cv::String face_cascade_name = "/home/staryes/reeti_server_ros_ws/src/face_tracking/res/haarcascade_frontalface_alt.xml";
+    cv::String face_cascade_name = "/home/shoushan/reeti_server_ros_ws/src/face_tracking/res/haarcascade_frontalface_alt.xml";
     //cv::String left_eye_cascade_name = "res/haarcascade_lefteye_2splits.xml";
     //cv::String right_eye_cascade_name = "res/haarcascade_righteye_2splits.xml";
     cv::CascadeClassifier face_cascade;
