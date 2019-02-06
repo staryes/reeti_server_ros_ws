@@ -21,8 +21,6 @@ class image_converter:
 
   
   def __init__(self):
-      #    self.image_pub = rospy.Publisher("image_topic",Image, queue_size=1)
-
     self.bridge = CvBridge()
     self.image_sub = rospy.Subscriber("/cv_camera/image_raw",Image, self.callback)
     self.point_pub = rospy.Publisher("clicked_point", UInt16MultiArray, queue_size = 1)
