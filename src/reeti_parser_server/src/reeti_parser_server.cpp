@@ -236,7 +236,7 @@ void ReetiROSserver::sequence_see_monitor(int monitor_x)
         str  << "Global.servo.neckRotat=10 smooth:0.8s,"
              << "Global.servo.neckPan=50 smooth:0.8s,"
              << "Global.servo.neckTilt=40 smooth:0.8s,"
-             << "Global.servo.rightEyePan=65,Global.servo.leftEyePan=40,Global.servo.rightEyeTilt=45 smooth:0.5s,Global.servo.leftEyeTilt=40 smooth:0.5s"
+             << "Global.servo.rightEyePan=45,Global.servo.leftEyePan=20,Global.servo.rightEyeTilt=45 smooth:0.5s,Global.servo.leftEyeTilt=40 smooth:0.5s"
              << ";";
     }
 
@@ -246,7 +246,7 @@ void ReetiROSserver::sequence_see_monitor(int monitor_x)
         str << "Global.servo.neckRotat=80 smooth:0.8s,"
             << "Global.servo.neckPan=50 smooth:0.8s,"
             << "Global.servo.neckTilt=40 smooth:0.8s,"
-            << "Global.servo.rightEyePan=65,Global.servo.leftEyePan=40,Global.servo.rightEyeTilt=45 smooth:0.5s,Global.servo.leftEyeTilt=40 smooth:0.5s"
+            << "Global.servo.rightEyePan=85,Global.servo.leftEyePan=60,Global.servo.rightEyeTilt=45 smooth:0.5s,Global.servo.leftEyeTilt=40 smooth:0.5s"
             << ";";
     }
     else //back to rest pose
@@ -329,7 +329,7 @@ void ReetiROSserver::sequence_exp_1_routine(bool tracking)
         ROS_INFO("face tracking off");
     }
 
-     ros::Duration(0.6).sleep();
+    ros::Duration(0.6).sleep();
 
     face_tracking_on_off(tracking);
 
