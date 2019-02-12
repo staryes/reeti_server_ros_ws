@@ -191,7 +191,7 @@ class FaceDetector
             {
                 count++;
 
-                if (count > 5 && face_tracking_switch) // every 6/30 s 
+                if (count > 29 && face_tracking_switch) // every 6/30 s 
                 {
                     count = 0;
                     reetiros::reetiNeckPose neck_msg;
@@ -203,9 +203,9 @@ class FaceDetector
                     float eye_pitch_avg = (reeti_right_eye_pitch + reeti_left_eye_pitch) * 0.5;
                 
                     if (eye_yaw_avg > 60)
-                    servo_reeti_neck_yaw++;
+                    servo_reeti_neck_yaw+=5;
                     else if (eye_yaw_avg < 40)
-                    servo_reeti_neck_yaw--;
+                    servo_reeti_neck_yaw-=5;
 
                     if (servo_reeti_neck_yaw > 100)
                     servo_reeti_neck_yaw = 100;
@@ -213,9 +213,9 @@ class FaceDetector
                     servo_reeti_neck_yaw = 0;
 
                     if (eye_pitch_avg > 60)
-                    servo_reeti_neck_roll++;
+                    servo_reeti_neck_roll+=5;
                     else if (eye_pitch_avg < 40)
-                    servo_reeti_neck_roll--;
+                    servo_reeti_neck_roll-=5;
 
                     if (servo_reeti_neck_roll> 100)
                     servo_reeti_neck_roll = 100;
@@ -234,7 +234,7 @@ class FaceDetector
                     //servo_deg_yaw = (servo_deg_yaw + 40.0) * 0.5;
                     //servo_deg_pitch = (servo_deg_pitch + 50) * 0.5;
                 }
-
+                
                 reetiros::reetiEyesPose eyes_msg;
 
 
@@ -250,8 +250,8 @@ class FaceDetector
                 //ROS_INFO("rYaw: %f, rPitch: %f", servo_reeti_yaw, servo_reeti_pitch);
                 //ROS_INFO("dYaw: %f, dPitch: %f", servo_deg_yaw, servo_deg_pitch);
 
-                if (face_tracking_switch)
-                eyes_pos_pub_.publish(eyes_msg);
+                if (count%2 == 0 && face_tracking_switch)
+                    eyes_pos_pub_.publish(eyes_msg);
 
             }
 
