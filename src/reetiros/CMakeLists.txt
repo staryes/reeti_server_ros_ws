@@ -150,7 +150,7 @@ include_directories(
 # add_executable(${PROJECT_NAME}_node src/ReetiROS.cpp)
 # add_executable(move_eyes_node src/move_eyes.cpp)
 # add_executable(move_eyes_neck_node src/move_eyes_neck.cpp)
-# add_executable(reetiServoPosition_node src/reetiServoPosition.cpp)
+ add_executable(reetiServoPosition_node src/reetiServoPosition.cpp)
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
@@ -175,9 +175,9 @@ include_directories(
 #	${catkin_LIBRARIES}
 #	${Urbi_LIBRARIES}
  #)
-# target_link_libraries(reetiServoPosition_node
-#	${catkin_LIBRARIES}
-# )
+ target_link_libraries(reetiServoPosition_node
+	${catkin_LIBRARIES}
+ )
 
 
 #############
