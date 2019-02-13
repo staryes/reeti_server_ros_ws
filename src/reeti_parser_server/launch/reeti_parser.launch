@@ -4,15 +4,6 @@
 
   <node name="blank_image" pkg="face_tracking" type="static_image_pub_node" />
 
-  <node name="left_monitor" pkg="image_view" type="image_view" output="screen">
-    <remap from="image_view" to="left_image_view" />
-    <remap from="image" to="/static_image0"/>
-  </node>
-  <node name="right_monitor" pkg="image_view" type="image_view" output="screen">
-    <remap from="image_view" to="right_image_view" />
-    <remap from="image" to="/static_image1"/>
-  </node>
-
   <node name="back_camera" pkg="cv_camera" type="cv_camera_node" />
   
   <node name="face_tracking" pkg="face_tracking" type="face_tracking_2_eyes_neck_node" />
