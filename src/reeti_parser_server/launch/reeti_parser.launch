@@ -2,7 +2,7 @@
   <!-- <node name="keypad" pkg="face_tracking" type="reeti_teleop_key_node"/> -->
   <node name="parser_server" pkg="reeti_parser_server" type="reeti_parser_server_node" output="screen" />
 
- <node name="blank_image" pkg="face_tracking" type="static_image_pub_node" />
+  <node name="blank_image" pkg="face_tracking" type="static_image_pub_node" />
 
   <node name="left_monitor" pkg="image_view" type="image_view" output="screen">
     <remap from="image_view" to="left_image_view" />
@@ -13,5 +13,11 @@
     <remap from="image" to="/static_image1"/>
   </node>
 
-<node name="face_tracking" pkg="face_tracking" type="face_tracking_2_eyes_neck_node" />
+  <node name="face_tracking" pkg="face_tracking" type="face_tracking_2_eyes_neck_node" />
+
+  <node name="reeti_pose" pkg="reetiros" type="reetiServoPosition_node" />
+
+  <!--<machine name="T410" address="130.215.206.199" user="staryes" password="Sayaka88G" default="true" />
+  <node machine="T410" pkg="wiimote" type="wiimote_node" name="wiimote" />
+  -->
 </launch>
