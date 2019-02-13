@@ -1,0 +1,6 @@
+<launch>
+
+  <node name="wiimote" pkg="wiimote" type="wiimote_node" />
+  <node name="mouse_click" pkg="opencv_tools" type="mouse_click.py" />
+
+</launch>

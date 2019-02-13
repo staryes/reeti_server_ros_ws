@@ -13,6 +13,8 @@
     <remap from="image" to="/static_image1"/>
   </node>
 
+  <node name="back_camera" pkg="cv_camera" type="cv_camera_node" />
+  
   <node name="face_tracking" pkg="face_tracking" type="face_tracking_2_eyes_neck_node" />
 
   <node name="reeti_pose" pkg="reetiros" type="reetiServoPosition_node" />
