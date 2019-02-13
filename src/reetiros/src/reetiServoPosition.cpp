@@ -2,8 +2,8 @@
 #include <reetiros/reetiPose.h>
 
 #include <sstream>
-//#include <iostream>
-//#include <fstream>
+#include <iostream>
+#include <fstream>
 
 //#include <stdio.h>
 #include <sys/socket.h>
@@ -38,6 +38,16 @@ int main(int argc, char **argv)
     /**
      * TCP/IP socketpair
      */
+    std::ifstream ipAddressFile;
+    ipAddressFile.open("/home/shoushan/Desktop/ReetiIP.txt");
+    if (!ipAddressFile)
+    {
+        ROS_ERROR("Can not open the IP address configuration file");
+        return 1;
+    }
+    char IPAddress[256];
+    ipAddressFile.getline(IPAddress, 256);
+    
 	struct sockaddr_in address;
 	int sock = 0, valread;
 	struct sockaddr_in serv_addr;
@@ -55,7 +65,7 @@ int main(int argc, char **argv)
 	serv_addr.sin_port = htons(PORT);
 
 	// Convert IPv4 and IPv6 addresses from text to binary form
-	if(inet_pton(AF_INET, "130.215.206.243", &serv_addr.sin_addr)<=0)
+	if(inet_pton(AF_INET, IPAddress, &serv_addr.sin_addr)<=0)
 	{
 		printf("\nInvalid address/ Address not supported \n");
 		return -1;
@@ -89,7 +99,7 @@ int main(int argc, char **argv)
      */
     ros::Publisher pose_pub = n.advertise<reetiros::reetiPose>("reeti/reetiPose", 1000);
 
-    ros::Rate loop_rate(15);
+    ros::Rate loop_rate(10);
 
     /**
      * A count of how many messages we have sent. This is used to create
