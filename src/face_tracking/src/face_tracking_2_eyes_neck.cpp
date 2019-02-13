@@ -191,7 +191,7 @@ class FaceDetector
             {
                 count++;
 
-                if (count > 29 && face_tracking_switch) // every 6/30 s 
+                if (count > 10 && face_tracking_switch) // every 6/30 s 
                 {
                     count = 0;
                     reetiros::reetiNeckPose neck_msg;
@@ -202,10 +202,10 @@ class FaceDetector
                     float eye_yaw_avg = (reeti_right_eye_yaw + reeti_left_eye_yaw) * 0.5;
                     float eye_pitch_avg = (reeti_right_eye_pitch + reeti_left_eye_pitch) * 0.5;
                 
-                    if (eye_yaw_avg > 60)
-                    servo_reeti_neck_yaw+=5;
-                    else if (eye_yaw_avg < 40)
-                    servo_reeti_neck_yaw-=5;
+                    if (eye_yaw_avg > 65)
+                    servo_reeti_neck_yaw+=abs(eye_yaw_avg-50)/2;
+                    else if (eye_yaw_avg < 35)
+                    servo_reeti_neck_yaw-=abs(eye_yaw_avg-50)/2;
 
                     if (servo_reeti_neck_yaw > 100)
                     servo_reeti_neck_yaw = 100;
@@ -213,9 +213,9 @@ class FaceDetector
                     servo_reeti_neck_yaw = 0;
 
                     if (eye_pitch_avg > 60)
-                    servo_reeti_neck_roll+=5;
+                    servo_reeti_neck_roll+=abs(eye_pitch_avg-50);
                     else if (eye_pitch_avg < 40)
-                    servo_reeti_neck_roll-=5;
+                    servo_reeti_neck_roll-=abs(eye_pitch_avg-50);
 
                     if (servo_reeti_neck_roll> 100)
                     servo_reeti_neck_roll = 100;
@@ -228,7 +228,7 @@ class FaceDetector
                     neck_msg.neckRoll = servo_reeti_neck_roll;
 
                     ROS_INFO("Neck %f %f", neck_msg.neckYaw, neck_msg.neckRoll);
-
+                    
                     neck_pos_pub_.publish(neck_msg);
 
                     //servo_deg_yaw = (servo_deg_yaw + 40.0) * 0.5;
@@ -251,7 +251,9 @@ class FaceDetector
                 //ROS_INFO("dYaw: %f, dPitch: %f", servo_deg_yaw, servo_deg_pitch);
 
                 if (count%2 == 0 && face_tracking_switch)
+                {
                     eyes_pos_pub_.publish(eyes_msg);
+                }
 
             }
 
