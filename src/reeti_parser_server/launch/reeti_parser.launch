@@ -10,6 +10,8 @@
 
   <node name="reeti_pose" pkg="reetiros" type="reetiServoPosition_node" />
 
+  <node name="reeti_neck_motion_center" pkg="reeti_parser_server" type="reeti_neck_motion_center.py" />
+
   <!--<machine name="T410" address="130.215.206.199" user="staryes" password="Sayaka88G" default="true" />
   <node machine="T410" pkg="wiimote" type="wiimote_node" name="wiimote" />
   -->
