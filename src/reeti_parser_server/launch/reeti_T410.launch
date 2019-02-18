@@ -3,13 +3,4 @@
   <node name="wiimote" pkg="wiimote" type="wiimote_node.py" output="screen" />
   <node name="mouse_click" pkg="opencv_tools" type="mouse_click.py" output="screen" />
 
-  <node name="left_monitor" pkg="image_view" type="image_view" output="screen">
-    <remap from="image_view" to="left_image_view" />
-    <remap from="image" to="/static_image0"/>
-  </node>
-  <node name="right_monitor" pkg="image_view" type="image_view" output="screen">
-    <remap from="image_view" to="right_image_view" />
-    <remap from="image" to="/static_image1"/>
-  </node>
-
 </launch>
