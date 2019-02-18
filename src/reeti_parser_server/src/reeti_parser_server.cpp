@@ -116,6 +116,7 @@ class ReetiROSserver
 
     int trail_count;
     bool exp1_eye_contact_mode;
+    bool exp1_ok_mode;
 
 public:
     ReetiROSserver()
@@ -347,13 +348,17 @@ void ReetiROSserver::sequence_exp_1_routine(bool tracking)
 
     face_tracking_on_off(tracking);
 
-    ros::Duration(1.5).sleep();
+    ros::Duration(2).sleep();
 
+    face_tracking_on_off(false);
+    
     timeNow = ros::Time::now();
     rand_num = (timeNow.nsec % 2);
     sequence_see_monitor(rand_num);
     ROS_INFO("reeti turn to %d", rand_num);
 
+    ros::Duration(0.5).sleep();
+    
     timeNow = ros::Time::now();
     rand_num = (timeNow.nsec % 4) + 1;
     ROS_INFO("rand_num=%d", rand_num);
@@ -370,7 +375,7 @@ void ReetiROSserver::sequence_exp_1_all_correct(bool tracking)
 {
     std_msgs::Int8 insertFlag_msg;
     
-    //ros::Duration(0.5).sleep();
+    ros::Duration(0.5).sleep();
     if (tracking == true)
     {
 
@@ -385,16 +390,20 @@ void ReetiROSserver::sequence_exp_1_all_correct(bool tracking)
         ROS_INFO("face tracking off");
     }
 
-    ros::Duration(0.6).sleep();
+    ros::Duration(0.5).sleep();
     face_tracking_on_off(tracking);
     
     ros::Duration(2).sleep();
+
+    face_tracking_on_off(false);
 
     timeNow = ros::Time::now();
     rand_num = (timeNow.nsec % 2);
     sequence_see_monitor(rand_num);
     ROS_INFO("reeti turn to %d", rand_num);
 
+    ros::Duration(0.5).sleep();
+    
     timeNow = ros::Time::now();
     rand_num = (rand_num * 2) + (timeNow.nsec % 2) + 1; // reeti is always right
     ROS_INFO("rand_num=%d", rand_num);
@@ -403,6 +412,7 @@ void ReetiROSserver::sequence_exp_1_all_correct(bool tracking)
     static_image_flag_pub_.publish(insertFlag_msg);
 
     face_tracking_on_off(false);
+    trail_count--;
 }
 
 void ReetiROSserver::reetiPoseCallback(const reetiros::reetiPose& msg)
@@ -460,6 +470,9 @@ void ReetiROSserver::keyCb(const std_msgs::Char& key_msg)
 
     case KEYCODE_c:
         ROS_DEBUG("c");
+        ROS_INFO("exp1 ok mode");
+        trail_count = 10;
+        exp1_ok_mode = true;
         sequence_exp_1_all_correct(true);
         break;
         
@@ -467,6 +480,7 @@ void ReetiROSserver::keyCb(const std_msgs::Char& key_msg)
         ROS_DEBUG("d");
         ROS_INFO("exp1 d mode");
         trail_count = 10;
+        exp1_ok_mode = false;
         exp1_eye_contact_mode = true;
         sequence_exp_1_routine(exp1_eye_contact_mode);
 
@@ -491,6 +505,7 @@ void ReetiROSserver::keyCb(const std_msgs::Char& key_msg)
         ROS_DEBUG("f");
         ROS_INFO("exp1 f mode");
         trail_count = 10;
+        exp1_ok_mode = false;
         exp1_eye_contact_mode = false;
         sequence_exp_1_routine(exp1_eye_contact_mode);
 
@@ -568,6 +583,9 @@ void ReetiROSserver::keyCb(const std_msgs::Char& key_msg)
         sequence_see_monitor(-1);
         if(trail_count>0)
         {
+            if (exp1_ok_mode)
+            sequence_exp_1_all_correct(true);
+            else
             sequence_exp_1_routine(exp1_eye_contact_mode);
         }
         else if(trail_count == 0)
@@ -581,6 +599,9 @@ void ReetiROSserver::keyCb(const std_msgs::Char& key_msg)
         sequence_see_monitor(-1);
         if(trail_count>0)
         {
+            if (exp1_ok_mode)
+            sequence_exp_1_all_correct(true);
+            else
             sequence_exp_1_routine(exp1_eye_contact_mode);
         }
         else if(trail_count == 0)
