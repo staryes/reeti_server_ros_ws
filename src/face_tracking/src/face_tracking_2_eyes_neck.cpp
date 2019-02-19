@@ -181,7 +181,7 @@ class FaceDetector
                 rectangle(frame, face_zero, cv::Scalar(0,200,0));
 
                 
-                send_left_gaze_point(face_zero.x + (face_zero.width * 0.5), face_zero.y + (face_zero.height * 0.5));
+                send_left_gaze_point(face_zero.x + (face_zero.width * 0.5), face_zero.y + (face_zero.height * 0.3));
             }
             //imshow(main_window_name, debugImage);
             //-- Show what you got
@@ -191,7 +191,7 @@ class FaceDetector
             {
                 count++;
 
-                if (count > 10 && face_tracking_switch) // every 6/30 s 
+                if (count > 10 && face_tracking_switch) // every 10/30 s 
                 {
                     count = 0;
                     reetiros::reetiNeckPose neck_msg;
@@ -296,7 +296,7 @@ class FaceDetector
                 cv::Rect face_zero = cv::Rect((int)kalman_right->statePost.at<float>(0), (int)kalman_right->statePost.at<float>(1), faces[0].width, faces[0].height);
                 rectangle(frame, face_zero, cv::Scalar(0,200,0));
 
-                send_right_gaze_point(face_zero.x + (face_zero.width * 0.5), face_zero.y + (face_zero.height * 0.5));
+                send_right_gaze_point(face_zero.x + (face_zero.width * 0.5), face_zero.y + (face_zero.height * 0.3));
             }
 
 
