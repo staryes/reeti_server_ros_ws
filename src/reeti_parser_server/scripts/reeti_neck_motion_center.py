@@ -43,24 +43,23 @@ class reeti_neck_motion_center:
     neckYaw = 50
     neckPitch = 50
     neckRoll = 50
+    neck_update = False
 
     face_tracking_switch = False
     
     def __init__(self):
         self.neck_sub = rospy.Subscriber("/reeti/neck", reetiNeckPose, self.desiredNeckCb)
-        self.face_tracking_switch_sub = rospy.Subscriber("/track_switch", std_msgs.msg.Bool, self.trackingSwitchCb)
-
+ 
     def desiredNeckCb(self, reeti):
         self.neckYaw = reeti.neckYaw
         self.neckPitch = reeti.neckPitch
         self.neckRoll = reeti.neckRoll
-
-    def trackingSwitchCb(self, msg):
-        self.face_tracking_switch = msg.data
+        self.neck_update = True
 
     def reeti_neck_client(self) :
         rospy.wait_for_service('MoveNeckSmoothly')
         #print "wait for MoveNeck"
+        self.neck_update = False
         try:
             move_neck_smoothly = rospy.ServiceProxy('MoveNeckSmoothly', MoveNeck )
             #print "connect to service server MoveNeck"
@@ -73,7 +72,7 @@ class reeti_neck_motion_center:
         rate = rospy.Rate(1)
         while not rospy.is_shutdown():
             #rospy.loginfo("wowo")
-            if self.face_tracking_switch == True:
+            if self.neck_update == True:
                 self.reeti_neck_client()
             rate.sleep()
 
