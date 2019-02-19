@@ -2,7 +2,7 @@
   <!-- <node name="keypad" pkg="face_tracking" type="reeti_teleop_key_node"/> -->
   <node name="parser_server" pkg="reeti_parser_server" type="reeti_parser_server_node" output="screen" />
 
-  <node name="blank_image" pkg="face_tracking" type="static_image_pub_node" />
+  <node name="blank_image" pkg="face_tracking" type="static_image_pub_node" output="screen"/>
 
   <node name="back_camera" pkg="cv_camera" type="cv_camera_node" />
 

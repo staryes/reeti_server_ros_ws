@@ -51,7 +51,7 @@ class FaceDetector
 
     const static float focalLength = 170.5;
     const static float centerX = 79.5;
-    const static float centerY = 69.5;
+    const static float centerY = 59.5;
 
     float desired_right_eye_yaw = 50;
     float desired_right_eye_pitch= 50;
@@ -181,7 +181,7 @@ class FaceDetector
                 rectangle(frame, face_zero, cv::Scalar(0,200,0));
 
                 
-                send_left_gaze_point(face_zero.x + (face_zero.width * 0.5), face_zero.y + (face_zero.height * 0.3));
+                send_left_gaze_point(face_zero.x + (face_zero.width * 0.5), face_zero.y + (face_zero.height * 0.4));
             }
             //imshow(main_window_name, debugImage);
             //-- Show what you got
@@ -296,7 +296,7 @@ class FaceDetector
                 cv::Rect face_zero = cv::Rect((int)kalman_right->statePost.at<float>(0), (int)kalman_right->statePost.at<float>(1), faces[0].width, faces[0].height);
                 rectangle(frame, face_zero, cv::Scalar(0,200,0));
 
-                send_right_gaze_point(face_zero.x + (face_zero.width * 0.5), face_zero.y + (face_zero.height * 0.3));
+                send_right_gaze_point(face_zero.x + (face_zero.width * 0.5), face_zero.y + (face_zero.height * 0.4));
             }
 
 

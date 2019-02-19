@@ -23,7 +23,7 @@ class image_converter:
   
   def __init__(self):
     self.bridge = CvBridge()
-    self.image_sub = rospy.Subscriber("/cv_camera/image_raw",Image, self.callback)
+    self.image_sub = rospy.Subscriber("/back_camera/image_raw",Image, self.callback)
     self.point_pub = rospy.Publisher("clicked_point", UInt16MultiArray, queue_size = 1)
     self.neck_clicked_pub = rospy.Publisher("/reeti/neck", reetiNeckPose, queue_size = 1)
 
@@ -46,7 +46,7 @@ class image_converter:
     except CvBridgeError as e:
         print(e)
 
-    clone = cv_image.copy()
+    #clone = cv_image.copy()
         
     cv2.namedWindow("Image window for clicking")
     cv2.imshow("Image window for clicking", cv_image)

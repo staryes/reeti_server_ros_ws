@@ -220,7 +220,7 @@ void ReetiROSserver::sequence_to_rest_pose(void)
         << "Global.servo.neckPan=50 smooth:1s,"
         << "Global.servo.neckTilt=10 smooth:1s,"
         << "Global.servo.rightEyeLid=60,Global.servo.leftEyeLid=60,"
-        << "Global.servo.rightEyePan=65,Global.servo.leftEyePan=40,Global.servo.rightEyeTilt=28,Global.servo.leftEyeTilt=20"
+        << "Global.servo.rightEyePan=65,Global.servo.leftEyePan=40,Global.servo.rightEyeTilt=20,Global.servo.leftEyeTilt=20"
         << ";";
     anycmd_srv.request.cmd = str.str(); 
     anycmdClient.call(anycmd_srv);
@@ -232,7 +232,7 @@ void ReetiROSserver::sequence_standby(void)
     std::stringstream str;
     str.str("");
     str << "Global.servo.rightEyeLid=100,Global.servo.leftEyeLid=100,"
-        << "Global.servo.rightEyePan=65,Global.servo.leftEyePan=40,Global.servo.rightEyeTilt=43,Global.servo.leftEyeTilt=35,"
+        << "Global.servo.rightEyePan=65,Global.servo.leftEyePan=40,Global.servo.rightEyeTilt=35,Global.servo.leftEyeTilt=35,"
         << "Global.servo.neckRotat=40 smooth:0.3s,"
         << "Global.servo.neckPan=50 smooth:0.3s,"
         << "Global.servo.neckTilt=50 smooth:0.3s"
@@ -251,7 +251,7 @@ void ReetiROSserver::sequence_see_monitor(int monitor_x)
         str  << "Global.servo.neckRotat=10 smooth:0.8s,"
              << "Global.servo.neckPan=50 smooth:0.8s,"
              << "Global.servo.neckTilt=40 smooth:0.8s,"
-             << "Global.servo.rightEyePan=45,Global.servo.leftEyePan=20,Global.servo.rightEyeTilt=45 smooth:0.5s,Global.servo.leftEyeTilt=40 smooth:0.5s"
+             << "Global.servo.rightEyePan=45,Global.servo.leftEyePan=20,Global.servo.rightEyeTilt=40 smooth:0.5s,Global.servo.leftEyeTilt=40 smooth:0.5s"
              << ";";
     }
 
@@ -261,14 +261,14 @@ void ReetiROSserver::sequence_see_monitor(int monitor_x)
         str << "Global.servo.neckRotat=80 smooth:0.8s,"
             << "Global.servo.neckPan=50 smooth:0.8s,"
             << "Global.servo.neckTilt=40 smooth:0.8s,"
-            << "Global.servo.rightEyePan=85,Global.servo.leftEyePan=60,Global.servo.rightEyeTilt=45 smooth:0.5s,Global.servo.leftEyeTilt=40 smooth:0.5s"
+            << "Global.servo.rightEyePan=85,Global.servo.leftEyePan=60,Global.servo.rightEyeTilt=40 smooth:0.5s,Global.servo.leftEyeTilt=40 smooth:0.5s"
             << ";";
     }
     else //back to rest pose
     {
         str.str("");
         str << "Global.servo.rightEyeLid=100,Global.servo.leftEyeLid=100,"
-            << "Global.servo.rightEyePan=65,Global.servo.leftEyePan=40,Global.servo.rightEyeTilt=25 smooth:0.5s,Global.servo.leftEyeTilt=20 smooth:0.5s,"
+            << "Global.servo.rightEyePan=65,Global.servo.leftEyePan=40,Global.servo.rightEyeTilt=20 smooth:0.5s,Global.servo.leftEyeTilt=20 smooth:0.5s,"
             << "Global.servo.neckRotat=40 smooth:0.8s,"
             << "Global.servo.neckPan=50 smooth:0.8s,"
             << "Global.servo.neckTilt=50 smooth:0.8s"
