@@ -463,7 +463,6 @@ void ReetiROSserver::keyCb(const std_msgs::Char& key_msg)
     char c;
     bool neck_update = false;
     bool send_image_flag = false;
-//    bool face_tracking_switch_change = false;
 
     c = key_msg.data;
 
@@ -645,12 +644,12 @@ void ReetiROSserver::keyCb(const std_msgs::Char& key_msg)
     case KEYCODE_x:
         ROS_DEBUG("x");
         face_tracking_on_off(false);
-        //face_tracking_switch_change = true;
+
         break;
     case KEYCODE_z:
         ROS_DEBUG("z");
         face_tracking_on_off(true);
-        //face_tracking_switch_change = true;
+
 
         //sequence_standby();
 
@@ -680,19 +679,7 @@ void ReetiROSserver::keyCb(const std_msgs::Char& key_msg)
         
         send_image_flag = false;
     }
-    // if(face_tracking_switch_change)
-    // {
-    //     face_tracking_switch_change = false;
-    //     std_msgs::Bool switch_msg;
 
-    //     if(c == KEYCODE_z)
-    //     switch_msg.data = true;
-    //     else
-    //     switch_msg.data = false;
-
-    //     face_tracking_switch_pub_.publish(switch_msg);
-        
-    // }
 }
 
 int main(int argc, char** argv)
