@@ -206,6 +206,7 @@ void ReetiROSserver::face_tracking_on_off(bool on)
 void ReetiROSserver::sequence_to_rest_pose(void)
 {
     face_tracking_on_off(false);
+    //reetiros::reetiNeckPose neck_msg;
     
     std::stringstream str;
     str.str("");
@@ -225,10 +226,16 @@ void ReetiROSserver::sequence_to_rest_pose(void)
     anycmd_srv.request.cmd = str.str(); 
     anycmdClient.call(anycmd_srv);
 
+    // neck_msg.neckYaw = 40;
+    //    neck_msg.neckPitch = 50;
+    //    neck_msg.neckRoll = 10;
+
+        
 }
 
 void ReetiROSserver::sequence_standby(void)
 {
+    //reetiros::reetiNeckPose neck_msg;
     std::stringstream str;
     str.str("");
     str << "Global.servo.rightEyeLid=100,Global.servo.leftEyeLid=100,"
@@ -244,7 +251,8 @@ void ReetiROSserver::sequence_standby(void)
 void ReetiROSserver::sequence_see_monitor(int monitor_x)
 {
     std::stringstream str;
-
+    reetiros::reetiNeckPose neck_msg;
+        
     if(monitor_x == 0)
     {
         str.str("");
@@ -253,6 +261,11 @@ void ReetiROSserver::sequence_see_monitor(int monitor_x)
              << "Global.servo.neckTilt=40 smooth:0.8s,"
              << "Global.servo.rightEyePan=45,Global.servo.leftEyePan=20,Global.servo.rightEyeTilt=40 smooth:0.5s,Global.servo.leftEyeTilt=40 smooth:0.5s"
              << ";";
+
+        neck_msg.neckYaw = 10;
+        neck_msg.neckPitch = 50;
+        neck_msg.neckRoll = 40;
+
     }
 
     else if(monitor_x == 1)
@@ -263,6 +276,11 @@ void ReetiROSserver::sequence_see_monitor(int monitor_x)
             << "Global.servo.neckTilt=40 smooth:0.8s,"
             << "Global.servo.rightEyePan=85,Global.servo.leftEyePan=60,Global.servo.rightEyeTilt=40 smooth:0.5s,Global.servo.leftEyeTilt=40 smooth:0.5s"
             << ";";
+
+        neck_msg.neckYaw = 80;
+        neck_msg.neckPitch = 50;
+        neck_msg.neckRoll = 40;
+
     }
     else //back to rest pose
     {
@@ -273,10 +291,18 @@ void ReetiROSserver::sequence_see_monitor(int monitor_x)
             << "Global.servo.neckPan=50 smooth:0.8s,"
             << "Global.servo.neckTilt=50 smooth:0.8s"
             << ";";
+
+        neck_msg.neckYaw = 40;
+        neck_msg.neckPitch = 50;
+        neck_msg.neckRoll = 50;
+
     }
 
     anycmd_srv.request.cmd = str.str(); 
     anycmdClient.call(anycmd_srv);
+    
+    neck_pos_pub_.publish(neck_msg);
+    ros::Duration(1).sleep();
 }
 
 void ReetiROSserver::sequence_say_hello(void)
@@ -320,7 +346,7 @@ void ReetiROSserver::sequence_say_hello(void)
 
     ros::Duration(1).sleep();
     
-    face_tracking_on_off(false);
+//    face_tracking_on_off(false);
 
 }
 
@@ -339,13 +365,12 @@ void ReetiROSserver::sequence_exp_1_routine(bool tracking)
     }
     else
     {
-        //sequence_standby();
+        sequence_standby();
         
         ROS_INFO("face tracking off");
     }
 
     ros::Duration(0.5).sleep();
-
     face_tracking_on_off(tracking);
 
     ros::Duration(2).sleep();
@@ -365,8 +390,7 @@ void ReetiROSserver::sequence_exp_1_routine(bool tracking)
     insertFlag_msg.data = rand_num;
 
     static_image_flag_pub_.publish(insertFlag_msg);
-
-        
+    
     face_tracking_on_off(false);
     trail_count--;
 }
@@ -385,7 +409,7 @@ void ReetiROSserver::sequence_exp_1_all_correct(bool tracking)
     }
     else
     {
-        //sequence_standby();
+        sequence_standby();
         
         ROS_INFO("face tracking off");
     }

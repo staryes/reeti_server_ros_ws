@@ -13,7 +13,7 @@ int flag = -1;
 
 void flagCb(const std_msgs::Int8::ConstPtr& msg )
 {
-    ros::Duration(1).sleep(); // sleep for 0.5 second
+//    ros::Duration(0.5).sleep(); // sleep for 0.5 second
 
     flag = msg->data;
 }

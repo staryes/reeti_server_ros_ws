@@ -45,7 +45,8 @@ class reeti_neck_motion_center:
     neckRoll = 50
     neck_update = False
 
-    face_tracking_switch = False
+    command_cool_down = False
+    cooling_count = 0
     
     def __init__(self):
         self.neck_sub = rospy.Subscriber("/reeti/neck", reetiNeckPose, self.desiredNeckCb)
@@ -59,7 +60,6 @@ class reeti_neck_motion_center:
     def reeti_neck_client(self) :
         rospy.wait_for_service('MoveNeckSmoothly')
         #print "wait for MoveNeck"
-        self.neck_update = False
         try:
             move_neck_smoothly = rospy.ServiceProxy('MoveNeckSmoothly', MoveNeck )
             #print "connect to service server MoveNeck"
@@ -68,12 +68,23 @@ class reeti_neck_motion_center:
         except rospy.ServiceException, e:
             print "Service call failed: %s"%e
 
+    def command_cooling_count(self):
+        if self.command_cool_down == False:
+            if self.cooling_count > 9:
+                self.command_cool_down = True
+                self.cooling_count = 0
+            else:
+                self.cooling_count = self.cooling_count + 1
+                
     def neck_pub_spin(self):
-        rate = rospy.Rate(1)
+        rate = rospy.Rate(10)
         while not rospy.is_shutdown():
             #rospy.loginfo("wowo")
-            if self.neck_update == True:
+            self.command_cooling_count()
+            if self.neck_update == True and self.command_cool_down == True:
                 self.reeti_neck_client()
+                self.command_cool_down = False
+                self.neck_update = False
             rate.sleep()
 
 def main():
