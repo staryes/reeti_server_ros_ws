@@ -1,20 +1,30 @@
 #include <ros/ros.h>
-#include <image_transport/image_transport.h>
-#include <cv_bridge/cv_bridge.h>
-#include <sensor_msgs/image_encodings.h>
 #include <std_msgs/Bool.h>
-#include <opencv2/imgproc/imgproc.hpp>
-#include <opencv2/highgui/highgui.hpp>
-#include <opencv2/objdetect/objdetect.hpp>
 #include <opencv2/video/tracking.hpp>
 
-#include <reetiros/reetiEyesPose.h>
-#include <reetiros/reetiNeckPose.h>
-#include <reetiros/reetiPose.h>
+class KFTracking
+{
+    ros::NodeHandle nh_;
+    
+    cv::KalmanFilter* kalman;
+    cv::Mat* measurement;
 
-static const std::string OPENCV_WINDOW_left = "Left Image window";
-static const std::string OPENCV_WINDOW_right = "Right Image window";
+    ros::Subscriber measuerment_sub_;
+    ros::Publisher estimation_pub_;
 
+    
+    int KFTrackingInit(void)
+        {
+            measurement_sub_ = nh_.subscribe("kf/measurement", 1, &KFTracking::measurementCallback, this);
+
+            estimation_pub_ = nh_.advertise<stdmsgs::float32multiarray>("kft/estimation",1);
+
+            return 0;
+        }
+}
+
+
+    
 class FaceDetector
 {
     ros::NodeHandle nh_;
@@ -42,13 +52,6 @@ class FaceDetector
     //cv::Mat debugImage;
     cv::Mat skinCrCbHist = cv::Mat::zeros(cv::Size(256, 256), CV_8UC1);
 
-    // kalman filter
-    cv::KalmanFilter* kalman_left;
-    cv::Mat* measurement_left;
-
-    cv::KalmanFilter* kalman_right;
-    cv::Mat* measurement_right;
-
     const static float focalLength = 170.5;
     const static float centerX = 79.5;
     const static float centerY = 59.5;
@@ -75,7 +78,7 @@ class FaceDetector
         {
             float d_deg;
 
-            d_deg = (centerX - x) / 4;//(2*3); //8 * 3 times slow
+            d_deg = (centerX - x) /3; //8 * 3 times slow
 
             //d_deg = atan(d_deg);
             //d_deg = d_deg * 180 / 3.14159;
@@ -88,7 +91,7 @@ class FaceDetector
         {
             float d_deg;
 
-            d_deg = (centerY - y) / 4;//(2*3);
+            d_deg = (centerY - y) / 3;
 
             //d_deg = atan(d_deg);
             //d_deg = d_deg * 180 / 3.14159;
@@ -159,29 +162,11 @@ class FaceDetector
                                            cv::Size(20, 20) );
             //  findSkin(debugImage);
 
-            //Kalman filter
-            //2.kalman_left filter prediction
-            cv::Mat prediction = kalman_left->predict();
-            cv::Point2f predictPt = cv::Point2f(prediction.at<float>(0), prediction.at<float>(1));
-            
             for( int i = 0; i < faces.size(); i++ )
             {
                 rectangle(frame, faces[i], 1234);
                 ROS_INFO("face(%d, %d), width: %d, height: %d", faces[i].x, faces[i].y, faces[i].width, faces[i].height);
-//send_left_gaze_point(faces[0].x + (faces[0].width * 0.5), faces[0].y + (faces[0].height * 0.5));
-                
-                //3.update measure
-                measurement_left->at<float>(0) = (float)faces[0].x;
-                measurement_left->at<float>(1) = (float)faces[0].y;
-
-                //4.update
-                kalman_left->correct(*measurement_left);
-
-                cv::Rect face_zero = cv::Rect((int)kalman_left->statePost.at<float>(0), (int)kalman_left->statePost.at<float>(1), faces[0].width, faces[0].height);
-                rectangle(frame, face_zero, cv::Scalar(0,200,0));
-
-                
-                send_left_gaze_point(face_zero.x + (face_zero.width * 0.5), face_zero.y + (face_zero.height * 0.4));
+                send_left_gaze_point(faces[0].x + (faces[0].width * 0.5), faces[0].y + (faces[0].height * 0.5));
             }
             //imshow(main_window_name, debugImage);
             //-- Show what you got
@@ -191,7 +176,7 @@ class FaceDetector
             {
                 count++;
 
-                if (count > 10 && face_tracking_switch) // every 10/30 s 
+                if (count > 5 && face_tracking_switch) // every 6/30 s 
                 {
                     count = 0;
                     reetiros::reetiNeckPose neck_msg;
@@ -202,10 +187,10 @@ class FaceDetector
                     float eye_yaw_avg = (reeti_right_eye_yaw + reeti_left_eye_yaw) * 0.5;
                     float eye_pitch_avg = (reeti_right_eye_pitch + reeti_left_eye_pitch) * 0.5;
                 
-                    if (eye_yaw_avg > 65)
-                    servo_reeti_neck_yaw+=abs(eye_yaw_avg-50)/2;
-                    else if (eye_yaw_avg < 35)
-                    servo_reeti_neck_yaw-=abs(eye_yaw_avg-50)/2;
+                    if (eye_yaw_avg > 60)
+                    servo_reeti_neck_yaw++;
+                    else if (eye_yaw_avg < 40)
+                    servo_reeti_neck_yaw--;
 
                     if (servo_reeti_neck_yaw > 100)
                     servo_reeti_neck_yaw = 100;
@@ -213,9 +198,9 @@ class FaceDetector
                     servo_reeti_neck_yaw = 0;
 
                     if (eye_pitch_avg > 60)
-                    servo_reeti_neck_roll+=abs(eye_pitch_avg-50);
+                    servo_reeti_neck_roll++;
                     else if (eye_pitch_avg < 40)
-                    servo_reeti_neck_roll-=abs(eye_pitch_avg-50);
+                    servo_reeti_neck_roll--;
 
                     if (servo_reeti_neck_roll> 100)
                     servo_reeti_neck_roll = 100;
@@ -228,13 +213,13 @@ class FaceDetector
                     neck_msg.neckRoll = servo_reeti_neck_roll;
 
                     ROS_INFO("Neck %f %f", neck_msg.neckYaw, neck_msg.neckRoll);
-                    
+
                     neck_pos_pub_.publish(neck_msg);
 
                     //servo_deg_yaw = (servo_deg_yaw + 40.0) * 0.5;
                     //servo_deg_pitch = (servo_deg_pitch + 50) * 0.5;
                 }
-                
+
                 reetiros::reetiEyesPose eyes_msg;
 
 
@@ -250,10 +235,8 @@ class FaceDetector
                 //ROS_INFO("rYaw: %f, rPitch: %f", servo_reeti_yaw, servo_reeti_pitch);
                 //ROS_INFO("dYaw: %f, dPitch: %f", servo_deg_yaw, servo_deg_pitch);
 
-                if (count%2 == 0 && face_tracking_switch)
-                {
-                    eyes_pos_pub_.publish(eyes_msg);
-                }
+                if (face_tracking_switch)
+                eyes_pos_pub_.publish(eyes_msg);
 
             }
 
@@ -275,28 +258,12 @@ class FaceDetector
                                            0|CV_HAAR_SCALE_IMAGE|CV_HAAR_FIND_BIGGEST_OBJECT,
                                            cv::Size(20, 20) );
             //  findSkin(debugImage);
-            //Kalman filter
-            //2.kalman_left filter prediction
-            cv::Mat prediction = kalman_right->predict();
-            cv::Point2f predictPt = cv::Point2f(prediction.at<float>(0), prediction.at<float>(1));
 
             for( int i = 0; i < faces.size(); i++ )
             {
                 rectangle(frame, faces[i], 1234);
                 ROS_INFO("face(%d, %d), width: %d, height: %d", faces[i].x, faces[i].y, faces[i].width, faces[i].height);
-                //send_right_gaze_point(faces[0].x + (faces[0].width * 0.5), faces[0].y + (faces[0].height * 0.5));
-
-                //3.update measure
-                measurement_right->at<float>(0) = (float)faces[0].x;
-                measurement_right->at<float>(1) = (float)faces[0].y;
-
-                //4.update
-                kalman_right->correct(*measurement_right);
-
-                cv::Rect face_zero = cv::Rect((int)kalman_right->statePost.at<float>(0), (int)kalman_right->statePost.at<float>(1), faces[0].width, faces[0].height);
-                rectangle(frame, face_zero, cv::Scalar(0,200,0));
-
-                send_right_gaze_point(face_zero.x + (face_zero.width * 0.5), face_zero.y + (face_zero.height * 0.4));
+                send_right_gaze_point(faces[0].x + (faces[0].width * 0.5), faces[0].y + (faces[0].height * 0.5));
             }
 
 
@@ -317,56 +284,6 @@ class FaceDetector
             face_tracking_switch_sub_ = nh_.subscribe("track_switch", 1, &FaceDetector::trackingSwitchCb, this);
             face_tracking_switch = false;
 
-            // Kalman Filter config
-            // 1.kalman_left filter setup
-            const int stateNum = 4;
-            const int measureNum = 2;
-            kalman_left = new cv::KalmanFilter(stateNum, measureNum ,0); //state_lefg(x,y,deltaX,deltaY)
-            //state_left = new cv::Mat(stateNum, 1, CV_32F);
-            //processNoise = new cv::Mat(stateNum, 1, CV_32F);
-            measurement_left = new cv::Mat(cv::Mat::zeros(measureNum, 1, CV_32F)); //measure(x,y)
-
-            //cv::randn( *state_left, cv::Scalar::all(0), cv::Scalar::all(0.1) );
-
-            kalman_left->transitionMatrix = (cv::Mat_<float>(stateNum, stateNum) <<
-                                             // transition matrix
-                                             1, 0, 1, 0,
-                                             0, 1, 0, 1,
-                                             0, 0, 1, 0,
-                                             0, 0, 0, 1
-                );
-
-            cv::setIdentity(kalman_left->measurementMatrix, cv::Scalar::all(1));
-            cv::setIdentity(kalman_left->processNoiseCov, cv::Scalar::all(1e-1));
-            cv::setIdentity(kalman_left->measurementNoiseCov, cv::Scalar::all(1e-3));
-            cv::setIdentity(kalman_left->errorCovPost, cv::Scalar::all(1));
-
-            //initialize post state_lefg of kalman_left filter at random
-            cv::randn(kalman_left->statePost, cv::Scalar::all(0), cv::Scalar::all(0.1));
-
-            kalman_right = new cv::KalmanFilter(stateNum, measureNum ,0); //state_lefg(x,y,deltaX,deltaY)
-            //state_right = new cv::Mat(stateNum, 1, CV_32F);
-            //processNoise = new cv::Mat(stateNum, 1, CV_32F);
-            measurement_right = new cv::Mat(cv::Mat::zeros(measureNum, 1, CV_32F)); //measure(x,y)
-
-            //cv::randn( *state_right, cv::Scalar::all(0), cv::Scalar::all(0.1) );
-
-            kalman_right->transitionMatrix = (cv::Mat_<float>(stateNum, stateNum) <<
-                                              // transition matrix
-                                              1, 0, 1, 0,
-                                              0, 1, 0, 1,
-                                              0, 0, 1, 0,
-                                              0, 0, 0, 1
-                );
-
-            cv::setIdentity(kalman_right->measurementMatrix, cv::Scalar::all(1));
-            cv::setIdentity(kalman_right->processNoiseCov, cv::Scalar::all(1e-1));
-            cv::setIdentity(kalman_right->measurementNoiseCov, cv::Scalar::all(1e-3));
-            cv::setIdentity(kalman_right->errorCovPost, cv::Scalar::all(1));
-
-            //initialize post state_lefg of kalman_left filter at random
-            cv::randn(kalman_right->statePost, cv::Scalar::all(0), cv::Scalar::all(0.1));
-
             return 0;
         }
 
@@ -378,7 +295,7 @@ public:
             left_image_sub_ = it_.subscribe("/leftcam/image_raw", 1,
                                             &FaceDetector::leftimageCb, this);
             right_image_sub_ = it_.subscribe("/rightcam/image_raw", 1,
-                                             &FaceDetector::rightimageCb, this);
+                                            &FaceDetector::rightimageCb, this);
             //image_pub_ = it_.advertise("/image_converter/output_video", 1);
 
             cv::namedWindow(OPENCV_WINDOW_right);
@@ -478,8 +395,8 @@ public:
 
 int main(int argc, char** argv)
 {
-    ros::init(argc, argv, "face_detector");
-    FaceDetector fd;
+    ros::init(argc, argv, "kalman_tracking");
+    KFTracking kft;
     ros::spin();
     return 0;
 }

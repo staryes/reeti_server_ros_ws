@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 2.8.3)
-project(face_tracking)
+project(opencv_tools)
 
 ## Compile as C++11, supported in ROS Kinetic and newer
 # add_compile_options(-std=c++11)
@@ -9,18 +9,16 @@ project(face_tracking)
 ## is used, also find other catkin packages
 find_package(catkin REQUIRED COMPONENTS
   cv_bridge
-  geometry_msgs
-  image_transport
-  message_generation
   roscpp
+  rospy
+  rospy
   sensor_msgs
   std_msgs
-  tf
 )
 
 ## System dependencies are found with CMake's conventions
 # find_package(Boost REQUIRED COMPONENTS system)
-find_package( OpenCV REQUIRED)
+
 
 ## Uncomment this if the package has a setup.py. This macro ensures
 ## modules and global scripts declared therein get installed
@@ -52,13 +50,11 @@ find_package( OpenCV REQUIRED)
 ##   * add every package in MSG_DEP_SET to generate_messages(DEPENDENCIES ...)
 
 ## Generate messages in the 'msg' folder
- add_message_files(
-   FILES
-   ColorThreshold.msg
-   reetiNeckPose.msg
-   reetiEyesPose.msg
-   reetiPose.msg
- )
+# add_message_files(
+#   FILES
+#   Message1.msg
+#   Message2.msg
+# )
 
 ## Generate services in the 'srv' folder
 # add_service_files(
@@ -75,12 +71,10 @@ find_package( OpenCV REQUIRED)
 # )
 
 ## Generate added messages and services with any dependencies listed here
- generate_messages(
-   DEPENDENCIES
-   geometry_msgs
-   sensor_msgs
-   std_msgs
- )
+# generate_messages(
+#   DEPENDENCIES
+#   sensor_msgs#   std_msgs
+# )
 
 ################################################
 ## Declare ROS dynamic reconfigure parameters ##
@@ -113,8 +107,8 @@ find_package( OpenCV REQUIRED)
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
 #  INCLUDE_DIRS include
-#  LIBRARIES face_tracking
-  CATKIN_DEPENDS cv_bridge geometry_msgs image_transport message_generation roscpp sensor_msgs std_msgs tf
+#  LIBRARIES opencv_tools
+#  CATKIN_DEPENDS cv_bridge roscpp rospy rospy sensor_msgs std_msgs
 #  DEPENDS system_lib
 )
 
@@ -125,14 +119,13 @@ catkin_package(
 ## Specify additional locations of header files
 ## Your package locations should be listed before other locations
 include_directories(
-  include
+# include
   ${catkin_INCLUDE_DIRS}
-  ${OpenCV_INCLUDE_DIRS}
 )
 
 ## Declare a C++ library
 # add_library(${PROJECT_NAME}
-#   src/${PROJECT_NAME}/face_tracking.cpp
+#   src/${PROJECT_NAME}/opencv_tools.cpp
 # )
 
 ## Add cmake target dependencies of the library
@@ -143,18 +136,7 @@ include_directories(
 ## Declare a C++ executable
 ## With catkin_make all packages are built within a single CMake context
 ## The recommended prefix ensures that target names across packages don't collide
-# add_executable(${PROJECT_NAME}_node src/face_tracking.cpp)
-# add_executable(send_to_reeti_node src/send_to_reeti_node.cpp)
-# add_executable(get_face_node src/get_face.cpp)
-# add_executable(mouse_click_node src/mouse_click.cpp)
-# add_executable(${PROJECT_NAME}_eye_neck_node src/face_tracking_eye_neck.cpp)
- add_executable(${PROJECT_NAME}_2_eyes_neck_node src/face_tracking_2_eyes_neck.cpp)
- add_executable(static_image_pub_node src/static_image_pub.cpp)
-# add_executable(static_image_insert_pub_node src/static_image_insert_pub.cpp)
-# add_executable(show_static_images_node src/show_static_images.cpp)
-
- add_executable(reeti_teleop_key_node src/teleop_reeti_key.cpp)
-# add_executable(reeti_remote_server_node src/reeti_remote_server.cpp)
+# add_executable(${PROJECT_NAME}_node src/opencv_tools_node.cpp)
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
@@ -164,53 +146,12 @@ include_directories(
 
 ## Add cmake target dependencies of the executable
 ## same as for the library above
-#add_dependencies(${PROJECT_NAME}_eye_neck_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
-add_dependencies(${PROJECT_NAME}_2_eyes_neck_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
-#add_dependencies(reeti_remote_server_node ${catkin_EXPORTED_TARGETS})
+# add_dependencies(${PROJECT_NAME}_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
 ## Specify libraries to link a library or executable target against
 # target_link_libraries(${PROJECT_NAME}_node
 #   ${catkin_LIBRARIES}
-#   ${OpenCV_LIBRARIES}
 # )
- # target_link_libraries(send_to_reeti_node
- #   ${catkin_LIBRARIES}
- # )
- # target_link_libraries(get_face_node
- #   ${catkin_LIBRARIES}
- #   ${OpenCV_LIBRARIES}
- # )
-# target_link_libraries(mouse_click_node
-#    ${catkin_LIBRARIES}
-#    ${OpenCV_LIBRARIES}
-#  )
- #target_link_libraries(face_tracking_eye_neck_node
- #  ${catkin_LIBRARIES}
- #  ${OpenCV_LIBRARIES}
- #  )
-  target_link_libraries(face_tracking_2_eyes_neck_node
-   ${catkin_LIBRARIES}
-   ${OpenCV_LIBRARIES}
- )
-target_link_libraries(static_image_pub_node
-  ${catkin_LIBRARIES}
-  ${OpenCV_LIBRARIES}
- )
-#target_link_libraries(static_image_insert_pub_node
-#  ${catkin_LIBRARIES}
-#  ${OpenCV_LIBRARIES}
-#  )
-#target_link_libraries(show_static_images_node
-#  ${catkin_LIBRARIES}
-#  ${OpenCV_LIBRARIES}
-# )
-
-target_link_libraries(reeti_teleop_key_node
-  ${catkin_LIBRARIES}
-  )
-#target_link_libraries(reeti_remote_server_node
-#  ${catkin_LIBRARIES}
-#  )
 
 #############
 ## Install ##
@@ -252,7 +193,7 @@ target_link_libraries(reeti_teleop_key_node
 #############
 
 ## Add gtest based cpp test target and link libraries
-# catkin_add_gtest(${PROJECT_NAME}-test test/test_face_tracking.cpp)
+# catkin_add_gtest(${PROJECT_NAME}-test test/test_opencv_tools.cpp)
 # if(TARGET ${PROJECT_NAME}-test)
 #   target_link_libraries(${PROJECT_NAME}-test ${PROJECT_NAME})
 # endif()

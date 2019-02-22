@@ -13,7 +13,7 @@ int flag = -1;
 
 void flagCb(const std_msgs::Int8::ConstPtr& msg )
 {
-    ros::Duration(1).sleep(); // sleep for 0.5 second
+//    ros::Duration(0.5).sleep(); // sleep for 0.5 second
 
     flag = msg->data;
 }
@@ -41,7 +41,7 @@ int main(int argc, char** argv)
     ros::Publisher pub0 = nh_.advertise<sensor_msgs::Image>("/static_image0", 1);
     ros::Publisher pub1 = nh_.advertise<sensor_msgs::Image>("/static_image1", 1);
 
-    ros::Rate loop_rate(5 );
+    ros::Rate loop_rate(20 ); // 50 ms
 
     while(nh_.ok())
     {
@@ -51,6 +51,7 @@ int main(int argc, char** argv)
             pub0.publish(imsg1);
             pub1.publish(imsg0);
             //ROS_DEBUG("0 u");
+            ROS_INFO("show u on 0");
         }
         else if (flag == 2)
         {
@@ -58,24 +59,28 @@ int main(int argc, char** argv)
             pub0.publish(imsg2);
             pub1.publish(imsg0);
             //ROS_INFO("0 v");
+            ROS_INFO("show v on 0");
         }
         else if(flag == 3)
         {
             flag = -1;
             pub0.publish(imsg0);
             pub1.publish(imsg1);
+            ROS_INFO("show u on 1");
         }
         else if (flag == 4)
         {
             flag = -1;
             pub0.publish(imsg0);
             pub1.publish(imsg2);
+            ROS_INFO("show v on 1");
         }
         else
         {
             pub0.publish(imsg0);
             pub1.publish(imsg0);
             flag = -1;
+            //ROS_INFO("blank");
         }
         
         ros::spinOnce();

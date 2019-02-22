@@ -77,40 +77,46 @@ class ReetiROSserver
 
     ros::ServiceClient earsClient = nh_.serviceClient<reetiros::MoveEars>("MoveEars");
     ros::ServiceClient sayClient = nh_.serviceClient<reetiros::Say>("SayEnglish");
-    ros::ServiceClient neckClient = nh_.serviceClient<reetiros::MoveNeck>("MoveNeck");
+
     ros::ServiceClient anycmdClient = nh_.serviceClient<reetiros::AnyCmd>("AnyCmd");
 
     reetiros::MoveEars ears_srv;
     reetiros::Say say_english_srv;
-    reetiros::MoveNeck neck_srv;
+
     reetiros::AnyCmd anycmd_srv;
     
-    float servo_deg_yaw = 50;
-    float servo_deg_pitch= 50;
+    float servo_deg_yaw;
+    float servo_deg_pitch;
 
-    float servo_reeti_righteye_yaw = 60;
-    float servo_reeti_righteye_pitch = 55;
+    float servo_reeti_righteye_yaw;
+    float servo_reeti_righteye_pitch;
 
-    float servo_reeti_lefteye_yaw = 40;
-    float servo_reeti_lefteye_pitch = 50;
+    float servo_reeti_lefteye_yaw;
+    float servo_reeti_lefteye_pitch;
 
-    float servo_reeti_neck_yaw = 50;
-    float servo_reeti_neck_pitch = 50;
-    float servo_reeti_neck_roll = 50;
+    float servo_reeti_neck_yaw;
+    float servo_reeti_neck_pitch;
+    float servo_reeti_neck_roll;
 
     void sequence_say_hello(void);
+//    void sequence_greeting(void);
     void sequence_see_monitor(int monior_x);
     void sequence_to_rest_pose(void);
     void sequence_standby(void);
     void sequence_exp_1_routine(bool tracking);
+    void sequence_exp_1_all_correct(bool tracking);
 
+    void face_tracking_on_off(bool on);
     void eyes_tracking(int dir);
 
     int rand_num;
 
+    float target_x;
+    float target_z;
 
-    float target_x = 0;
-    float target_z = 50;
+    int trail_count;
+    bool exp1_eye_contact_mode;
+    bool exp1_ok_mode;
 
 public:
     ReetiROSserver()
@@ -121,6 +127,22 @@ public:
 
             reeti_pos_sub_ = nh_.subscribe("reeti/reetiPose", 1, &ReetiROSserver::reetiPoseCallback, this);
             keypad_sub_ = nh_.subscribe("key", 1, &ReetiROSserver::keyCb, this);
+
+            servo_deg_yaw = 50;
+            servo_deg_pitch= 50;
+
+            servo_reeti_righteye_yaw = 60;
+            servo_reeti_righteye_pitch = 55;
+
+            servo_reeti_lefteye_yaw = 40;
+            servo_reeti_lefteye_pitch = 50;
+
+            servo_reeti_neck_yaw = 50;
+            servo_reeti_neck_pitch = 50;
+            servo_reeti_neck_roll = 50;
+
+            target_x = 0;
+            target_z = 50;
         }
     ~ReetiROSserver()
         {
@@ -130,6 +152,7 @@ public:
     void keyCb(const std_msgs::Char& keymsg);
 
     void reetiPoseCallback(const reetiros::reetiPose& msg);
+    
 
 };
 
@@ -171,86 +194,134 @@ void ReetiROSserver::eyes_tracking(int dir)
     anycmdClient.call(anycmd_srv);
 }
 
+void ReetiROSserver::face_tracking_on_off(bool on)
+{
+    std_msgs::Bool switch_msg;
+
+    switch_msg.data = on;
+
+    face_tracking_switch_pub_.publish(switch_msg);
+}
+
 void ReetiROSserver::sequence_to_rest_pose(void)
 {
+    face_tracking_on_off(false);
+    reetiros::reetiNeckPose neck_msg;
+    
     std::stringstream str;
     str.str("");
     str << "Global.servo.rightEyeLid=0,Global.servo.leftEyeLid=0;";
     anycmd_srv.request.cmd = str.str();
     anycmdClient.call(anycmd_srv);
 
-    ros::Duration(0.3).sleep();
+    ros::Duration(0.4).sleep();
 
     str.str("");
-    str << "Global.servo.neckRotat=40 smooth:1s,"
-        << "Global.servo.neckPan=50 smooth:1s,"
-        << "Global.servo.neckTilt=10 smooth:1s,"
-        << "Global.servo.rightEyeLid=60,Global.servo.leftEyeLid=60,"
-        << "Global.servo.rightEyePan=65,Global.servo.leftEyePan=40,Global.servo.rightEyeTilt=20,Global.servo.leftEyeTilt=20"
+    str << "Global.servo.rightEyeLid=60,Global.servo.leftEyeLid=60,"
+        << "Global.servo.rightEyePan=65,Global.servo.leftEyePan=40,"
+        << "Global.servo.rightEyeTilt=20,Global.servo.leftEyeTilt=20"
         << ";";
     anycmd_srv.request.cmd = str.str(); 
     anycmdClient.call(anycmd_srv);
 
+    neck_msg.neckYaw = 40;
+    neck_msg.neckPitch = 50;
+    neck_msg.neckRoll = 10;
+    neck_pos_pub_.publish(neck_msg);
+        
 }
 
 void ReetiROSserver::sequence_standby(void)
 {
+    reetiros::reetiNeckPose neck_msg;
     std::stringstream str;
     str.str("");
     str << "Global.servo.rightEyeLid=100,Global.servo.leftEyeLid=100,"
-        << "Global.servo.rightEyePan=65,Global.servo.leftEyePan=40,Global.servo.rightEyeTilt=40,Global.servo.leftEyeTilt=35,"
-        << "Global.servo.neckRotat=40 smooth:0.5s,"
-        << "Global.servo.neckPan=50 smooth:0.5s,"
-        << "Global.servo.neckTilt=50 smooth:0.5s"
+        << "Global.servo.rightEyePan=65,Global.servo.leftEyePan=40,Global.servo.rightEyeTilt=45,Global.servo.leftEyeTilt=45,"
+        //<< "Global.servo.neckRotat=40 smooth:0.3s,"
+        //<< "Global.servo.neckPan=50 smooth:0.3s,"
+        //<< "Global.servo.neckTilt=50 smooth:0.3s"
         << ";";
     anycmd_srv.request.cmd = str.str(); 
     anycmdClient.call(anycmd_srv);
+
+    neck_msg.neckYaw = 40;
+    neck_msg.neckPitch = 50;
+    neck_msg.neckRoll = 50;
+    neck_pos_pub_.publish(neck_msg);
 }
 
 void ReetiROSserver::sequence_see_monitor(int monitor_x)
 {
     std::stringstream str;
-
+    reetiros::reetiNeckPose neck_msg;
+        
     if(monitor_x == 0)
     {
         str.str("");
-        str  << "Global.servo.neckRotat=10 smooth:0.8s,"
-             << "Global.servo.neckPan=50 smooth:0.8s,"
-             << "Global.servo.neckTilt=40 smooth:0.8s,"
-             << "Global.servo.rightEyePan=65,Global.servo.leftEyePan=40,Global.servo.rightEyeTilt=45 smooth:0.5s,Global.servo.leftEyeTilt=40 smooth:0.5s"
+        str  //<< "Global.servo.neckRotat=10 smooth:0.8s,"
+             //<< "Global.servo.neckPan=50 smooth:0.8s,"
+             //<< "Global.servo.neckTilt=40 smooth:0.8s,"
+             << "Global.servo.rightEyePan=45,Global.servo.leftEyePan=20,Global.servo.rightEyeTilt=40 smooth:0.2s,Global.servo.leftEyeTilt=40 smooth:0.2s"
              << ";";
+
+        neck_msg.neckYaw = 10;
+        neck_msg.neckPitch = 50;
+        neck_msg.neckRoll = 40;
+
     }
 
     else if(monitor_x == 1)
     {
         str.str("");
-        str << "Global.servo.neckRotat=80 smooth:0.8s,"
-            << "Global.servo.neckPan=50 smooth:0.8s,"
-            << "Global.servo.neckTilt=40 smooth:0.8s,"
-            << "Global.servo.rightEyePan=65,Global.servo.leftEyePan=40,Global.servo.rightEyeTilt=45 smooth:0.5s,Global.servo.leftEyeTilt=40 smooth:0.5s"
+        str //<< "Global.servo.neckRotat=80 smooth:0.8s,"
+            //<< "Global.servo.neckPan=50 smooth:0.8s,"
+            //<< "Global.servo.neckTilt=40 smooth:0.8s,"
+            << "Global.servo.rightEyePan=85,Global.servo.leftEyePan=60,Global.servo.rightEyeTilt=40 smooth:0.2s,Global.servo.leftEyeTilt=40 smooth:0.2s"
             << ";";
+
+        neck_msg.neckYaw = 80;
+        neck_msg.neckPitch = 50;
+        neck_msg.neckRoll = 40;
+
     }
     else //back to rest pose
     {
         str.str("");
         str << "Global.servo.rightEyeLid=100,Global.servo.leftEyeLid=100,"
-            << "Global.servo.rightEyePan=65,Global.servo.leftEyePan=40,Global.servo.rightEyeTilt=20 smooth:0.5s,Global.servo.leftEyeTilt=20 smooth:0.5s,"
-            << "Global.servo.neckRotat=40 smooth:0.8s,"
-            << "Global.servo.neckPan=50 smooth:0.8s,"
-            << "Global.servo.neckTilt=40 smooth:0.8s"
+            << "Global.servo.rightEyePan=65,Global.servo.leftEyePan=40,Global.servo.rightEyeTilt=20 smooth:0.2s,Global.servo.leftEyeTilt=20 smooth:0.2s,"
+            //<< "Global.servo.neckRotat=40 smooth:0.8s,"
+            //<< "Global.servo.neckPan=50 smooth:0.8s,"
+            //<< "Global.servo.neckTilt=50 smooth:0.8s"
             << ";";
+
+        neck_msg.neckYaw = 40;
+        neck_msg.neckPitch = 50;
+        neck_msg.neckRoll = 50;
+
     }
 
     anycmd_srv.request.cmd = str.str(); 
     anycmdClient.call(anycmd_srv);
+    
+    neck_pos_pub_.publish(neck_msg);
+    ros::Duration(1).sleep();
 }
 
 void ReetiROSserver::sequence_say_hello(void)
 {
+    face_tracking_on_off(true);
+        
     std::stringstream str;
     str.str("");
-    str << "Global.tts.say(\"\\\\voice=Kate \\\\language=English \\\\volume=10 Hello!\"),"
-        << "Global.servo.neckTilt=" << servo_reeti_neck_roll-20 << " smooth:0.3s;";
+    str << "Global.tts.say(\"\\\\voice=Kate \\\\language=English \\\\volume=10 Hello! I am Reeti. Nice to meet you.\"),"
+        << "Global.servo.changeLedColorRGB( "
+        << 0 << ", "
+        << 512 << ", "
+        << 100 << ", "
+        << 100 << ", "
+        << 1 << "),"
+        << "Global.servo.neckTilt=" << 10 << " smooth:0.3s;";
 
     anycmd_srv.request.cmd = str.str();
     anycmdClient.call(anycmd_srv);
@@ -259,53 +330,117 @@ void ReetiROSserver::sequence_say_hello(void)
 
     str.str("");
     str << "Global.servo.neckTilt=" << servo_reeti_neck_roll << " smooth:0.3s;";
+
     anycmd_srv.request.cmd = str.str();
     anycmdClient.call(anycmd_srv);
+
+    ros::Duration(3).sleep();
+
+    str.str("");
+    str << "Global.servo.changeLedColorRGB( "
+        << 0 << ", "
+        << 0 << ", "
+        << 0 << ", "
+        << 0 << ", "
+        << 0 << ");";
+
+    anycmd_srv.request.cmd = str.str();
+    anycmdClient.call(anycmd_srv);
+
+    ros::Duration(1).sleep();
+    
+//    face_tracking_on_off(false);
 
 }
 
 void ReetiROSserver::sequence_exp_1_routine(bool tracking)
 {
-    std_msgs::Bool switch_msg;
+
     std_msgs::Int8 insertFlag_msg;
     
-    //ros::Duration(0.5).sleep();
+    ros::Duration(0.5).sleep();
     if (tracking == true)
     {
-        switch_msg.data = true;
+
         sequence_standby();
         
         ROS_INFO("face tracking on");
     }
     else
     {
-        switch_msg.data = false;
-        //sequence_standby();
+//        sequence_standby();
         
         ROS_INFO("face tracking off");
     }
-    face_tracking_switch_pub_.publish(switch_msg);
+
+    ros::Duration(0.5).sleep();
+    face_tracking_on_off(tracking);
 
     ros::Duration(2).sleep();
 
+    face_tracking_on_off(false);
+    
     timeNow = ros::Time::now();
     rand_num = (timeNow.nsec % 2);
     sequence_see_monitor(rand_num);
     ROS_INFO("reeti turn to %d", rand_num);
 
+    ros::Duration(0.5).sleep();
+    
     timeNow = ros::Time::now();
     rand_num = (timeNow.nsec % 4) + 1;
     ROS_INFO("rand_num=%d", rand_num);
     insertFlag_msg.data = rand_num;
 
     static_image_flag_pub_.publish(insertFlag_msg);
-
-        
-    switch_msg.data = false;
-    face_tracking_switch_pub_.publish(switch_msg);
+    
+    face_tracking_on_off(false);
+    trail_count--;
 }
 
+void ReetiROSserver::sequence_exp_1_all_correct(bool tracking)
+{
+    std_msgs::Int8 insertFlag_msg;
+    
+    ros::Duration(0.5).sleep();
+    if (tracking == true)
+    {
 
+        sequence_standby();
+        
+        ROS_INFO("face tracking on");
+    }
+    else
+    {
+//        sequence_standby();
+        
+        ROS_INFO("face tracking off");
+    }
+
+    ros::Duration(0.5).sleep();
+    face_tracking_on_off(tracking);
+    
+    ros::Duration(2).sleep();
+
+    face_tracking_on_off(false);
+
+    timeNow = ros::Time::now();
+    rand_num = (timeNow.nsec % 2);
+    sequence_see_monitor(rand_num);
+    ROS_INFO("reeti turn to %d", rand_num);
+
+    ros::Duration(0.5).sleep();
+    
+    timeNow = ros::Time::now();
+    rand_num = (rand_num * 2) + (timeNow.nsec % 2) + 1; // reeti is always right
+    ROS_INFO("rand_num=%d", rand_num);
+    insertFlag_msg.data = rand_num;
+
+    static_image_flag_pub_.publish(insertFlag_msg);
+
+    face_tracking_on_off(false);
+    trail_count--;
+}
 
 void ReetiROSserver::reetiPoseCallback(const reetiros::reetiPose& msg)
 {
@@ -328,7 +463,6 @@ void ReetiROSserver::keyCb(const std_msgs::Char& key_msg)
     char c;
     bool neck_update = false;
     bool send_image_flag = false;
-    bool face_tracking_switch_change = false;
 
     c = key_msg.data;
 
@@ -357,11 +491,25 @@ void ReetiROSserver::keyCb(const std_msgs::Char& key_msg)
     case KEYCODE_a:
         ROS_DEBUG("a");
         sequence_to_rest_pose();
+        ROS_INFO("Reeti takes a break");
         break;
 
+    case KEYCODE_c:
+        ROS_DEBUG("c");
+        ROS_INFO("exp1 ok mode");
+        trail_count = 10;
+        exp1_ok_mode = true;
+        sequence_exp_1_all_correct(true);
+        break;
+        
     case KEYCODE_d:
         ROS_DEBUG("d");
-        sequence_exp_1_routine(true);
+        ROS_INFO("exp1 d mode");
+        trail_count = 10;
+        exp1_ok_mode = false;
+        exp1_eye_contact_mode = true;
+        sequence_exp_1_routine(exp1_eye_contact_mode);
+
         break;
 
     case KEYCODE_e:
@@ -381,7 +529,12 @@ void ReetiROSserver::keyCb(const std_msgs::Char& key_msg)
         break;
     case KEYCODE_f:
         ROS_DEBUG("f");
-        sequence_exp_1_routine(false);
+        ROS_INFO("exp1 f mode");
+        trail_count = 10;
+        exp1_ok_mode = false;
+        exp1_eye_contact_mode = false;
+        sequence_exp_1_routine(exp1_eye_contact_mode);
+
         break;
     case KEYCODE_h:
         ROS_DEBUG("h");
@@ -422,8 +575,7 @@ void ReetiROSserver::keyCb(const std_msgs::Char& key_msg)
         ROS_INFO("rand_num=%d", rand_num);
         send_image_flag = true;
 
-        face_tracking_switch_change = true;
-        c = KEYCODE_x;
+        face_tracking_on_off(false);
         
         break;
     case KEYCODE_q:
@@ -448,17 +600,40 @@ void ReetiROSserver::keyCb(const std_msgs::Char& key_msg)
     case KEYCODE_s:
         ROS_DEBUG("s");
         sequence_standby();
+        ROS_INFO("Reeti standby");
         break;
+        
     case KEYCODE_u:
         ROS_DEBUG("u");
         ROS_INFO("user pressed u");
         sequence_see_monitor(-1);
+        if(trail_count>0)
+        {
+            if (exp1_ok_mode)
+            sequence_exp_1_all_correct(true);
+            else
+            sequence_exp_1_routine(exp1_eye_contact_mode);
+        }
+        else if(trail_count == 0)
+        {
+            sequence_to_rest_pose();
+        }
         break;
     case KEYCODE_v:
         ROS_DEBUG("v");
         ROS_INFO("user pressed v");
         sequence_see_monitor(-1);
-
+        if(trail_count>0)
+        {
+            if (exp1_ok_mode)
+            sequence_exp_1_all_correct(true);
+            else
+            sequence_exp_1_routine(exp1_eye_contact_mode);
+        }
+        else if(trail_count == 0)
+        {
+            sequence_to_rest_pose();
+        }
         break;
 
 
@@ -468,13 +643,15 @@ void ReetiROSserver::keyCb(const std_msgs::Char& key_msg)
         break;
     case KEYCODE_x:
         ROS_DEBUG("x");
-        face_tracking_switch_change = true;
+        face_tracking_on_off(false);
+
         break;
     case KEYCODE_z:
         ROS_DEBUG("z");
-        face_tracking_switch_change = true;
+        face_tracking_on_off(true);
 
-        sequence_standby();
+
+        //sequence_standby();
 
         break;
     }
@@ -502,19 +679,7 @@ void ReetiROSserver::keyCb(const std_msgs::Char& key_msg)
         
         send_image_flag = false;
     }
-    if(face_tracking_switch_change)
-    {
-        face_tracking_switch_change = false;
-        std_msgs::Bool switch_msg;
 
-        if(c == KEYCODE_z)
-        switch_msg.data = true;
-        else
-        switch_msg.data = false;
-
-        face_tracking_switch_pub_.publish(switch_msg);
-        
-    }
 }
 
 int main(int argc, char** argv)
