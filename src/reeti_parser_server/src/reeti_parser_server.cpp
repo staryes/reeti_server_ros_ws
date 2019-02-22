@@ -237,7 +237,7 @@ void ReetiROSserver::sequence_standby(void)
     std::stringstream str;
     str.str("");
     str << "Global.servo.rightEyeLid=100,Global.servo.leftEyeLid=100,"
-        << "Global.servo.rightEyePan=65,Global.servo.leftEyePan=40,Global.servo.rightEyeTilt=35,Global.servo.leftEyeTilt=35,"
+        << "Global.servo.rightEyePan=65,Global.servo.leftEyePan=40,Global.servo.rightEyeTilt=45,Global.servo.leftEyeTilt=45,"
         //<< "Global.servo.neckRotat=40 smooth:0.3s,"
         //<< "Global.servo.neckPan=50 smooth:0.3s,"
         //<< "Global.servo.neckTilt=50 smooth:0.3s"
@@ -368,7 +368,7 @@ void ReetiROSserver::sequence_exp_1_routine(bool tracking)
     }
     else
     {
-        sequence_standby();
+//        sequence_standby();
         
         ROS_INFO("face tracking off");
     }
@@ -412,7 +412,7 @@ void ReetiROSserver::sequence_exp_1_all_correct(bool tracking)
     }
     else
     {
-        sequence_standby();
+//        sequence_standby();
         
         ROS_INFO("face tracking off");
     }
