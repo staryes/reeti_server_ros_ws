@@ -2,6 +2,7 @@
 #include "sensor_msgs/Joy.h"
 #include "std_msgs/Bool.h"
 
+
 #include "reetiros/AnyCmd.h"
 #include "reetiros/reetiNeckPose.h"
 
@@ -12,18 +13,22 @@ class TeleopReeti
 {
 public:
     TeleopReeti();
+
     void turnNeck(void);
     
 private:
     void joyCallback(const sensor_msgs::Joy::ConstPtr& joy);
+
     
     ros::NodeHandle nh_;
 
     ros::ServiceClient anycmdClient = nh_.serviceClient<reetiros::AnyCmd>("AnyCmd");
     
     ros::Subscriber joy_sub_;
+
     ros::Publisher neck_pos_pub_;
     ros::Publisher face_tracking_switch_pub_;
+
     reetiros::AnyCmd anycmd_srv;
 
     float servo_reeti_neck_yaw = 50;
@@ -31,6 +36,7 @@ private:
     float servo_reeti_neck_roll = 50;
 
     bool face_tracking_switch = false;
+
 
 };
 
@@ -46,6 +52,7 @@ void TeleopReeti::turnNeck(void)
 
     anycmd_srv.request.cmd = str.str();
     anycmdClient.call(anycmd_srv);
+
 }
 
 TeleopReeti::TeleopReeti()
@@ -109,5 +116,6 @@ int main(int argc, char** argv)
     // }
     ros::spin();
     
+
     return 0;
 }

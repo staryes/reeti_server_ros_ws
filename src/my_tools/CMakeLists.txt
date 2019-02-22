@@ -155,6 +155,7 @@ add_executable(reeti_wiimote_node src/reeti_wiimote.cpp)
 add_dependencies(reeti_wiimote_node reetiros_generate_messages_cpp)
 
 ## Specify libraries to link a library or executable target against
+
 # target_link_libraries(${PROJECT_NAME}_node
 #   ${catkin_LIBRARIES}
 # )
@@ -165,7 +166,6 @@ target_link_libraries(back_camera_selecting_node
 target_link_libraries(reeti_wiimote_node
   ${catkin_LIBRARIES}
   )
-
 
 #############
 ## Install ##
