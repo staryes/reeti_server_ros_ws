@@ -15,11 +15,11 @@ process[right_monitor-8]: started with pid [8668]
 [ INFO] [1550524162.627333053]: exp1 ok mode
 [ INFO] [1550524163.130398225]: face tracking on
 [ INFO] [1550524165.633367134]: reeti turn to 1
-[ INFO] [1550524166.133454873]: rand_num=3
+[ INFO] [1550524166.133454873]: 1, u
 [ INFO] [1550524167.823224513]: user pressed u
 [ INFO] [1550524168.328900556]: face tracking on
 [ INFO] [1550524170.831368820]: reeti turn to 1
-[ INFO] [1550524171.331475970]: rand_num=4
+[ INFO] [1550524171.331475970]: 1, v
 [ INFO] [1550524173.665934759]: user pressed v
 [ INFO] [1550524174.171736905]: face tracking on
 [ INFO] [1550524176.674750787]: reeti turn to 0
@@ -35,11 +35,11 @@ process[right_monitor-8]: started with pid [8668]
 [ INFO] [1550524189.265472574]: user pressed v
 [ INFO] [1550524189.770751027]: face tracking on
 [ INFO] [1550524192.274841501]: reeti turn to 1
-[ INFO] [1550524192.775026398]: rand_num=3
+[ INFO] [1550524192.775026398]: 1, u
 [ INFO] [1550524194.447345195]: user pressed u
 [ INFO] [1550524194.952291294]: face tracking on
 [ INFO] [1550524197.455251271]: reeti turn to 1
-[ INFO] [1550524197.955375305]: rand_num=4
+[ INFO] [1550524197.955375305]: 1, v
 [ INFO] [1550524199.793959436]: user pressed v
 [ INFO] [1550524200.300153921]: face tracking on
 [ INFO] [1550524202.803201601]: reeti turn to 0
@@ -51,24 +51,24 @@ process[right_monitor-8]: started with pid [8668]
 [ INFO] [1550524210.240300948]: user pressed v
 [ INFO] [1550524210.749024306]: face tracking on
 [ INFO] [1550524213.252351421]: reeti turn to 1
-[ INFO] [1550524213.752448766]: rand_num=4
+[ INFO] [1550524213.752448766]: 1, v
 [ INFO] [1550524215.473222480]: user pressed v
 [ INFO] [1550524225.193898517]: exp1 d mode
 [ INFO] [1550524225.697386838]: face tracking on
 [ INFO] [1550524228.202408299]: reeti turn to 1
-[ INFO] [1550524228.702606205]: rand_num=4
+[ INFO] [1550524228.702606205]: 1, v
 [ INFO] [1550524230.662434946]: user pressed v
 [ INFO] [1550524231.168732697]: face tracking on
 [ INFO] [1550524233.671402474]: reeti turn to 0
-[ INFO] [1550524234.171527539]: rand_num=3
+[ INFO] [1550524234.171527539]: 1, u
 [ INFO] [1550524235.991015243]: user pressed v
 [ INFO] [1550524236.496358461]: face tracking on
 [ INFO] [1550524238.999030846]: reeti turn to 0
-[ INFO] [1550524239.499149666]: rand_num=3
+[ INFO] [1550524239.499149666]: 1, u
 [ INFO] [1550524241.232700351]: user pressed u
 [ INFO] [1550524241.738250505]: face tracking on
 [ INFO] [1550524244.241160032]: reeti turn to 0
-[ INFO] [1550524244.741284743]: rand_num=4
+[ INFO] [1550524244.741284743]: 1, v
 [ INFO] [1550524246.389062782]: user pressed v
 [ INFO] [1550524246.894256642]: face tracking on
 [ INFO] [1550524249.397213891]: reeti turn to 0
@@ -76,7 +76,7 @@ process[right_monitor-8]: started with pid [8668]
 [ INFO] [1550524251.584228937]: user pressed v
 [ INFO] [1550524252.089858453]: face tracking on
 [ INFO] [1550524254.592800176]: reeti turn to 0
-[ INFO] [1550524255.092857438]: rand_num=3
+[ INFO] [1550524255.092857438]: 1, u
 [ INFO] [1550524256.892068384]: user pressed u
 [ INFO] [1550524257.397705875]: face tracking on
 [ INFO] [1550524259.900583854]: reeti turn to 1
@@ -88,7 +88,7 @@ process[right_monitor-8]: started with pid [8668]
 [ INFO] [1550524267.310566665]: user pressed u
 [ INFO] [1550524267.815969347]: face tracking on
 [ INFO] [1550524270.319320495]: reeti turn to 0
-[ INFO] [1550524270.819441079]: rand_num=4
+[ INFO] [1550524270.819441079]: 1, v
 [ INFO] [1550524272.435412483]: user pressed v
 [ INFO] [1550524272.943919514]: face tracking on
 [ INFO] [1550524275.447261157]: reeti turn to 1
