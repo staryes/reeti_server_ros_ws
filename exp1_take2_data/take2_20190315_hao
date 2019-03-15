@@ -1,0 +1,255 @@
+[ INFO] [1552679091.157354287]: exp1 ok mode
+[ INFO] [1552679091.660444892]: face tracking on
+[ INFO] [1552679095.165855059]: reeti turn to 1
+[ INFO] [1552679095.666047677]: rand_num=3
+[ INFO] [1552679095.760060753]: show u on 1
+[ INFO] [1552679096.294228844]: user pressed u
+[ INFO] [1552679097.806257018]: face tracking on
+[ INFO] [1552679101.309042947]: reeti turn to 0
+[ INFO] [1552679101.809130774]: rand_num=2
+[ INFO] [1552679101.909600887]: show v on 0
+[ INFO] [1552679102.278061740]: user pressed u
+[ INFO] [1552679103.784297583]: face tracking on
+[ INFO] [1552679107.287322284]: reeti turn to 0
+[ INFO] [1552679107.787438651]: rand_num=2
+[ INFO] [1552679107.860173243]: show v on 0
+[ INFO] [1552679108.357847107]: user pressed v
+[ INFO] [1552679109.864652023]: face tracking on
+[ INFO] [1552679113.374730529]: reeti turn to 1
+[ INFO] [1552679113.874829976]: rand_num=3
+[ INFO] [1552679113.960649258]: show u on 1
+[ INFO] [1552679114.423442127]: user pressed u
+[ INFO] [1552679115.929418030]: face tracking on
+[ INFO] [1552679119.434292107]: reeti turn to 0
+[ INFO] [1552679119.934420914]: rand_num=1
+[ INFO] [1552679120.010422600]: show u on 0
+[ INFO] [1552679120.572929146]: user pressed u
+[ INFO] [1552679122.078916186]: face tracking on
+[ INFO] [1552679125.582289538]: reeti turn to 0
+[ INFO] [1552679126.082425213]: rand_num=1
+[ INFO] [1552679126.159411986]: show u on 0
+[ INFO] [1552679126.816744410]: user pressed u
+[ INFO] [1552679128.325354269]: face tracking on
+[ INFO] [1552679131.828939555]: reeti turn to 1
+[ INFO] [1552679132.329073264]: rand_num=3
+[ INFO] [1552679132.409195263]: show u on 1
+[ INFO] [1552679132.989643955]: user pressed u
+[ INFO] [1552679134.495218125]: face tracking on
+[ INFO] [1552679137.998197353]: reeti turn to 1
+[ INFO] [1552679138.498373759]: rand_num=3
+[ INFO] [1552679138.559472468]: show u on 1
+[ INFO] [1552679138.956519367]: user pressed u
+[ INFO] [1552679140.465871327]: face tracking on
+[ INFO] [1552679143.975033482]: reeti turn to 0
+[ INFO] [1552679144.475142106]: rand_num=2
+[ INFO] [1552679144.561000441]: show v on 0
+[ INFO] [1552679145.028963846]: user pressed v
+[ INFO] [1552679146.539561852]: face tracking on
+[ INFO] [1552679150.042379250]: reeti turn to 1
+[ INFO] [1552679150.542513159]: rand_num=3
+[ INFO] [1552679150.610181698]: show u on 1
+[ INFO] [1552679150.962686253]: user pressed u
+[ INFO] [1552679193.103265321]: exp1 f mode
+[ INFO] [1552679193.603427140]: face tracking off
+[ INFO] [1552679197.107691214]: reeti turn to 1
+[ INFO] [1552679197.607797240]: rand_num=4
+[ INFO] [1552679197.659161046]: show v on 1
+[ INFO] [1552679198.387923047]: user pressed v
+[ INFO] [1552679199.890741936]: face tracking off
+[ INFO] [1552679203.393893262]: reeti turn to 0
+[ INFO] [1552679203.894013292]: rand_num=1
+[ INFO] [1552679203.961156858]: show u on 0
+[ INFO] [1552679204.384228140]: user pressed u
+[ INFO] [1552679205.887718471]: face tracking off
+[ INFO] [1552679209.390649933]: reeti turn to 0
+[ INFO] [1552679209.890783127]: rand_num=1
+[ INFO] [1552679209.960025343]: show u on 0
+[ INFO] [1552679210.433047964]: user pressed u
+[ INFO] [1552679211.940226332]: face tracking off
+[ INFO] [1552679215.443429404]: reeti turn to 1
+[ INFO] [1552679215.943553429]: rand_num=1
+[ INFO] [1552679216.009849939]: show u on 0
+[ INFO] [1552679216.620184182]: user pressed u
+[ INFO] [1552679218.123039072]: face tracking off
+[ INFO] [1552679221.625954562]: reeti turn to 1
+[ INFO] [1552679222.126085840]: rand_num=4
+[ INFO] [1552679222.209966784]: show v on 1
+[ INFO] [1552679222.718949780]: user pressed v
+[ INFO] [1552679224.225870227]: face tracking off
+[ INFO] [1552679227.728896881]: reeti turn to 1
+[ INFO] [1552679228.229017664]: rand_num=1
+[ INFO] [1552679228.310069312]: show u on 0
+[ INFO] [1552679229.017832418]: user pressed u
+[ INFO] [1552679230.521607873]: face tracking off
+[ INFO] [1552679234.024861425]: reeti turn to 0
+[ INFO] [1552679234.524991748]: rand_num=4
+[ INFO] [1552679234.609746405]: show v on 1
+[ INFO] [1552679235.190681332]: user pressed v
+[ INFO] [1552679236.694210087]: face tracking off
+[ INFO] [1552679240.197355244]: reeti turn to 0
+[ INFO] [1552679240.697462541]: rand_num=4
+[ INFO] [1552679240.760930680]: show v on 1
+[ INFO] [1552679241.318110085]: user pressed v
+[ INFO] [1552679242.821332997]: face tracking off
+[ INFO] [1552679246.324279431]: reeti turn to 0
+[ INFO] [1552679246.824379362]: rand_num=2
+[ INFO] [1552679246.909579784]: show v on 0
+[ INFO] [1552679247.581912336]: user pressed v
+[ INFO] [1552679249.085251662]: face tracking off
+[ INFO] [1552679252.588265744]: reeti turn to 1
+[ INFO] [1552679253.088388859]: rand_num=3
+[ INFO] [1552679253.159578528]: show u on 1
+[ INFO] [1552679253.644820907]: user pressed u
+[ INFO] [1552679271.058004625]: exp1 d mode
+[ INFO] [1552679271.561711233]: face tracking on
+[ INFO] [1552679275.068448036]: reeti turn to 1
+[ INFO] [1552679275.568701180]: rand_num=3
+[ INFO] [1552679275.659587136]: show u on 1
+[ INFO] [1552679276.193415502]: user pressed u
+[ INFO] [1552679277.703216682]: face tracking on
+[ INFO] [1552679281.207972594]: reeti turn to 0
+[ INFO] [1552679281.708082576]: rand_num=4
+[ INFO] [1552679281.810404607]: show v on 1
+[ INFO] [1552679282.455513184]: user pressed v
+[ INFO] [1552679283.961956823]: face tracking on
+[ INFO] [1552679287.468966517]: reeti turn to 0
+[ INFO] [1552679287.969127282]: rand_num=2
+[ INFO] [1552679288.061022918]: show v on 0
+[ INFO] [1552679288.542430077]: user pressed v
+[ INFO] [1552679290.048200986]: face tracking on
+[ INFO] [1552679293.551462027]: reeti turn to 0
+[ INFO] [1552679294.051584225]: rand_num=3
+[ INFO] [1552679294.110255890]: show u on 1
+[ INFO] [1552679294.653111008]: user pressed u
+[ INFO] [1552679296.158360749]: face tracking on
+[ INFO] [1552679299.661965172]: reeti turn to 1
+[ INFO] [1552679300.162166118]: rand_num=3
+[ INFO] [1552679300.259265148]: show u on 1
+[ INFO] [1552679300.857267687]: user pressed u
+[ INFO] [1552679302.363967314]: face tracking on
+[ INFO] [1552679305.874714921]: reeti turn to 0
+[ INFO] [1552679306.374860825]: rand_num=2
+[ INFO] [1552679306.460518215]: show v on 0
+[ INFO] [1552679306.943841480]: user pressed v
+[ INFO] [1552679308.449473909]: face tracking on
+[ INFO] [1552679311.952391828]: reeti turn to 1
+[ INFO] [1552679312.452506964]: rand_num=1
+[ INFO] [1552679312.510631552]: show u on 0
+[ INFO] [1552679313.142019169]: user pressed u
+[ INFO] [1552679314.647981140]: face tracking on
+[ INFO] [1552679318.150740020]: reeti turn to 0
+[ INFO] [1552679318.650861397]: rand_num=4
+[ INFO] [1552679318.710621826]: show v on 1
+[ INFO] [1552679319.197316979]: user pressed v
+[ INFO] [1552679320.710254013]: face tracking on
+[ INFO] [1552679324.213808275]: reeti turn to 1
+[ INFO] [1552679324.714039854]: rand_num=2
+[ INFO] [1552679324.810286778]: show v on 0
+[ INFO] [1552679325.407490577]: user pressed v
+[ INFO] [1552679326.914225927]: face tracking on
+[ INFO] [1552679330.418355744]: reeti turn to 0
+[ INFO] [1552679330.918563754]: rand_num=2
+[ INFO] [1552679331.010366404]: show v on 0
+[ INFO] [1552679331.472966402]: user pressed v
+[ INFO] [1552679348.341359017]: exp1 d mode
+[ INFO] [1552679348.844889015]: face tracking on
+[ INFO] [1552679352.347659079]: reeti turn to 1
+[ INFO] [1552679352.847775558]: rand_num=2
+[ INFO] [1552679352.910288813]: show v on 0
+[ INFO] [1552679353.357873354]: user pressed v
+[ INFO] [1552679354.864342562]: face tracking on
+[ INFO] [1552679358.374610322]: reeti turn to 1
+[ INFO] [1552679358.874746829]: rand_num=3
+[ INFO] [1552679358.959750062]: show u on 1
+[ INFO] [1552679359.440646279]: user pressed u
+[ INFO] [1552679360.946529326]: face tracking on
+[ INFO] [1552679364.449508366]: reeti turn to 0
+[ INFO] [1552679364.949631314]: rand_num=2
+[ INFO] [1552679365.010730933]: show v on 0
+[ INFO] [1552679365.490894375]: user pressed v
+[ INFO] [1552679366.997284126]: face tracking on
+[ INFO] [1552679370.506377613]: reeti turn to 1
+[ INFO] [1552679371.006536500]: rand_num=3
+[ INFO] [1552679371.109842020]: show u on 1
+[ INFO] [1552679371.784235996]: user pressed u
+[ INFO] [1552679373.289970962]: face tracking on
+[ INFO] [1552679376.793170595]: reeti turn to 0
+[ INFO] [1552679377.293372871]: rand_num=2
+[ INFO] [1552679377.359546129]: show v on 0
+[ INFO] [1552679377.749795823]: user pressed v
+[ INFO] [1552679379.255846042]: face tracking on
+[ INFO] [1552679382.759207842]: reeti turn to 1
+[ INFO] [1552679383.259348127]: rand_num=1
+[ INFO] [1552679383.360330474]: show u on 0
+[ INFO] [1552679383.867014897]: user pressed v
+[ INFO] [1552679385.378586663]: face tracking on
+[ INFO] [1552679388.881407493]: reeti turn to 0
+[ INFO] [1552679389.381605195]: rand_num=3
+[ INFO] [1552679389.459350604]: show u on 1
+[ INFO] [1552679390.023365249]: user pressed u
+[ INFO] [1552679391.530139498]: face tracking on
+[ INFO] [1552679395.039545024]: reeti turn to 0
+[ INFO] [1552679395.539665383]: rand_num=3
+[ INFO] [1552679395.610116965]: show u on 1
+[ INFO] [1552679396.086336528]: user pressed u
+[ INFO] [1552679397.591895309]: face tracking on
+[ INFO] [1552679401.095006364]: reeti turn to 0
+[ INFO] [1552679401.595145121]: rand_num=1
+[ INFO] [1552679401.661513124]: show u on 0
+[ INFO] [1552679402.283928561]: user pressed u
+[ INFO] [1552679403.789854225]: face tracking on
+[ INFO] [1552679407.292918966]: reeti turn to 1
+[ INFO] [1552679407.793035543]: rand_num=3
+[ INFO] [1552679407.860434761]: show u on 1
+[ INFO] [1552679408.215993253]: user pressed u
+[ INFO] [1552679421.960001297]: exp1 f mode
+[ INFO] [1552679422.460151440]: face tracking off
+[ INFO] [1552679425.964159648]: reeti turn to 1
+[ INFO] [1552679426.464489583]: rand_num=1
+[ INFO] [1552679426.560047032]: show u on 0
+[ INFO] [1552679427.175672553]: user pressed u
+[ INFO] [1552679428.678713415]: face tracking off
+[ INFO] [1552679432.181843669]: reeti turn to 1
+[ INFO] [1552679432.681962658]: rand_num=3
+[ INFO] [1552679432.760308144]: show u on 1
+[ INFO] [1552679433.271256896]: user pressed u
+[ INFO] [1552679434.779088241]: face tracking off
+[ INFO] [1552679438.281922375]: reeti turn to 0
+[ INFO] [1552679438.782043396]: rand_num=2
+[ INFO] [1552679438.859471747]: show v on 0
+[ INFO] [1552679439.487989175]: user pressed v
+[ INFO] [1552679440.991021762]: face tracking off
+[ INFO] [1552679444.493973413]: reeti turn to 1
+[ INFO] [1552679444.994061837]: rand_num=2
+[ INFO] [1552679445.061568721]: show v on 0
+[ INFO] [1552679445.636572621]: user pressed v
+[ INFO] [1552679447.140797173]: face tracking off
+[ INFO] [1552679450.644114264]: reeti turn to 1
+[ INFO] [1552679451.144235324]: rand_num=1
+[ INFO] [1552679451.210265919]: show u on 0
+[ INFO] [1552679451.730705912]: user pressed v
+[ INFO] [1552679453.239804213]: face tracking off
+[ INFO] [1552679456.742793689]: reeti turn to 0
+[ INFO] [1552679457.242919274]: rand_num=3
+[ INFO] [1552679457.309476481]: show u on 1
+[ INFO] [1552679457.753785239]: user pressed u
+[ INFO] [1552679459.257087627]: face tracking off
+[ INFO] [1552679462.759995729]: reeti turn to 1
+[ INFO] [1552679463.260151831]: rand_num=2
+[ INFO] [1552679463.359332163]: show v on 0
+[ INFO] [1552679464.066465810]: user pressed v
+[ INFO] [1552679465.575507847]: face tracking off
+[ INFO] [1552679469.078914404]: reeti turn to 0
+[ INFO] [1552679469.579052630]: rand_num=1
+[ INFO] [1552679469.660678862]: show u on 0
+[ INFO] [1552679470.160482957]: user pressed u
+[ INFO] [1552679471.664693131]: face tracking off
+[ INFO] [1552679475.174673545]: reeti turn to 1
+[ INFO] [1552679475.674806957]: rand_num=2
+[ INFO] [1552679475.759436248]: show v on 0
+[ INFO] [1552679476.415702042]: user pressed v
+[ INFO] [1552679477.919994725]: face tracking off
+[ INFO] [1552679481.423457485]: reeti turn to 1
+[ INFO] [1552679481.923542205]: rand_num=1
+[ INFO] [1552679482.009470759]: show u on 0
+[ INFO] [1552679482.536960985]: user pressed u
