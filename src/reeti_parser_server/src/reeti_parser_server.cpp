@@ -237,7 +237,7 @@ void ReetiROSserver::sequence_standby(void)
     std::stringstream str;
     str.str("");
     str << "Global.servo.rightEyeLid=100,Global.servo.leftEyeLid=100,"
-        << "Global.servo.rightEyePan=65,Global.servo.leftEyePan=40,Global.servo.rightEyeTilt=45,Global.servo.leftEyeTilt=50,"
+        << "Global.servo.rightEyePan=65,Global.servo.leftEyePan=35,Global.servo.rightEyeTilt=45,Global.servo.leftEyeTilt=50,"
         //<< "Global.servo.neckRotat=40 smooth:0.3s,"
         //<< "Global.servo.neckPan=50 smooth:0.3s,"
         //<< "Global.servo.neckTilt=50 smooth:0.3s"
