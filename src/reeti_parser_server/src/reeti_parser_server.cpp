@@ -106,6 +106,9 @@ class ReetiROSserver
     void sequence_exp_1_routine(bool tracking);
     void sequence_exp_1_all_correct(bool tracking);
 
+    void sequence_exp_2_explain_procedure(bool tracking);
+    void sequence_exp_2_routine(bool tracking);
+
     void face_tracking_on_off(bool on);
     void eyes_tracking(int dir);
 
@@ -442,6 +445,87 @@ void ReetiROSserver::sequence_exp_1_all_correct(bool tracking)
     trail_count--;
 }
 
+void ReetiROSserver::sequence_exp_2_explain_procedure(bool tracking)
+{
+    face_tracking_on_off(true);
+    
+    std::stringstream str;
+    str.str("");
+    str << "Global.tts.say(\"\\\\voice=Kate \\\\language=English \\\\volume=70 Hello! I am Reeti. Nice to meet you. Are you ready to play a game?\"),"
+        << "Global.servo.changeLedColorRGB( "
+        << 0 << ", "
+        << 512 << ", "
+        << 300 << ", "
+        << 100 << ", "
+        << 1 << ")"
+        << ";"
+        ;
+
+    anycmd_srv.request.cmd = str.str();
+    anycmdClient.call(anycmd_srv);
+
+    ros::Duration(3).sleep();
+    
+    str.str("");
+    str << "Global.tts.say(\"\\\\voice=Kate \\\\language=English \\\\volume=70 I will ask you some questions. For every question, you have fifteen seconds to prepare and forty-five seconds to answer. \"),"
+        << "Global.servo.changeLedColorRGB( "
+        << 0 << ", "
+        << 0 << ", "
+        << 0 << ", "
+        << 0 << ", "
+        << 0 << ")"
+        << ";"
+        ;
+
+    anycmd_srv.request.cmd = str.str();
+    anycmdClient.call(anycmd_srv);
+}
+
+void ReetiROSserver::sequence_exp_2_routine(bool tracking)
+{
+
+    std_msgs::Int8 insertFlag_msg;
+    
+    ros::Duration(0.5).sleep();
+    if (tracking == true)
+    {
+
+        sequence_standby();
+        
+        ROS_INFO("face tracking on");
+    }
+    else
+    {
+//        sequence_standby();
+        
+        ROS_INFO("face tracking off");
+    }
+
+    ros::Duration(0.5).sleep();
+    face_tracking_on_off(tracking);
+
+    ros::Duration(2).sleep();
+
+    face_tracking_on_off(false);
+    
+    timeNow = ros::Time::now();
+    rand_num = (timeNow.nsec % 2);
+    sequence_see_monitor(rand_num);
+    ROS_INFO("reeti turn to %d", rand_num);
+
+    ros::Duration(0.5).sleep();
+    
+    timeNow = ros::Time::now();
+    rand_num = (timeNow.nsec % 4) + 1;
+    ROS_INFO("rand_num=%d", rand_num);
+    insertFlag_msg.data = rand_num;
+
+    static_image_flag_pub_.publish(insertFlag_msg);
+    
+    face_tracking_on_off(false);
+    trail_count--;
+}
+
 void ReetiROSserver::reetiPoseCallback(const reetiros::reetiPose& msg)
 {
     servo_reeti_lefteye_yaw = msg.leftEyeYaw;
@@ -578,6 +662,11 @@ void ReetiROSserver::keyCb(const std_msgs::Char& key_msg)
         face_tracking_on_off(false);
         
         break;
+    case KEYCODE_o:
+        sequence_exp_2_explain_procedure(true);
+        break;
+
+        
     case KEYCODE_q:
         ROS_DEBUG("q");
         sequence_see_monitor(0);
