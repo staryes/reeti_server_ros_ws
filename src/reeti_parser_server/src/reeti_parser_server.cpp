@@ -21,16 +21,16 @@
 #define KEYCODE_UP_ARROW 0x41
 #define KEYCODE_DOWN_ARROW 0x42
 
-#define Keycode_1 0x31
-#define Keycode_2 0x32
-#define Keycode_3 0x33
-#define Keycode_4 0x34
-#define Keycode_5 0x35
-#define Keycode_6 0x36
-#define Keycode_7 0x37
-#define Keycode_8 0x38
-#define Keycode_9 0x39
-#define Keycode_0 0x30
+#define KEYCODE_1 0x31
+#define KEYCODE_2 0x32
+#define KEYCODE_3 0x33
+#define KEYCODE_4 0x34
+#define KEYCODE_5 0x35
+#define KEYCODE_6 0x36
+#define KEYCODE_7 0x37
+#define KEYCODE_8 0x38
+#define KEYCODE_9 0x39
+#define KEYCODE_0 0x30
 
 #define KEYCODE_q 0x71
 #define KEYCODE_w 0x77
@@ -107,7 +107,7 @@ class ReetiROSserver
     void sequence_exp_1_all_correct(bool tracking);
 
     void sequence_exp_2_explain_procedure(bool tracking);
-    void sequence_exp_2_routine(bool tracking);
+    void sequence_exp_2_routine(int exp2_question);
 
     void face_tracking_on_off(bool on);
     void eyes_tracking(int dir);
@@ -484,49 +484,79 @@ void ReetiROSserver::sequence_exp_2_explain_procedure(bool tracking)
     anycmdClient.call(anycmd_srv);
 }
 
-void ReetiROSserver::sequence_exp_2_routine(bool tracking)
+void ReetiROSserver::sequence_exp_2_routine(int exp2_questions)
 {
+    std::stringstream str;
+    str.str("");
+    str << "Global.tts.say(\"\\\\voice=Kate \\\\language=English \\\\volume=70 ";
 
-    std_msgs::Int8 insertFlag_msg;
-    
-    ros::Duration(0.5).sleep();
-    if (tracking == true)
+    switch(exp2_questions)
     {
-
-        sequence_standby();
+    case 1:
+        str << "What's your favorite fruit?";
+        break;
+    case 2:
+        str << "Can it fry?";
+        break;
+    case 3:
+        str << "I will ask Shou-Shan to fry it.";
+        break;
+    case 4:
+        str << "Is tomata a fruit or a vegetable?";
+        break;
+    case 5:
+        str << "Why?";
+        break;
+    case 6:
+        str << "It is red, I guess it is meat.";
+        break;
+    case 7:
+        str << "Are you a dog person or a cat person?";
+        break;
+    case 8:
+        str << "Why?";
+        break;
+    case 9:
+        str << "They said that I am a frog robot.";
+        break;
+    case 10:
+        str << "Have you ever danced in the rain?";
+        break;
+    case 11:
+        str << "Why not?";
+        break;
+    case 12:
+        str << "Why you did that?";
+        break;
+    case 13:
+        str << "I won't try. I am not waterproof.";
+        break;
+    case 14:
+        str << "What's the most important national holiday in your home country?";
+        break;
+    case 15:
+        str << "Why is it important?";
+        break;
+    case 16:
+        str << "As a robot, I don't have any holiday.";
+        break;
+    case 17:
+        str << "What's your favorite book?";
+        break;
+    case 18:
+        str << "Tell me more.";
+        break;
+    case 19:
+        str << "The only book I have is my manual.";
+        break;
+            
         
-        ROS_INFO("face tracking on");
     }
-    else
-    {
-//        sequence_standby();
+    str << "\");";
+    
+    anycmd_srv.request.cmd = str.str();
+    anycmdClient.call(anycmd_srv);
         
-        ROS_INFO("face tracking off");
-    }
-
-    ros::Duration(0.5).sleep();
-    face_tracking_on_off(tracking);
-
-    ros::Duration(2).sleep();
-
-    face_tracking_on_off(false);
-    
-    timeNow = ros::Time::now();
-    rand_num = (timeNow.nsec % 2);
-    sequence_see_monitor(rand_num);
-    ROS_INFO("reeti turn to %d", rand_num);
-
-    ros::Duration(0.5).sleep();
-    
-    timeNow = ros::Time::now();
-    rand_num = (timeNow.nsec % 4) + 1;
-    ROS_INFO("rand_num=%d", rand_num);
-    insertFlag_msg.data = rand_num;
-
-    static_image_flag_pub_.publish(insertFlag_msg);
-    
-    face_tracking_on_off(false);
-    trail_count--;
 }
 
 void ReetiROSserver::reetiPoseCallback(const reetiros::reetiPose& msg)
@@ -748,30 +778,111 @@ void ReetiROSserver::keyCb(const std_msgs::Char& key_msg)
         break;
 
     case KEYCODE_1:
-        switch (exp2state)
+        switch (e2s)
         {
         case init:
             //ask question 1
-            exp2state = Q1;
+            sequence_exp_2_explain_procedure(true);
+            e2s = Q1;
             break;
         case Q1:
+            sequence_exp_2_routine(1);
             break;
         case Q2:
+            sequence_exp_2_routine(4);
+            break;
+        case Q3:
+            sequence_exp_2_routine(7);
+            break;
+        case Q4:
+            sequence_exp_2_routine(10);
+            break;
+        case Q5:
+            sequence_exp_2_routine(14);
+            break;
+        case Q6:
+            sequence_exp_2_routine(17);
             break;
         }
         break;
     case KEYCODE_2:
-        switch (exp2state)
+        switch (e2s)
         {
         case init:
             //ask question 2
-            exp2state = Q2;
+            e2s = Q2;
+            break;
+        case Q1:
+            sequence_exp_2_routine(2);
+            break;
+
+        case Q2:
+            sequence_exp_2_routine(5);
+                        
+            break;
+
+        case Q3:
+            sequence_exp_2_routine(8);
+            break;
+
+        case Q4:
+            sequence_exp_2_routine(11);
+            break;
+
+        case Q5:
+            sequence_exp_2_routine(15);
+            break;
+
+        case Q6:
+            sequence_exp_2_routine(18);
             break;
         }
         break;
     case KEYCODE_3:
+        switch (e2s)
+        {
+        case init:
+            //ask question 3
+            e2s = Q3;
+            break;
+        case Q1:
+            sequence_exp_2_routine(3);
+            e2s = Q2;
+            break;
+
+        case Q2:
+            sequence_exp_2_routine(6);
+            e2s = Q3;
+            break;
+
+        case Q3:
+            sequence_exp_2_routine(9);
+            e2s = Q4;
+            break;
+
+        case Q4:
+            sequence_exp_2_routine(12);
+            break;
+
+        case Q5:
+            sequence_exp_2_routine(16);
+            e2s = Q6;
+                break;
+
+        case Q6:
+            sequence_exp_2_routine(19);
+            e2s = init;
+            break;
+        }
         break;
     case KEYCODE_4:
+        switch(e2s)
+        {
+        case Q4:
+            sequence_exp_2_routine(13);
+            e2s = Q5;
+            break;
+        }
         break;
     }
 
