@@ -1,25 +1,3 @@
-process[parser_server-1]: started with pid [15538]
-process[blank_image-2]: started with pid [15539]
-process[back_camera-3]: started with pid [15540]
-process[face_tracking-4]: started with pid [15551]
-process[reeti_pose-5]: started with pid [15562]
-process[reeti_neck_motion_center-6]: started with pid [15581]
-process[left_monitor-7]: started with pid [15597]
-process[right_monitor-8]: started with pid [15598]
-[ INFO] [1551302160.501197269]: Using transport "raw"
-[ INFO] [1551302160.518991721]: Using transport "raw"
-[ INFO] [1551302307.346492975]: user pressed v
-[ INFO] [1551302387.655733818]: rand_num=4
-[ INFO] [1551302387.739503693]: show v on 1
-[ INFO] [1551302389.229992818]: rand_num=4
-[ INFO] [1551302389.290471918]: show v on 1
-[ INFO] [1551302389.955990302]: rand_num=3
-[ INFO] [1551302390.040405702]: show u on 1
-[ INFO] [1551302390.554402843]: rand_num=1
-[ INFO] [1551302390.639574801]: show u on 0
-[ INFO] [1551302392.384530875]: rand_num=1
-[ INFO] [1551302392.441169287]: show u on 0
-[ INFO] [1551302446.362544059]: Reeti takes a break
 [ INFO] [1551302455.997718904]: exp1 ok mode
 [ INFO] [1551302456.501116867]: face tracking on
 [ INFO] [1551302460.004195161]: reeti turn to 1
