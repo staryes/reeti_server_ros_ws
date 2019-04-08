@@ -121,6 +121,9 @@ class ReetiROSserver
     bool exp1_eye_contact_mode;
     bool exp1_ok_mode;
 
+    enum exp2state {init, Q1, Q2, Q3, Q4, Q5, Q6};
+    exp2state e2s = init;
+
 public:
     ReetiROSserver()
         {
@@ -742,6 +745,33 @@ void ReetiROSserver::keyCb(const std_msgs::Char& key_msg)
 
         //sequence_standby();
 
+        break;
+
+    case KEYCODE_1:
+        switch (exp2state)
+        {
+        case init:
+            //ask question 1
+            exp2state = Q1;
+            break;
+        case Q1:
+            break;
+        case Q2:
+            break;
+        }
+        break;
+    case KEYCODE_2:
+        switch (exp2state)
+        {
+        case init:
+            //ask question 2
+            exp2state = Q2;
+            break;
+        }
+        break;
+    case KEYCODE_3:
+        break;
+    case KEYCODE_4:
         break;
     }
 
