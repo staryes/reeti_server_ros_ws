@@ -38,28 +38,29 @@ import rospy
 from reetiros.srv import *
 from reetiros.msg import *
 from std_msgs.msg import Bool
+import random
 
-class reeti_neck_motion_center:
-
-    neckYaw = 50
-    neckPitch = 50
-    neckRoll = 50
-    neck_update = False
+class reeti_conversation_motion:
 
     blinkSwitch = False
     nodSwitch = False
     
-    command_cool_down = False
-    cooling_count = 0
+    blink_cool_down = False
+    blink_cooling_count = 0
+    blink_cool_max = 27
+
+    nod_cool_down = True
+    nod_cooling_count = 5
+    nod_cool_max = 42
     
     def __init__(self):
         self.blink_sub = rospy.Subscriber("/reeti/blink", Bool, self.blinkOnOffCb)
         self.nod_sub = rospy.Subscriber("/reeti/nod", Bool, self.nodOnOffCb)
 
-    def blinkOnOffCb(self, isBlinkOn)
+    def blinkOnOffCb(self, isBlinkOn):
         self.blinkSwitch = isBlinkOn.data
 
-    def nodOnOffCb(self, isNodOn)
+    def nodOnOffCb(self, isNodOn):
         self.nodSwitch = isNodOn.data
 
     def reeti_blink_client(self) :
@@ -68,32 +69,54 @@ class reeti_neck_motion_center:
         try:
             blinkingSequence = rospy.ServiceProxy('RunSequence', RunSequence )
             #print "connect to service server MoveNeck"
-            blinkingSequence("/")
+            blinkingSequence('/HRIexp/blink')
+            #print ("yaw=%d  Yaw=%d",yaw,Yaw)
+        except rospy.ServiceException, e:
+            print "Service call failed: %s"%e
+
+    def reeti_nod_client(self) :
+        rospy.wait_for_service('RunSequence')
+        #print "wait for MoveNeck"
+        try:
+            nodingSequence = rospy.ServiceProxy('RunSequence', RunSequence )
+            #print "connect to service server MoveNeck"
+            nodingSequence('/HRIexp/nod')
             #print ("yaw=%d  Yaw=%d",yaw,Yaw)
         except rospy.ServiceException, e:
             print "Service call failed: %s"%e
 
     def command_cooling_count(self):
-        if self.command_cool_down == False:
-            if self.cooling_count > 7:
-                self.command_cool_down = True
-                self.cooling_count = 0
+        if self.blink_cool_down == False:
+            if self.blink_cooling_count > self.blink_cool_max:
+                self.blink_cool_down = True
+                self.blink_cooling_count = 0
             else:
-                self.cooling_count = self.cooling_count + 1
+                self.blink_cooling_count = self.blink_cooling_count + 1
+        if self.nod_cool_down == False:
+            if self.nod_cooling_count > self.nod_cool_max:
+                self.nod_cool_down = True
+                self.nod_cooling_count = 0
+            else:
+                self.nod_cooling_count = self.nod_cooling_count + 1
                 
     def background_motion_spin(self):
         rate = rospy.Rate(10)
         while not rospy.is_shutdown():
             #rospy.loginfo("wowo")
             self.command_cooling_count()
-            if self.blink_Switch == True and self.command_cool_down == True:
+            if self.blinkSwitch == True and self.blink_cool_down == True:
                 self.reeti_blink_client()
-                self.command_cool_down = False
+                self.blink_cool_down = False
+                self.blink_cool_max = random.randint(20, 70)
+            if self.nodSwitch == True and self.nod_cool_down == True:
+                self.reeti_nod_client()
+                self.nod_cool_down = False
+                self.nod_cool_max = random.randint(30, 100)
             rate.sleep()
 
 def main():
-    rcmc = reeti_conversation_motion_center()
-    rospy.init_node('reeti_conversation_motion_center', anonymous = False)
+    rcmc = reeti_conversation_motion()
+    rospy.init_node('reeti_conversation_motion', anonymous = False)
     try:
         #rospy.spin()
         rcmc.background_motion_spin()
