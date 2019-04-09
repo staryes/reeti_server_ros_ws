@@ -124,6 +124,9 @@ class ReetiROSserver
     enum exp2state {init, Q1, Q2, Q3, Q4, Q5, Q6};
     exp2state e2s = init;
 
+    enum exp2modesequence {m123 = 0, m132, m213, m231, m312, m321};
+    exp2modesequence e2mode;
+
 public:
     ReetiROSserver()
         {
@@ -482,10 +485,68 @@ void ReetiROSserver::sequence_exp_2_explain_procedure(bool tracking)
 
     anycmd_srv.request.cmd = str.str();
     anycmdClient.call(anycmd_srv);
+
+    timeNow = ros::Time::now();
+    e2mode = static_cast<exp2modesequence>(timeNow.nsec % 6) ; 
 }
 
 void ReetiROSserver::sequence_exp_2_routine(int exp2_questions)
 {
+    switch(e2mode)
+    {
+    case m123:
+        if (e2s == Q1 || e2s == Q2)
+        face_tracking_on_off(true);
+        else if (e2s == Q3 || e2s == Q4)
+        face_tracking_on_off(true);//random
+        else
+        face_tracking_on_off(false);
+        break;
+    case m132:
+        if (e2s == Q1 || e2s == Q2)
+        face_tracking_on_off(true);        
+        else if (e2s == Q3 || e2s == Q4)
+        face_tracking_on_off(false);
+        else
+        face_tracking_on_off(true);//random
+        break;
+    case m213:
+        if (e2s == Q1 || e2s == Q2)
+        face_tracking_on_off(true); //random
+        else if (e2s == Q3 || e2s == Q4)
+        face_tracking_on_off(true);
+        else
+        face_tracking_on_off(false);
+        break;
+                
+    case m231:
+        if (e2s == Q1 || e2s == Q2)
+        face_tracking_on_off(true); //random
+        else if (e2s == Q3 || e2s == Q4)
+        face_tracking_on_off(false);
+        else
+        face_tracking_on_off(true);
+        break;
+    case m312:
+        if (e2s == Q1 || e2s == Q2)
+        face_tracking_on_off(false);
+        else if (e2s == Q3 || e2s == Q4)
+        face_tracking_on_off(true);
+        else
+        face_tracking_on_off(true); //random
+        break;
+    case m321:
+        if (e2s == Q1 || e2s == Q2)
+        face_tracking_on_off(false);
+        else if (e2s == Q3 || e2s == Q4)
+        face_tracking_on_off(true); //random
+        else
+        face_tracking_on_off(true);
+        break;
+    
+    }
+    
+    
     std::stringstream str;
     str.str("");
     str << "Global.tts.say(\"\\\\voice=Kate \\\\language=English \\\\volume=70 ";
@@ -867,7 +928,7 @@ void ReetiROSserver::keyCb(const std_msgs::Char& key_msg)
         case Q5:
             sequence_exp_2_routine(16);
             e2s = Q6;
-                break;
+            break;
 
         case Q6:
             sequence_exp_2_routine(19);
