@@ -15,6 +15,7 @@
 
 #include <sstream>
 #include <iostream>
+#include <stdlib.h>
 
 #define KEYCODE_RIGHT_ARROW 0x43 
 #define KEYCODE_LEFT_ARROW 0x44
@@ -108,6 +109,7 @@ class ReetiROSserver
 
     void sequence_exp_2_explain_procedure(bool tracking);
     void sequence_exp_2_routine(int exp2_question);
+    void sequence_exp_2_random_motion(bool boo);
 
     void face_tracking_on_off(bool on);
     void eyes_tracking(int dir);
@@ -488,6 +490,43 @@ void ReetiROSserver::sequence_exp_2_explain_procedure(bool tracking)
 
     timeNow = ros::Time::now();
     e2mode = static_cast<exp2modesequence>(timeNow.nsec % 6) ; 
+}
+
+void ReetiROSserver::sequence_exp_2_random_motion(bool boo)
+{
+    timeNow = ros::Time::now();
+
+    srand(timeNow.nsec);
+    int dx = rand() % 60 - 30;
+    int dy = rand() % 60 - 30;
+    ROS_INFO("dx = %d, dy = %d", dx, dy);
+
+    std::stringstream str;
+    str.str("");
+    str << "Global.servo.rightEyePan=" << (int)servo_reeti_righteye_yaw + dx << " smooth:0.8s,";
+    str << "Global.servo.leftEyePan=" << (int)servo_reeti_lefteye_yaw +dx << " smooth:0.8s,";
+
+    str << "Global.servo.rightEyeTilt=" << (int)servo_reeti_righteye_pitch +dy << " smooth:0.8s,";
+    str << "Global.servo.leftEyeTilt=" << (int)servo_reeti_lefteye_pitch + dy << " smooth:0.8s;";
+
+    anycmd_srv.request.cmd = str.str();
+    anycmdClient.call(anycmd_srv);
+
+    ros::Duration(1).sleep();
+
+    str.str("");
+    str << "Global.servo.neckRotat=" << (int)servo_reeti_neck_yaw + dx/2 << " smooth:1s,";
+    str << "Global.servo.neckTilt=" << (int)servo_reeti_neck_roll + dy << " smooth:1s,";
+    
+    str << "Global.servo.rightEyePan=" << 60 << " smooth:1s,";
+    str << "Global.servo.leftEyePan=" << 40 << " smooth:1s,";
+
+    str << "Global.servo.rightEyeTilt=" <<  (int)servo_reeti_righteye_pitch - dy/10 << " smooth:1s,";
+    str << "Global.servo.leftEyeTilt=" <<  (int)servo_reeti_righteye_pitch - dy/10 << " smooth:1s;";
+
+    anycmd_srv.request.cmd = str.str();
+    anycmdClient.call(anycmd_srv);
+    
 }
 
 void ReetiROSserver::sequence_exp_2_routine(int exp2_questions)
@@ -970,6 +1009,8 @@ void ReetiROSserver::keyCb(const std_msgs::Char& key_msg)
         
         send_image_flag = false;
     }
+
+    sequence_exp_2_random_motion(true); //test
 
 }
 
