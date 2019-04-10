@@ -104,12 +104,14 @@ class ReetiROSserver
     void sequence_see_monitor(int monior_x);
     void sequence_to_rest_pose(void);
     void sequence_standby(void);
+    void sequence_look_down(void);
+    
     void sequence_exp_1_routine(bool tracking);
     void sequence_exp_1_all_correct(bool tracking);
 
     void sequence_exp_2_explain_procedure(bool tracking);
     void sequence_exp_2_routine(int exp2_question);
-    void sequence_exp_2_random_motion(bool boo);
+    void sequence_exp_2_random_motion(void);
 
     void face_tracking_on_off(bool on);
     void eyes_tracking(int dir);
@@ -240,6 +242,24 @@ void ReetiROSserver::sequence_to_rest_pose(void)
     neck_msg.neckRoll = 10;
     neck_pos_pub_.publish(neck_msg);
         
+}
+
+void ReetiROSserver::sequence_look_down(void)
+{
+    std::stringstream str;
+    str.str("");
+    //str << "Global.servo.neckRotat=" << (int)servo_reeti_neck_yaw + dx/2 << " smooth:1s,";
+    str << "Global.servo.neckTilt=" << 10 << " smooth:1s,";
+
+    //str << "Global.servo.rightEyePan=" << (int)servo_reeti_righteye_yaw + d65 << " smooth:1s,";
+    //str << "Global.servo.leftEyePan=" << (int)servo_reeti_lefteye_yaw +dx << " smooth:1s,";
+
+    str << "Global.servo.rightEyeTilt=" << 20 << " smooth:1s,";
+    str << "Global.servo.leftEyeTilt=" << 20 << " smooth:1s;";
+
+    anycmd_srv.request.cmd = str.str();
+    anycmdClient.call(anycmd_srv);
+
 }
 
 void ReetiROSserver::sequence_standby(void)
@@ -492,7 +512,7 @@ void ReetiROSserver::sequence_exp_2_explain_procedure(bool tracking)
     e2mode = static_cast<exp2modesequence>(timeNow.nsec % 6) ; 
 }
 
-void ReetiROSserver::sequence_exp_2_random_motion(bool boo)
+void ReetiROSserver::sequence_exp_2_random_motion(void)
 {
     timeNow = ros::Time::now();
 
@@ -521,8 +541,8 @@ void ReetiROSserver::sequence_exp_2_random_motion(bool boo)
     str << "Global.servo.rightEyePan=" << 60 << " smooth:1s,";
     str << "Global.servo.leftEyePan=" << 40 << " smooth:1s,";
 
-    str << "Global.servo.rightEyeTilt=" <<  (int)servo_reeti_righteye_pitch - dy/10 << " smooth:1s,";
-    str << "Global.servo.leftEyeTilt=" <<  (int)servo_reeti_righteye_pitch - dy/10 << " smooth:1s;";
+    str << "Global.servo.rightEyeTilt=" << (int)servo_reeti_righteye_pitch - dy/10<< " smooth:1s,";
+    str << "Global.servo.leftEyeTilt=" <<  (int)servo_reeti_lefteye_pitch - dy/10 << " smooth:1s;";
 
     anycmd_srv.request.cmd = str.str();
     anycmdClient.call(anycmd_srv);
@@ -531,60 +551,9 @@ void ReetiROSserver::sequence_exp_2_random_motion(bool boo)
 
 void ReetiROSserver::sequence_exp_2_routine(int exp2_questions)
 {
-    switch(e2mode)
-    {
-    case m123:
-        if (e2s == Q1 || e2s == Q2)
-        face_tracking_on_off(true);
-        else if (e2s == Q3 || e2s == Q4)
-        face_tracking_on_off(true);//random
-        else
-        face_tracking_on_off(false);
-        break;
-    case m132:
-        if (e2s == Q1 || e2s == Q2)
-        face_tracking_on_off(true);        
-        else if (e2s == Q3 || e2s == Q4)
-        face_tracking_on_off(false);
-        else
-        face_tracking_on_off(true);//random
-        break;
-    case m213:
-        if (e2s == Q1 || e2s == Q2)
-        face_tracking_on_off(true); //random
-        else if (e2s == Q3 || e2s == Q4)
-        face_tracking_on_off(true);
-        else
-        face_tracking_on_off(false);
-        break;
-                
-    case m231:
-        if (e2s == Q1 || e2s == Q2)
-        face_tracking_on_off(true); //random
-        else if (e2s == Q3 || e2s == Q4)
-        face_tracking_on_off(false);
-        else
-        face_tracking_on_off(true);
-        break;
-    case m312:
-        if (e2s == Q1 || e2s == Q2)
-        face_tracking_on_off(false);
-        else if (e2s == Q3 || e2s == Q4)
-        face_tracking_on_off(true);
-        else
-        face_tracking_on_off(true); //random
-        break;
-    case m321:
-        if (e2s == Q1 || e2s == Q2)
-        face_tracking_on_off(false);
-        else if (e2s == Q3 || e2s == Q4)
-        face_tracking_on_off(true); //random
-        else
-        face_tracking_on_off(true);
-        break;
+    sequence_standby();
     
-    }
-    
+    face_tracking_on_off(true);
     
     std::stringstream str;
     str.str("");
@@ -656,7 +625,111 @@ void ReetiROSserver::sequence_exp_2_routine(int exp2_questions)
     
     anycmd_srv.request.cmd = str.str();
     anycmdClient.call(anycmd_srv);
-        
+
+    ros::Duration(1).sleep();
+    
+    switch(e2mode)
+    {
+    case m123:
+        if (e2s == Q1 || e2s == Q2)
+        {
+        face_tracking_on_off(true);            
+        }
+        else if (e2s == Q3 || e2s == Q4)
+        {
+            face_tracking_on_off(false);//random
+            sequence_exp_2_random_motion();
+        }
+        else
+        {
+            face_tracking_on_off(false); //look down
+            sequence_look_down();
+        }
+        break;
+    case m132:
+        if (e2s == Q1 || e2s == Q2)
+        {
+            face_tracking_on_off(true);
+        }
+        else if (e2s == Q3 || e2s == Q4)
+        {
+            face_tracking_on_off(false); //look down
+            sequence_look_down();
+        }
+        else
+        {
+            face_tracking_on_off(false);//random
+            sequence_exp_2_random_motion();
+        }
+        break;
+    case m213:
+        if (e2s == Q1 || e2s == Q2)
+        {
+            face_tracking_on_off(false); //random
+            sequence_exp_2_random_motion();
+        }
+        else if (e2s == Q3 || e2s == Q4)
+        {
+            face_tracking_on_off(true);
+        }
+        else
+        {
+            face_tracking_on_off(false); //look down
+            sequence_look_down();
+        }
+        break;
+                
+    case m231:
+        if (e2s == Q1 || e2s == Q2)
+        {
+            face_tracking_on_off(false); //random
+            sequence_exp_2_random_motion();
+        }
+        else if (e2s == Q3 || e2s == Q4)
+        {
+            face_tracking_on_off(false); //look down
+                sequence_look_down();
+        }
+        else
+        {
+            face_tracking_on_off(true);
+        }
+        break;
+    case m312:
+        if (e2s == Q1 || e2s == Q2)
+        {
+            face_tracking_on_off(false); //look down
+                sequence_look_down();
+        }
+        else if (e2s == Q3 || e2s == Q4)
+        {
+            face_tracking_on_off(true);
+        }
+        else
+        {
+            face_tracking_on_off(false); //random
+        sequence_exp_2_random_motion();
+        }
+        break;
+    case m321:
+        if (e2s == Q1 || e2s == Q2)
+        {
+            face_tracking_on_off(false); //look down
+                sequence_look_down();
+        }
+        else if (e2s == Q3 || e2s == Q4)
+        {
+            face_tracking_on_off(false); //random
+        sequence_exp_2_random_motion();
+        }
+        else
+        {
+            face_tracking_on_off(true);
+        }
+        break;
+    
+    }
+    
 }
 
 void ReetiROSserver::reetiPoseCallback(const reetiros::reetiPose& msg)
@@ -1010,7 +1083,7 @@ void ReetiROSserver::keyCb(const std_msgs::Char& key_msg)
         send_image_flag = false;
     }
 
-    sequence_exp_2_random_motion(true); //test
+    sequence_exp_2_random_motion(); //test
 
 }
 
