@@ -249,7 +249,7 @@ void ReetiROSserver::sequence_look_down(void)
     std::stringstream str;
     str.str("");
     //str << "Global.servo.neckRotat=" << (int)servo_reeti_neck_yaw + dx/2 << " smooth:1s,";
-    str << "Global.servo.neckTilt=" << 10 << " smooth:1s,";
+    //str << "Global.servo.neckTilt=" << 10 << " smooth:1s,";
 
     //str << "Global.servo.rightEyePan=" << (int)servo_reeti_righteye_yaw + d65 << " smooth:1s,";
     //str << "Global.servo.leftEyePan=" << (int)servo_reeti_lefteye_yaw +dx << " smooth:1s,";
@@ -260,6 +260,11 @@ void ReetiROSserver::sequence_look_down(void)
     anycmd_srv.request.cmd = str.str();
     anycmdClient.call(anycmd_srv);
 
+    reetiros::reetiNeckPose neck_msg;
+    neck_msg.neckYaw = servo_reeti_neck_yaw;
+    neck_msg.neckPitch = servo_reeti_neck_pitch;
+    neck_msg.neckRoll = 10;
+    neck_pos_pub_.publish(neck_msg);
 }
 
 void ReetiROSserver::sequence_standby(void)
@@ -276,6 +281,10 @@ void ReetiROSserver::sequence_standby(void)
     anycmd_srv.request.cmd = str.str(); 
     anycmdClient.call(anycmd_srv);
 
+    servo_reeti_neck_yaw = 45;
+    servo_reeti_neck_pitch = 50;
+    servo_reeti_neck_roll = 40;
+    
     neck_msg.neckYaw = 45;
     neck_msg.neckPitch = 50;
     neck_msg.neckRoll = 40;
@@ -475,6 +484,9 @@ void ReetiROSserver::sequence_exp_1_all_correct(bool tracking)
 
 void ReetiROSserver::sequence_exp_2_explain_procedure(bool tracking)
 {
+  sequence_standby();
+    
+
     face_tracking_on_off(true);
     
     std::stringstream str;
@@ -495,7 +507,7 @@ void ReetiROSserver::sequence_exp_2_explain_procedure(bool tracking)
     ros::Duration(3).sleep();
     
     str.str("");
-    str << "Global.tts.say(\"\\\\voice=Kate \\\\language=English \\\\volume=70 I will ask you some questions. For every question, you have fifteen seconds to prepare and forty-five seconds to answer. \"),"
+    str << "Global.tts.say(\"\\\\voice=Kate \\\\language=English \\\\volume=70 I will ask you some questions. Hope it will be fun. \"),"
         << "Global.servo.changeLedColorRGB( "
         << 0 << ", "
         << 0 << ", "
@@ -534,6 +546,12 @@ void ReetiROSserver::sequence_exp_2_random_motion(void)
 
     ros::Duration(1).sleep();
 
+    reetiros::reetiNeckPose neck_msg;
+    neck_msg.neckYaw = servo_reeti_neck_yaw + dx/2;
+    neck_msg.neckPitch = servo_reeti_neck_pitch;
+    neck_msg.neckRoll = servo_reeti_neck_roll + dy;
+    //neck_pos_pub_.publish(neck_msg);
+
     str.str("");
     str << "Global.servo.neckRotat=" << (int)servo_reeti_neck_yaw + dx/2 << " smooth:1s,";
     str << "Global.servo.neckTilt=" << (int)servo_reeti_neck_roll + dy << " smooth:1s,";
@@ -544,6 +562,8 @@ void ReetiROSserver::sequence_exp_2_random_motion(void)
     str << "Global.servo.rightEyeTilt=" << (int)servo_reeti_righteye_pitch - dy/10<< " smooth:1s,";
     str << "Global.servo.leftEyeTilt=" <<  (int)servo_reeti_lefteye_pitch - dy/10 << " smooth:1s;";
 
+    ROS_INFO("%f",servo_reeti_righteye_pitch);
+
     anycmd_srv.request.cmd = str.str();
     anycmdClient.call(anycmd_srv);
     
@@ -551,9 +571,7 @@ void ReetiROSserver::sequence_exp_2_random_motion(void)
 
 void ReetiROSserver::sequence_exp_2_routine(int exp2_questions)
 {
-    sequence_standby();
-    
-    face_tracking_on_off(true);
+
     
     std::stringstream str;
     str.str("");
@@ -562,6 +580,9 @@ void ReetiROSserver::sequence_exp_2_routine(int exp2_questions)
     switch(exp2_questions)
     {
     case 1:
+            sequence_standby();
+    
+    face_tracking_on_off(true);
         str << "What's your favorite fruit?";
         break;
     case 2:
@@ -571,6 +592,9 @@ void ReetiROSserver::sequence_exp_2_routine(int exp2_questions)
         str << "I will ask Shou-Shan to fry it.";
         break;
     case 4:
+            sequence_standby();
+    
+    face_tracking_on_off(true);
         str << "Is tomata a fruit or a vegetable?";
         break;
     case 5:
@@ -580,6 +604,9 @@ void ReetiROSserver::sequence_exp_2_routine(int exp2_questions)
         str << "It is red, I guess it is meat.";
         break;
     case 7:
+            sequence_standby();
+    
+    face_tracking_on_off(true);
         str << "Are you a dog person or a cat person?";
         break;
     case 8:
@@ -589,6 +616,9 @@ void ReetiROSserver::sequence_exp_2_routine(int exp2_questions)
         str << "They said that I am a frog robot.";
         break;
     case 10:
+            sequence_standby();
+    
+    face_tracking_on_off(true);
         str << "Have you ever danced in the rain?";
         break;
     case 11:
@@ -601,6 +631,9 @@ void ReetiROSserver::sequence_exp_2_routine(int exp2_questions)
         str << "I won't try. I am not waterproof.";
         break;
     case 14:
+            sequence_standby();
+    
+    face_tracking_on_off(true);
         str << "What's the most important national holiday in your home country?";
         break;
     case 15:
@@ -610,6 +643,9 @@ void ReetiROSserver::sequence_exp_2_routine(int exp2_questions)
         str << "As a robot, I don't have any holiday.";
         break;
     case 17:
+            sequence_standby();
+    
+    face_tracking_on_off(true);
         str << "What's your favorite book?";
         break;
     case 18:
@@ -626,7 +662,7 @@ void ReetiROSserver::sequence_exp_2_routine(int exp2_questions)
     anycmd_srv.request.cmd = str.str();
     anycmdClient.call(anycmd_srv);
 
-    ros::Duration(1).sleep();
+    ros::Duration(2).sleep();
     
     switch(e2mode)
     {
@@ -1083,7 +1119,7 @@ void ReetiROSserver::keyCb(const std_msgs::Char& key_msg)
         send_image_flag = false;
     }
 
-    sequence_exp_2_random_motion(); //test
+    // sequence_exp_2_random_motion(); //test
 
 }
 
