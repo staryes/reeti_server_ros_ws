@@ -12,6 +12,8 @@
 
   <node name="reeti_neck_motion_center" pkg="reeti_parser_server" type="reeti_neck_motion_center.py" />
 
+  <node name="reeti_conversation_motion" pkg="reeti_parser_server" type="reeti_conversation_motion.py" />
+
   <node name="left_monitor" pkg="image_view" type="image_view" output="screen">
     <remap from="image_view" to="left_image_view" />
     <remap from="image" to="/static_image0"/>

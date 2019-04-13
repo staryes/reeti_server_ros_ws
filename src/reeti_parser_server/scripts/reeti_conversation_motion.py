@@ -52,7 +52,7 @@ class reeti_conversation_motion:
     nod_cool_down = True
     nod_cooling_count = 5
     nod_cool_max = 42
-    
+
     def __init__(self):
         self.blink_sub = rospy.Subscriber("/reeti/blink", Bool, self.blinkOnOffCb)
         self.nod_sub = rospy.Subscriber("/reeti/nod", Bool, self.nodOnOffCb)
@@ -107,11 +107,11 @@ class reeti_conversation_motion:
             if self.blinkSwitch == True and self.blink_cool_down == True:
                 self.reeti_blink_client()
                 self.blink_cool_down = False
-                self.blink_cool_max = random.randint(20, 70)
+                self.blink_cool_max = random.randint(30, 70)
             if self.nodSwitch == True and self.nod_cool_down == True:
                 self.reeti_nod_client()
                 self.nod_cool_down = False
-                self.nod_cool_max = random.randint(30, 100)
+                self.nod_cool_max = random.randint(40, 150)
             rate.sleep()
 
 def main():

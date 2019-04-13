@@ -72,6 +72,8 @@ class ReetiROSserver
     ros::Publisher neck_pos_pub_;
     ros::Publisher static_image_flag_pub_;
     ros::Publisher face_tracking_switch_pub_;
+    ros::Publisher blink_switch_pub_;
+    ros::Publisher nod_switch_pub_;
 
     ros::Subscriber keypad_sub_;
     ros::Subscriber reeti_pos_sub_;
@@ -114,6 +116,9 @@ class ReetiROSserver
     void sequence_exp_2_random_motion(void);
 
     void face_tracking_on_off(bool on);
+    void blink_motion_on_off(bool on);
+    void nod_motion_on_off(bool on);
+    
     void eyes_tracking(int dir);
 
     int rand_num;
@@ -137,6 +142,8 @@ public:
             neck_pos_pub_ = nh_.advertise<reetiros::reetiNeckPose>("/reeti/neck",1);
             static_image_flag_pub_ = nh_.advertise<std_msgs::Int8>("/insertFlag",1);
             face_tracking_switch_pub_ = nh_.advertise<std_msgs::Bool>("/track_switch",1);
+            blink_switch_pub_ = nh_.advertise<std_msgs::Bool>("/reeti/blink", 1);
+            nod_switch_pub_ = nh_.advertise<std_msgs::Bool>("/reeti/nod", 1);
 
             reeti_pos_sub_ = nh_.subscribe("reeti/reetiPose", 1, &ReetiROSserver::reetiPoseCallback, this);
             keypad_sub_ = nh_.subscribe("key", 1, &ReetiROSserver::keyCb, this);
@@ -216,6 +223,24 @@ void ReetiROSserver::face_tracking_on_off(bool on)
     face_tracking_switch_pub_.publish(switch_msg);
 }
 
+void ReetiROSserver::nod_motion_on_off(bool on)
+{
+    std_msgs::Bool switch_msg;
+
+    switch_msg.data = on;
+
+    nod_switch_pub_.publish(switch_msg);
+}
+
+void ReetiROSserver::blink_motion_on_off(bool on)
+{
+    std_msgs::Bool switch_msg;
+
+    switch_msg.data = on;
+
+    blink_switch_pub_.publish(switch_msg);
+}
+
 void ReetiROSserver::sequence_to_rest_pose(void)
 {
     face_tracking_on_off(false);
@@ -246,6 +271,8 @@ void ReetiROSserver::sequence_to_rest_pose(void)
 
 void ReetiROSserver::sequence_look_down(void)
 {
+    ros::Duration(0.7).sleep();
+    
     std::stringstream str;
     str.str("");
     //str << "Global.servo.neckRotat=" << (int)servo_reeti_neck_yaw + dx/2 << " smooth:1s,";
@@ -263,7 +290,7 @@ void ReetiROSserver::sequence_look_down(void)
     reetiros::reetiNeckPose neck_msg;
     neck_msg.neckYaw = servo_reeti_neck_yaw;
     neck_msg.neckPitch = servo_reeti_neck_pitch;
-    neck_msg.neckRoll = 10;
+    neck_msg.neckRoll = 20;
     neck_pos_pub_.publish(neck_msg);
 }
 
@@ -484,7 +511,7 @@ void ReetiROSserver::sequence_exp_1_all_correct(bool tracking)
 
 void ReetiROSserver::sequence_exp_2_explain_procedure(bool tracking)
 {
-  sequence_standby();
+    sequence_standby();
     
 
     face_tracking_on_off(true);
@@ -526,12 +553,14 @@ void ReetiROSserver::sequence_exp_2_explain_procedure(bool tracking)
 
 void ReetiROSserver::sequence_exp_2_random_motion(void)
 {
+    ros::Duration(0.7).sleep();
+
     timeNow = ros::Time::now();
 
     srand(timeNow.nsec);
     int dx = rand() % 60 - 30;
     int dy = rand() % 60 - 30;
-    ROS_INFO("dx = %d, dy = %d", dx, dy);
+//    ROS_INFO("dx = %d, dy = %d", dx, dy);
 
     std::stringstream str;
     str.str("");
@@ -562,8 +591,6 @@ void ReetiROSserver::sequence_exp_2_random_motion(void)
     str << "Global.servo.rightEyeTilt=" << (int)servo_reeti_righteye_pitch - dy/10<< " smooth:1s,";
     str << "Global.servo.leftEyeTilt=" <<  (int)servo_reeti_lefteye_pitch - dy/10 << " smooth:1s;";
 
-    ROS_INFO("%f",servo_reeti_righteye_pitch);
-
     anycmd_srv.request.cmd = str.str();
     anycmdClient.call(anycmd_srv);
     
@@ -572,6 +599,8 @@ void ReetiROSserver::sequence_exp_2_random_motion(void)
 void ReetiROSserver::sequence_exp_2_routine(int exp2_questions)
 {
 
+            nod_motion_on_off(false);
+            blink_motion_on_off(false);
     
     std::stringstream str;
     str.str("");
@@ -580,22 +609,22 @@ void ReetiROSserver::sequence_exp_2_routine(int exp2_questions)
     switch(exp2_questions)
     {
     case 1:
-            sequence_standby();
+        sequence_standby();
     
-    face_tracking_on_off(true);
-        str << "What's your favorite fruit?";
+        face_tracking_on_off(true);
+        str << "What is your favorite fruit?";
         break;
     case 2:
-        str << "Can it fry?";
+        str << "Can it be fried?";
         break;
     case 3:
         str << "I will ask Shou-Shan to fry it.";
         break;
     case 4:
-            sequence_standby();
+        sequence_standby();
     
-    face_tracking_on_off(true);
-        str << "Is tomata a fruit or a vegetable?";
+        face_tracking_on_off(true);
+        str << "Is tomato a fruit or a vegetable?";
         break;
     case 5:
         str << "Why?";
@@ -604,9 +633,9 @@ void ReetiROSserver::sequence_exp_2_routine(int exp2_questions)
         str << "It is red, I guess it is meat.";
         break;
     case 7:
-            sequence_standby();
+        sequence_standby();
     
-    face_tracking_on_off(true);
+        face_tracking_on_off(true);
         str << "Are you a dog person or a cat person?";
         break;
     case 8:
@@ -616,9 +645,9 @@ void ReetiROSserver::sequence_exp_2_routine(int exp2_questions)
         str << "They said that I am a frog robot.";
         break;
     case 10:
-            sequence_standby();
+        sequence_standby();
     
-    face_tracking_on_off(true);
+        face_tracking_on_off(true);
         str << "Have you ever danced in the rain?";
         break;
     case 11:
@@ -631,9 +660,9 @@ void ReetiROSserver::sequence_exp_2_routine(int exp2_questions)
         str << "I won't try. I am not waterproof.";
         break;
     case 14:
-            sequence_standby();
+        sequence_standby();
     
-    face_tracking_on_off(true);
+        face_tracking_on_off(true);
         str << "What's the most important national holiday in your home country?";
         break;
     case 15:
@@ -643,9 +672,9 @@ void ReetiROSserver::sequence_exp_2_routine(int exp2_questions)
         str << "As a robot, I don't have any holiday.";
         break;
     case 17:
-            sequence_standby();
+        sequence_standby();
     
-    face_tracking_on_off(true);
+        face_tracking_on_off(true);
         str << "What's your favorite book?";
         break;
     case 18:
@@ -669,33 +698,60 @@ void ReetiROSserver::sequence_exp_2_routine(int exp2_questions)
     case m123:
         if (e2s == Q1 || e2s == Q2)
         {
-        face_tracking_on_off(true);            
+            face_tracking_on_off(true);
+            nod_motion_on_off(true);
+            blink_motion_on_off(true);
+            ROS_INFO("Q12");
+            ROS_INFO("eye contact");
         }
         else if (e2s == Q3 || e2s == Q4)
         {
             face_tracking_on_off(false);//random
             sequence_exp_2_random_motion();
+            nod_motion_on_off(true);
+            blink_motion_on_off(true);
+            ROS_INFO("Q34");
+            ROS_INFO("random");
         }
         else
         {
             face_tracking_on_off(false); //look down
             sequence_look_down();
+            nod_motion_on_off(true);
+            blink_motion_on_off(true);
+            ROS_INFO("Q56");
+            ROS_INFO("look down");
         }
         break;
     case m132:
         if (e2s == Q1 || e2s == Q2)
         {
             face_tracking_on_off(true);
+
+            nod_motion_on_off(true);
+            blink_motion_on_off(true);
+
+            ROS_INFO("Q12");
+            ROS_INFO("eye contact");
         }
         else if (e2s == Q3 || e2s == Q4)
         {
             face_tracking_on_off(false); //look down
             sequence_look_down();
+            nod_motion_on_off(true);
+            blink_motion_on_off(true);
+            ROS_INFO("Q34");
+            ROS_INFO("look down");
         }
         else
         {
             face_tracking_on_off(false);//random
             sequence_exp_2_random_motion();
+
+            nod_motion_on_off(true);
+            blink_motion_on_off(true);
+            ROS_INFO("Q56");
+            ROS_INFO("random");
         }
         break;
     case m213:
@@ -703,15 +759,30 @@ void ReetiROSserver::sequence_exp_2_routine(int exp2_questions)
         {
             face_tracking_on_off(false); //random
             sequence_exp_2_random_motion();
+
+            nod_motion_on_off(true);
+            blink_motion_on_off(true);
+            ROS_INFO("Q12");
+            ROS_INFO("random");
         }
         else if (e2s == Q3 || e2s == Q4)
         {
             face_tracking_on_off(true);
+
+            nod_motion_on_off(true);
+            blink_motion_on_off(true);
+            ROS_INFO("Q34");
+            ROS_INFO("eye contact");
         }
         else
         {
             face_tracking_on_off(false); //look down
             sequence_look_down();
+
+            nod_motion_on_off(true);
+            blink_motion_on_off(true);
+            ROS_INFO("Q56");
+            ROS_INFO("look down");
         }
         break;
                 
@@ -720,47 +791,92 @@ void ReetiROSserver::sequence_exp_2_routine(int exp2_questions)
         {
             face_tracking_on_off(false); //random
             sequence_exp_2_random_motion();
+
+            nod_motion_on_off(true);
+            blink_motion_on_off(true);
+            ROS_INFO("Q12");
+            ROS_INFO("random");
         }
         else if (e2s == Q3 || e2s == Q4)
         {
             face_tracking_on_off(false); //look down
-                sequence_look_down();
+            sequence_look_down();
+
+            nod_motion_on_off(true);
+            blink_motion_on_off(true);
+            ROS_INFO("Q34");
+            ROS_INFO("look down");
         }
         else
         {
             face_tracking_on_off(true);
+
+            nod_motion_on_off(true);
+            blink_motion_on_off(true);
+            ROS_INFO("Q56");
+            ROS_INFO("eye contact");
         }
         break;
     case m312:
         if (e2s == Q1 || e2s == Q2)
         {
             face_tracking_on_off(false); //look down
-                sequence_look_down();
+            sequence_look_down();
+
+            nod_motion_on_off(true);
+            blink_motion_on_off(true);
+            ROS_INFO("Q12");
+            ROS_INFO("look down");
         }
         else if (e2s == Q3 || e2s == Q4)
         {
             face_tracking_on_off(true);
+
+            nod_motion_on_off(true);
+            blink_motion_on_off(true);
+            ROS_INFO("Q34");
+            ROS_INFO("eye contact");
         }
         else
         {
             face_tracking_on_off(false); //random
-        sequence_exp_2_random_motion();
+            sequence_exp_2_random_motion();
+
+            nod_motion_on_off(true);
+            blink_motion_on_off(true);
+            ROS_INFO("Q56");
+            ROS_INFO("random");
         }
         break;
     case m321:
         if (e2s == Q1 || e2s == Q2)
         {
             face_tracking_on_off(false); //look down
-                sequence_look_down();
+            sequence_look_down();
+
+            nod_motion_on_off(true);
+            blink_motion_on_off(true);
+            ROS_INFO("Q12");
+            ROS_INFO("look down");
         }
         else if (e2s == Q3 || e2s == Q4)
         {
             face_tracking_on_off(false); //random
-        sequence_exp_2_random_motion();
+            sequence_exp_2_random_motion();
+
+            nod_motion_on_off(true);
+            blink_motion_on_off(true);
+            ROS_INFO("Q34");
+            ROS_INFO("random");
         }
         else
         {
             face_tracking_on_off(true);
+
+            nod_motion_on_off(true);
+            blink_motion_on_off(true);
+            ROS_INFO("Q56");
+            ROS_INFO("eye contact");
         }
         break;
     
@@ -915,18 +1031,18 @@ void ReetiROSserver::keyCb(const std_msgs::Char& key_msg)
         break;
     case KEYCODE_r:
         ROS_DEBUG("r");
- 
-        ears_srv.request.rightEar = 70;
-        ears_srv.request.leftEar = 20;
-        if (earsClient.call(ears_srv))
-        {
-            ROS_INFO("sent");
-        }
-        else
-        {
-            ROS_ERROR("Failed to call service add_two_ints");
-            //return 1;
-        }
+        sequence_exp_2_random_motion();
+        // ears_srv.request.rightEar = 70;
+        // ears_srv.request.leftEar = 20;
+        // if (earsClient.call(ears_srv))
+        // {
+        //     ROS_INFO("sent");
+        // }
+        // else
+        // {
+        //     ROS_ERROR("Failed to call service add_two_ints");
+        //     //return 1;
+        // }
         break;
     case KEYCODE_s:
         ROS_DEBUG("s");
@@ -1092,6 +1208,10 @@ void ReetiROSserver::keyCb(const std_msgs::Char& key_msg)
             e2s = Q5;
             break;
         }
+        break;
+    case KEYCODE_0:
+        nod_motion_on_off(false);
+        blink_motion_on_off(false);
         break;
     }
 
