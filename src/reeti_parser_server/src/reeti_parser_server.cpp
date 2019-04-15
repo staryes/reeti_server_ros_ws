@@ -518,24 +518,25 @@ void ReetiROSserver::sequence_exp_2_explain_procedure(bool tracking)
     
     std::stringstream str;
     str.str("");
-    str << "Global.tts.say(\"\\\\voice=Kate \\\\language=English \\\\volume=70 Hello! I am Reeti. Nice to meet you. Are you ready to play a game?\"),"
+    str << "Global.tts.say(\"\\\\voice=Kate \\\\language=English \\\\volume=70 Hello! I am Reeti. Nice to meet you. Let's play a game?\"),"
         << "Global.servo.changeLedColorRGB( "
         << 0 << ", "
         << 512 << ", "
         << 300 << ", "
         << 100 << ", "
-        << 1 << ")"
+        << 1 << "),"
+        << "Global.tts.say(\"\\\\voice=Kate \\\\language=English \\\\volume=70 I will ask you some questions. Hope it will be fun. \")"
         << ";"
         ;
 
     anycmd_srv.request.cmd = str.str();
     anycmdClient.call(anycmd_srv);
 
-    ros::Duration(3).sleep();
+    ros::Duration(4).sleep();
     
     str.str("");
-    str << "Global.tts.say(\"\\\\voice=Kate \\\\language=English \\\\volume=70 I will ask you some questions. Hope it will be fun. \"),"
-        << "Global.servo.changeLedColorRGB( "
+
+        str << "Global.servo.changeLedColorRGB( "
         << 0 << ", "
         << 0 << ", "
         << 0 << ", "
@@ -546,6 +547,8 @@ void ReetiROSserver::sequence_exp_2_explain_procedure(bool tracking)
 
     anycmd_srv.request.cmd = str.str();
     anycmdClient.call(anycmd_srv);
+
+    face_tracking_on_off(false);
 
     timeNow = ros::Time::now();
     e2mode = static_cast<exp2modesequence>(timeNow.nsec % 6) ; 
@@ -654,7 +657,7 @@ void ReetiROSserver::sequence_exp_2_routine(int exp2_questions)
         str << "Why not?";
         break;
     case 12:
-        str << "Why you did that?";
+        str << "Why did you do that?";
         break;
     case 13:
         str << "I won't try. I am not waterproof.";
@@ -663,7 +666,7 @@ void ReetiROSserver::sequence_exp_2_routine(int exp2_questions)
         sequence_standby();
     
         face_tracking_on_off(true);
-        str << "What's the most important national holiday in your home country?";
+        str << "What's the most important holiday in your home country?";
         break;
     case 15:
         str << "Why is it important?";
