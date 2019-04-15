@@ -107,6 +107,8 @@ class ReetiROSserver
     void sequence_to_rest_pose(void);
     void sequence_standby(void);
     void sequence_look_down(void);
+
+    void reeti_to_neutral_position(void);
     
     void sequence_exp_1_routine(bool tracking);
     void sequence_exp_1_all_correct(bool tracking);
@@ -210,6 +212,17 @@ void ReetiROSserver::eyes_tracking(int dir)
     
     str << "Global.servo.rightEyePan=" << rEye << ",Global.servo.leftEyePan=" << lEye << ";" ;
     
+    anycmd_srv.request.cmd = str.str();
+    anycmdClient.call(anycmd_srv);
+}
+
+void ReetiROSserver::reeti_to_neutral_position(void)
+{
+    std::stringstream str;
+    str.str("");
+
+    str << "Global.servo.neutralPosition;";
+
     anycmd_srv.request.cmd = str.str();
     anycmdClient.call(anycmd_srv);
 }
@@ -518,7 +531,7 @@ void ReetiROSserver::sequence_exp_2_explain_procedure(bool tracking)
     
     std::stringstream str;
     str.str("");
-    str << "Global.tts.say(\"\\\\voice=Kate \\\\language=English \\\\volume=70 Hello! I am Reeti. Nice to meet you. Let's play a game?\"),"
+    str << "Global.tts.say(\"\\\\voice=Kate \\\\language=English \\\\volume=70 Hello! I am Reeti. Nice to meet you. Let's play a game.\"),"
         << "Global.servo.changeLedColorRGB( "
         << 0 << ", "
         << 512 << ", "
@@ -1026,8 +1039,9 @@ void ReetiROSserver::keyCb(const std_msgs::Char& key_msg)
     case KEYCODE_o:
         sequence_exp_2_explain_procedure(true);
         break;
-
-        
+    case KEYCODE_p:
+        reeti_to_neutral_position();
+        break;
     case KEYCODE_q:
         ROS_DEBUG("q");
         sequence_see_monitor(0);
