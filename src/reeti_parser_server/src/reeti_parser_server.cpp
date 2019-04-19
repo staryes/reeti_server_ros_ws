@@ -303,7 +303,7 @@ void ReetiROSserver::sequence_look_down(void)
     reetiros::reetiNeckPose neck_msg;
     neck_msg.neckYaw = servo_reeti_neck_yaw;
     neck_msg.neckPitch = servo_reeti_neck_pitch;
-    neck_msg.neckRoll = 20;
+    neck_msg.neckRoll = 10;
     neck_pos_pub_.publish(neck_msg);
 }
 
@@ -524,21 +524,27 @@ void ReetiROSserver::sequence_exp_1_all_correct(bool tracking)
 
 void ReetiROSserver::sequence_exp_2_explain_procedure(bool tracking)
 {
+    nod_motion_on_off(false);
+    blink_motion_on_off(false);
+        
     sequence_standby();
-    
+
+    ros::Duration(1).sleep();
 
     face_tracking_on_off(true);
+
+    ros::Duration(1).sleep();
     
     std::stringstream str;
     str.str("");
-    str << "Global.tts.say(\"\\\\voice=Kate \\\\language=English \\\\volume=70 Hello! I am Reeti. Nice to meet you. Let's play a game.\"),"
+    str << "Global.tts.say(\"\\\\voice=Kate \\\\language=English \\\\volume=70 Hello! I am Reeti. Nice to meet you. \"),"
         << "Global.servo.changeLedColorRGB( "
         << 0 << ", "
         << 512 << ", "
         << 300 << ", "
         << 100 << ", "
         << 1 << "),"
-        << "Global.tts.say(\"\\\\voice=Kate \\\\language=English \\\\volume=70 I will ask you some questions. Hope it will be fun. \")"
+        << "Global.tts.say(\"\\\\voice=Kate \\\\language=English \\\\volume=70 Are you ready to play a question game? I hope you will have fun. \")"
         << ";"
         ;
 
@@ -715,7 +721,7 @@ void ReetiROSserver::sequence_exp_2_routine(int exp2_questions)
         if (e2s == Q1 || e2s == Q2)
         {
             face_tracking_on_off(true);
-            nod_motion_on_off(true);
+//            nod_motion_on_off(true);
             blink_motion_on_off(true);
             ROS_INFO("Q12");
             ROS_INFO("eye contact");
@@ -724,7 +730,7 @@ void ReetiROSserver::sequence_exp_2_routine(int exp2_questions)
         {
             face_tracking_on_off(false);//random
             sequence_exp_2_random_motion();
-            nod_motion_on_off(true);
+//            nod_motion_on_off(true);
             blink_motion_on_off(true);
             ROS_INFO("Q34");
             ROS_INFO("random");
@@ -733,7 +739,7 @@ void ReetiROSserver::sequence_exp_2_routine(int exp2_questions)
         {
             face_tracking_on_off(false); //look down
             sequence_look_down();
-            nod_motion_on_off(true);
+//            nod_motion_on_off(true);
             blink_motion_on_off(true);
             ROS_INFO("Q56");
             ROS_INFO("look down");
@@ -744,7 +750,7 @@ void ReetiROSserver::sequence_exp_2_routine(int exp2_questions)
         {
             face_tracking_on_off(true);
 
-            nod_motion_on_off(true);
+//            nod_motion_on_off(true);
             blink_motion_on_off(true);
 
             ROS_INFO("Q12");
@@ -754,7 +760,7 @@ void ReetiROSserver::sequence_exp_2_routine(int exp2_questions)
         {
             face_tracking_on_off(false); //look down
             sequence_look_down();
-            nod_motion_on_off(true);
+//            nod_motion_on_off(true);
             blink_motion_on_off(true);
             ROS_INFO("Q34");
             ROS_INFO("look down");
@@ -764,7 +770,7 @@ void ReetiROSserver::sequence_exp_2_routine(int exp2_questions)
             face_tracking_on_off(false);//random
             sequence_exp_2_random_motion();
 
-            nod_motion_on_off(true);
+//            nod_motion_on_off(true);
             blink_motion_on_off(true);
             ROS_INFO("Q56");
             ROS_INFO("random");
@@ -776,7 +782,7 @@ void ReetiROSserver::sequence_exp_2_routine(int exp2_questions)
             face_tracking_on_off(false); //random
             sequence_exp_2_random_motion();
 
-            nod_motion_on_off(true);
+//            nod_motion_on_off(true);
             blink_motion_on_off(true);
             ROS_INFO("Q12");
             ROS_INFO("random");
@@ -785,7 +791,7 @@ void ReetiROSserver::sequence_exp_2_routine(int exp2_questions)
         {
             face_tracking_on_off(true);
 
-            nod_motion_on_off(true);
+//            nod_motion_on_off(true);
             blink_motion_on_off(true);
             ROS_INFO("Q34");
             ROS_INFO("eye contact");
@@ -795,7 +801,7 @@ void ReetiROSserver::sequence_exp_2_routine(int exp2_questions)
             face_tracking_on_off(false); //look down
             sequence_look_down();
 
-            nod_motion_on_off(true);
+//            nod_motion_on_off(true);
             blink_motion_on_off(true);
             ROS_INFO("Q56");
             ROS_INFO("look down");
@@ -808,7 +814,7 @@ void ReetiROSserver::sequence_exp_2_routine(int exp2_questions)
             face_tracking_on_off(false); //random
             sequence_exp_2_random_motion();
 
-            nod_motion_on_off(true);
+//            nod_motion_on_off(true);
             blink_motion_on_off(true);
             ROS_INFO("Q12");
             ROS_INFO("random");
@@ -818,7 +824,7 @@ void ReetiROSserver::sequence_exp_2_routine(int exp2_questions)
             face_tracking_on_off(false); //look down
             sequence_look_down();
 
-            nod_motion_on_off(true);
+//            nod_motion_on_off(true);
             blink_motion_on_off(true);
             ROS_INFO("Q34");
             ROS_INFO("look down");
@@ -827,7 +833,7 @@ void ReetiROSserver::sequence_exp_2_routine(int exp2_questions)
         {
             face_tracking_on_off(true);
 
-            nod_motion_on_off(true);
+//            nod_motion_on_off(true);
             blink_motion_on_off(true);
             ROS_INFO("Q56");
             ROS_INFO("eye contact");
@@ -839,7 +845,7 @@ void ReetiROSserver::sequence_exp_2_routine(int exp2_questions)
             face_tracking_on_off(false); //look down
             sequence_look_down();
 
-            nod_motion_on_off(true);
+//            nod_motion_on_off(true);
             blink_motion_on_off(true);
             ROS_INFO("Q12");
             ROS_INFO("look down");
@@ -848,7 +854,7 @@ void ReetiROSserver::sequence_exp_2_routine(int exp2_questions)
         {
             face_tracking_on_off(true);
 
-            nod_motion_on_off(true);
+//            nod_motion_on_off(true);
             blink_motion_on_off(true);
             ROS_INFO("Q34");
             ROS_INFO("eye contact");
@@ -858,7 +864,7 @@ void ReetiROSserver::sequence_exp_2_routine(int exp2_questions)
             face_tracking_on_off(false); //random
             sequence_exp_2_random_motion();
 
-            nod_motion_on_off(true);
+//            nod_motion_on_off(true);
             blink_motion_on_off(true);
             ROS_INFO("Q56");
             ROS_INFO("random");
@@ -870,7 +876,7 @@ void ReetiROSserver::sequence_exp_2_routine(int exp2_questions)
             face_tracking_on_off(false); //look down
             sequence_look_down();
 
-            nod_motion_on_off(true);
+//            nod_motion_on_off(true);
             blink_motion_on_off(true);
             ROS_INFO("Q12");
             ROS_INFO("look down");
@@ -880,7 +886,7 @@ void ReetiROSserver::sequence_exp_2_routine(int exp2_questions)
             face_tracking_on_off(false); //random
             sequence_exp_2_random_motion();
 
-            nod_motion_on_off(true);
+//            nod_motion_on_off(true);
             blink_motion_on_off(true);
             ROS_INFO("Q34");
             ROS_INFO("random");
@@ -889,7 +895,7 @@ void ReetiROSserver::sequence_exp_2_routine(int exp2_questions)
         {
             face_tracking_on_off(true);
 
-            nod_motion_on_off(true);
+//            nod_motion_on_off(true);
             blink_motion_on_off(true);
             ROS_INFO("Q56");
             ROS_INFO("eye contact");
