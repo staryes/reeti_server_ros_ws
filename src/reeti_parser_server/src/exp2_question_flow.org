@@ -1,0 +1,29 @@
+* greeting
+- Hello! I am Reeti. Nice to meet you. Let's play a game.
+- I will ask you some questions. Hope it will be fun.
+* Q1
+1. What is your favorite fruit?
+2. Can it be fried?
+3. I will ask Shou-Shan to fry it.
+* Q2
+1. Is tomato a fruit or a vegetable?
+2. Why?
+3. It is red, I guess it is meat.
+* Q3
+1. Are you a dog person or a cat person?
+2. Why?
+3. They said that I am a frog robot.
+* Q4
+1. Have you ever danced in the rain?
+2. Why not?
+3. Why did you do that?
+4. I won't try it. I am not waterproof.
+* Q5 
+1. What's the most important holiday in your home country?
+2. Why is it important?
+3. As a robot, I don't have any holiday.
+* Q6
+1. What's your favorite book?
+2. Tell me more.
+3. The only book I have is my manual.
+ 
