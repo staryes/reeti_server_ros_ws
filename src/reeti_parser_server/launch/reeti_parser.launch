@@ -14,6 +14,11 @@
 
   <node name="reeti_conversation_motion" pkg="reeti_parser_server" type="reeti_conversation_motion.py" />
 
+  <arg name="device" default="" />
+  <node name="soundplay_node" pkg="sound_play" type="soundplay_node.py">
+    <param name="device" value="$(arg device)" />
+  </node>
+
   <node name="left_monitor" pkg="image_view" type="image_view" output="screen">
     <remap from="image_view" to="left_image_view" />
     <remap from="image" to="/static_image0"/>

@@ -4,6 +4,8 @@
 #include "std_msgs/Bool.h"
 #include "ros/console.h"
 
+#include "sound_play/sound_play.h"
+
 #include "reetiros/MoveEars.h"
 #include "reetiros/Say.h"
 #include "reetiros/MoveNeck.h"
@@ -74,6 +76,7 @@ class ReetiROSserver
     ros::Publisher face_tracking_switch_pub_;
     ros::Publisher blink_switch_pub_;
     ros::Publisher nod_switch_pub_;
+    ros::Publisher robotsound_pub_;
 
     ros::Subscriber keypad_sub_;
     ros::Subscriber reeti_pos_sub_;
@@ -146,6 +149,7 @@ public:
             face_tracking_switch_pub_ = nh_.advertise<std_msgs::Bool>("/track_switch",1);
             blink_switch_pub_ = nh_.advertise<std_msgs::Bool>("/reeti/blink", 1);
             nod_switch_pub_ = nh_.advertise<std_msgs::Bool>("/reeti/nod", 1);
+            robotsound_pub_ = nh_.advertise<sound_play::SoundRequest>("/robotsound", 1);
 
             reeti_pos_sub_ = nh_.subscribe("reeti/reetiPose", 1, &ReetiROSserver::reetiPoseCallback, this);
             keypad_sub_ = nh_.subscribe("key", 1, &ReetiROSserver::keyCb, this);
@@ -528,30 +532,37 @@ void ReetiROSserver::sequence_exp_2_explain_procedure(bool tracking)
     blink_motion_on_off(false);
         
     sequence_standby();
-
     ros::Duration(1).sleep();
 
     face_tracking_on_off(true);
 
-    ros::Duration(1).sleep();
+//    ros::Duration(1).sleep();
     
     std::stringstream str;
     str.str("");
-    str << "Global.tts.say(\"\\\\voice=Kate \\\\language=English \\\\volume=70 Hello! I am Reeti. Nice to meet you. \"),"
+    str //<< "Global.tts.say(\"\\\\voice=Kate \\\\language=English \\\\volume=70 Hello! I am Reeti. Nice to meet you. \"),"
         << "Global.servo.changeLedColorRGB( "
         << 0 << ", "
         << 512 << ", "
         << 300 << ", "
         << 100 << ", "
         << 1 << "),"
-        << "Global.tts.say(\"\\\\voice=Kate \\\\language=English \\\\volume=70 Are you ready to play a question game? I hope you will have fun. \")"
+        //<< "Global.tts.say(\"\\\\voice=Kate \\\\language=English \\\\volume=70 Are you ready to play a question game? I hope you will have fun. \")"
         << ";"
         ;
 
     anycmd_srv.request.cmd = str.str();
     anycmdClient.call(anycmd_srv);
 
-    ros::Duration(4).sleep();
+    sound_play::SoundRequest soundR;
+    soundR.sound = -2;
+    soundR.command = 1;
+    soundR.volume = 1.0;
+    soundR.arg = "/home/shoushan/reeti_server_ros_ws/src/reeti_parser_server/questions_audio/greeting.wav";
+
+    robotsound_pub_.publish(soundR);
+
+    ros::Duration(7).sleep();
     
     str.str("");
 
@@ -566,7 +577,7 @@ void ReetiROSserver::sequence_exp_2_explain_procedure(bool tracking)
 
     anycmd_srv.request.cmd = str.str();
     anycmdClient.call(anycmd_srv);
-
+    
     face_tracking_on_off(false);
 
     timeNow = ros::Time::now();
@@ -620,13 +631,12 @@ void ReetiROSserver::sequence_exp_2_random_motion(void)
 
 void ReetiROSserver::sequence_exp_2_routine(int exp2_questions)
 {
-
-            nod_motion_on_off(false);
-            blink_motion_on_off(false);
-    
+    nod_motion_on_off(false);
+    blink_motion_on_off(false);
+            
     std::stringstream str;
     str.str("");
-    str << "Global.tts.say(\"\\\\voice=Kate \\\\language=English \\\\volume=70 ";
+    str << "/home/shoushan/reeti_server_ros_ws/src/reeti_parser_server/questions_audio/";
 
     switch(exp2_questions)
     {
@@ -634,85 +644,117 @@ void ReetiROSserver::sequence_exp_2_routine(int exp2_questions)
         sequence_standby();
     
         face_tracking_on_off(true);
-        str << "What is your favorite fruit?";
+        //str << "What is your favorite fruit?";
+        str << "Q1-1.wav";
         break;
     case 2:
-        str << "Can it be fried?";
+        //str << "Can it be fried?";
+        str << "Q1-2.wav";
+        break;
+    case 20:
+//        str << "I believe everything can be fried.";
+        str << "Q1-3.wav";
         break;
     case 3:
-        str << "I will ask Shou-Shan to fry it.";
+//        str << "I will ask Shou-Shan to fry it.";
+        str << "Q1-4.wav";
         break;
     case 4:
         sequence_standby();
     
         face_tracking_on_off(true);
-        str << "Is tomato a fruit or a vegetable?";
+//        str << "Is tomato a fruit or a vegetable?";
+        str << "Q2-1.wav";
         break;
     case 5:
-        str << "Why?";
+//        str << "Why?";
+        str << "Q2-2_why.wav";
         break;
     case 6:
-        str << "It is red, I guess it is meat.";
+//        str << "It is red, I guess it is meat.";
+        str << "Q2-3.wav";
         break;
     case 7:
         sequence_standby();
     
         face_tracking_on_off(true);
-        str << "Are you a dog person or a cat person?";
+//        str << "Are you a dog person or a cat person?";
+        str << "Q3-1.wav";
         break;
     case 8:
-        str << "Why?";
+//        str << "Why?";
+        str << "Q3-2_why.wav";
         break;
     case 9:
-        str << "They said that I am a frog robot.";
+//        str << "They said that I am a frog robot.";
+        str << "Q3-3.wav";
         break;
     case 10:
         sequence_standby();
     
         face_tracking_on_off(true);
-        str << "Have you ever danced in the rain?";
+//        str << "Have you ever danced in the rain?";
+        str << "Q4-1.wav";
         break;
     case 11:
-        str << "Why not?";
+//        str << "Why not?";
+        str << "Q4-2.wav";
         break;
     case 12:
-        str << "Why did you do that?";
+//        str << "Why did you do that?";
+        str << "Q4-3.wav";
         break;
     case 13:
-        str << "I won't try. I am not waterproof.";
+//        str << "I won't try. I am not waterproof.";
+        str << "Q4-4.wav";
         break;
     case 14:
         sequence_standby();
     
         face_tracking_on_off(true);
-        str << "What's the most important holiday in your home country?";
+//        str << "What's the most important holiday in your home country?";
+        str << "Q5-1.wav";
         break;
     case 15:
-        str << "Why is it important?";
+//        str << "Why is it important?";
+        str << "Q5-2.wav";
         break;
     case 16:
-        str << "As a robot, I don't have any holiday.";
+//        str << "As a robot, I don't have any holiday.";
+        str << "Q5-3.wav";
         break;
     case 17:
         sequence_standby();
     
         face_tracking_on_off(true);
-        str << "What's your favorite book?";
+//        str << "What's your favorite book?";
+        str << "Q6-1.wav";
         break;
     case 18:
-        str << "Tell me more.";
+//        str << "Tell me more.";
+        str << "Q6-2.wav";
         break;
     case 19:
-        str << "The only book I have is my manual.";
+//        str << "The only book I have is my manual.";
+        str << "Q6-3.wav";
         break;
             
         
     }
-    str << "\");";
+    //str << "\");";
     
-    anycmd_srv.request.cmd = str.str();
-    anycmdClient.call(anycmd_srv);
+    //   anycmd_srv.request.cmd = str.str();
+    // anycmdClient.call(anycmd_srv);
+    ros::Duration(1).sleep();
+    
+    sound_play::SoundRequest soundR;
+    soundR.sound = -2;
+    soundR.command = 1;
+    soundR.volume = 1.0;
+    soundR.arg = str.str();
 
+    robotsound_pub_.publish(soundR);
+    
     ros::Duration(2).sleep();
     
     switch(e2mode)
@@ -1158,7 +1200,7 @@ void ReetiROSserver::keyCb(const std_msgs::Char& key_msg)
         {
         case init:
             //ask question 2
-            e2s = Q2;
+            //e2s = Q2;
             break;
         case Q1:
             sequence_exp_2_routine(2);
@@ -1191,11 +1233,10 @@ void ReetiROSserver::keyCb(const std_msgs::Char& key_msg)
         {
         case init:
             //ask question 3
-            e2s = Q3;
+            //e2s = Q3;
             break;
         case Q1:
-            sequence_exp_2_routine(3);
-            e2s = Q2;
+            sequence_exp_2_routine(20);
             break;
 
         case Q2:
@@ -1226,6 +1267,10 @@ void ReetiROSserver::keyCb(const std_msgs::Char& key_msg)
     case KEYCODE_4:
         switch(e2s)
         {
+        case Q1:
+            sequence_exp_2_routine(3);
+            e2s = Q2;
+            break;
         case Q4:
             sequence_exp_2_routine(13);
             e2s = Q5;
